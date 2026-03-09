@@ -12,7 +12,7 @@ export class WorkOrderRepository {
   async findById(id: string): Promise<WorkOrderDTO | null> {
     return prisma.workOrder.findUnique({ where: { id }, select: workOrderSelect });
   }
-
+  
   async create(data: Prisma.WorkOrderCreateInput): Promise<WorkOrderDTO> {
     return prisma.workOrder.create({ data, select: workOrderSelect });
   }

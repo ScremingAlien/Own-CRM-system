@@ -10,9 +10,16 @@ import { requestIdMiddleware } from "./middlewares/default/requestId.middleware.
 import errorHandler from "@/middlewares/default/errorHandler.js";
 import notFound from "@/middlewares/default/notFound.js";
 import { responseFormatter } from "@/middlewares/default/responseFormatter.js";
-import todoRoutes from "@/modules/todo/todo.routes.js";
+ 
 import partyRoutes from "@/modules/party/party.routes.js";
-
+import attendanceRoutes from "@/modules/attendance/attendance.routes.js";
+import invoiceRoutes from "@/modules/invoice/invoice.routes.js";
+import ledgerRoutes from "@/modules/ledger/ledger.routes.js";
+import paymentRoutes from "@/modules/payment/payment.routes.js";
+import reportsRoutes from "@/modules/reports/reports.routes.js";
+import workerRoutes from "@/modules/worker/worker.routes.js";
+import workorderRoutes from "@/modules/workorder/workorder.routes.js";
+ 
 export function createApp(): Application {
   const app: Application = express();
 
@@ -29,9 +36,15 @@ export function createApp(): Application {
     logger.info({ method: req.method, url: req.url }, "Incoming request");
     next();
   });
-
-  app.use("/api/v1/todo", todoRoutes);
+ 
   app.use("/api/v1/party", partyRoutes);
+  app.use("/api/v1/attendance", attendanceRoutes);
+  app.use("/api/v1/invoice", invoiceRoutes);
+  app.use("/api/v1/ledger", ledgerRoutes);
+  app.use("/api/v1/payment", paymentRoutes);
+  app.use("/api/v1/reports", reportsRoutes);
+  app.use("/api/v1/worker", workerRoutes);
+  app.use("/api/v1/workorder", workorderRoutes);
 
   app.use(notFound);
   app.use(errorHandler);
