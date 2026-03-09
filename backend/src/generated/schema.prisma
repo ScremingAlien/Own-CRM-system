@@ -1,0 +1,258 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//////////////////////////////////////////////////////
+//////////////////// ENUMS ///////////////////////////
+//////////////////////////////////////////////////////
+
+enum PartyType {
+  CUSTOMER
+  SUPPLIER
+  BOTH
+}
+
+enum WorkStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  CANCELLED
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  HALF_DAY
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  CANCELLED
+}
+
+enum LedgerReferenceType {
+  INVOICE
+  PAYMENT
+  PURCHASE
+  ADJUSTMENT
+  OPENING_BALANCE
+}
+
+//////////////////////////////////////////////////////
+//////////////////// PARTY ///////////////////////////
+//////////////////////////////////////////////////////
+
+model Party {
+  id        String    @id @default(uuid())
+  name      String
+  phone     String?
+  gstNumber String?
+  address   String?
+  type      PartyType
+
+  invoices      Invoice[]
+  payments      Payment[]
+  ledgerEntries LedgerEntry[]
+
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  workOrders WorkOrder[]
+}
+
+//////////////////////////////////////////////////////
+//////////////////// WORKERS /////////////////////////
+//////////////////////////////////////////////////////
+
+model Worker {
+  id          String  @id @default(uuid())
+  name        String
+  phone       String?
+  skillType   String?
+  defaultWage Decimal @db.Decimal(10, 2)
+
+  isActive Boolean @default(true)
+
+  attendances AttendanceItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+//////////////////////////////////////////////////////
+//////////////////// WORK ORDER //////////////////////
+//////////////////////////////////////////////////////
+
+model WorkOrder {
+  id String @id @default(uuid())
+
+  title       String
+  description String?
+
+  partyId String?
+  party   Party?  @relation(fields: [partyId], references: [id])
+
+  status WorkStatus @default(PENDING)
+
+  startDate DateTime
+  endDate   DateTime?
+
+  estimatedCost Decimal? @db.Decimal(12, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([partyId])
+  @@index([status])
+}
+
+//////////////////////////////////////////////////////
+//////////////////// ATTENDANCE //////////////////////
+//////////////////////////////////////////////////////
+
+model AttendanceDay {
+  id String @id @default(uuid())
+
+  date DateTime
+
+  monthKey String // example: "2026-03"
+  year     Int
+  month    Int
+  day      Int
+
+  items AttendanceItem[]
+
+  createdAt DateTime @default(now())
+
+  @@unique([date])
+  @@index([monthKey])
+  @@index([year, month])
+}
+
+model AttendanceItem {
+  id String @id @default(uuid())
+
+  attendanceDayId String
+  workerId        String
+
+  status AttendanceStatus
+
+  hoursWorked   Float?
+  overtimeHours Float?
+
+  wage Decimal? @db.Decimal(10, 2)
+
+  worker Worker @relation(fields: [workerId], references: [id])
+
+  attendanceDay AttendanceDay @relation(fields: [attendanceDayId], references: [id])
+
+  @@unique([attendanceDayId, workerId])
+  @@index([workerId])
+}
+
+//////////////////////////////////////////////////////
+//////////////////// INVOICE /////////////////////////
+//////////////////////////////////////////////////////
+
+model Invoice {
+  id String @id @default(uuid())
+
+  invoiceNumber String @unique
+
+  partyId String
+  party   Party  @relation(fields: [partyId], references: [id])
+
+  issueDate DateTime
+
+  subtotal    Decimal @db.Decimal(12, 2)
+  gstAmount   Decimal @db.Decimal(12, 2)
+  totalAmount Decimal @db.Decimal(12, 2)
+
+  status InvoiceStatus @default(DRAFT)
+
+  items InvoiceItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([partyId])
+  @@index([issueDate])
+}
+
+model InvoiceItem {
+  id String @id @default(uuid())
+
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  description String
+
+  quantity Decimal @db.Decimal(10, 2)
+  rate     Decimal @db.Decimal(10, 2)
+
+  amount Decimal @db.Decimal(12, 2)
+
+  @@index([invoiceId])
+}
+
+//////////////////////////////////////////////////////
+//////////////////// PAYMENTS ////////////////////////
+//////////////////////////////////////////////////////
+
+model Payment {
+  id String @id @default(uuid())
+
+  partyId String
+  party   Party  @relation(fields: [partyId], references: [id])
+
+  amount Decimal @db.Decimal(12, 2)
+
+  method String?
+  note   String?
+
+  paymentDate DateTime
+
+  ledgerEntries LedgerEntry[]
+
+  createdAt DateTime @default(now())
+
+  @@index([partyId])
+  @@index([paymentDate])
+}
+
+//////////////////////////////////////////////////////
+//////////////////// LEDGER //////////////////////////
+//////////////////////////////////////////////////////
+
+model LedgerEntry {
+  id String @id @default(uuid())
+
+  partyId String
+
+  referenceType LedgerReferenceType
+  referenceId   String?
+
+  description String?
+
+  debit  Decimal @default(0) @db.Decimal(12, 2)
+  credit Decimal @default(0) @db.Decimal(12, 2)
+
+  date DateTime
+
+  party Party @relation(fields: [partyId], references: [id])
+
+  createdAt DateTime @default(now())
+  payment   Payment? @relation(fields: [paymentId], references: [id])
+  paymentId String?
+
+  @@index([partyId])
+  @@index([date])
+  @@index([referenceId])
+}

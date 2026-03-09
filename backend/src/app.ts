@@ -11,6 +11,7 @@ import errorHandler from "@/middlewares/default/errorHandler.js";
 import notFound from "@/middlewares/default/notFound.js";
 import { responseFormatter } from "@/middlewares/default/responseFormatter.js";
 import todoRoutes from "@/modules/todo/todo.routes.js";
+import partyRoutes from "@/modules/party/party.routes.js";
 
 export function createApp(): Application {
   const app: Application = express();
@@ -30,6 +31,7 @@ export function createApp(): Application {
   });
 
   app.use("/api/v1/todo", todoRoutes);
+  app.use("/api/v1/party", partyRoutes);
 
   app.use(notFound);
   app.use(errorHandler);

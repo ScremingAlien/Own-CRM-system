@@ -32,7 +32,7 @@ export const env = Object.freeze({
 
   PORT: Number(process.env.PORT ?? 5000),
 
-  DB_URL: required("DB_URL"),
+  DB_URL: required("DATABASE_URL"),
   DB_NAME: process.env.DB_NAME,
 
   // future-proof
