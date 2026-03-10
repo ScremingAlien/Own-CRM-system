@@ -7,8 +7,7 @@ export const attendanceDaySelect =
     monthKey: true,
     year: true,
     month: true,
-    day: true,
-    createdAt: true
+    day: true 
   });
 
 export type AttendanceDayDTO = Prisma.AttendanceDayGetPayload<{
@@ -23,7 +22,6 @@ export const attendanceItemSelect =
     attendanceDayId: true,
     status: true,
     hoursWorked: true,
-    overtimeHours: true,
     wage: true
   });
 

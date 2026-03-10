@@ -1,0 +1,31 @@
+ 
+### get All wor
+GET http://localhost:4000/api/v1/workorder
+Content-Type: application/json
+ 
+### get by id
+GET http://localhost:4000/api/v1/workorder/3ab324c3-2d83-430d-9086-d4f78b821ee0/byid
+Content-Type: application/json
+
+
+### update status
+PATCH  http://localhost:4000/api/v1/workorder/3ab324c3-2d83-430d-9086-d4f78b821ee0/status?s=COMPLETED
+Content-Type: application/json
+
+ 
+### Post Request
+POST http://localhost:4000/api/v1/workorder
+Content-Type: application/json
+
+{
+ "title": "Make Fixture",
+ "startDate": "2026-04-01",
+ "partyId": "53ef379e-0ad2-4d81-bdd7-7a91d2cb5a7b",
+ "status": "COMPLETED"
+}
+
+
+### delete Request
+DELETE  http://localhost:4000/api/v1/workorder/7102a90c-8096-40cf-b47e-0adfda5baa11
+Content-Type: application/json
+ 

@@ -127,7 +127,9 @@ exports.Prisma.PartyScalarFieldEnum = {
   phone: 'phone',
   gstNumber: 'gstNumber',
   address: 'address',
+  stateCode: 'stateCode',
   type: 'type',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -139,8 +141,17 @@ exports.Prisma.WorkerScalarFieldEnum = {
   skillType: 'skillType',
   defaultWage: 'defaultWage',
   isActive: 'isActive',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.FinancialYearScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isActive: 'isActive',
+  isClosed: 'isClosed',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.WorkOrderScalarFieldEnum = {
@@ -162,8 +173,7 @@ exports.Prisma.AttendanceDayScalarFieldEnum = {
   monthKey: 'monthKey',
   year: 'year',
   month: 'month',
-  day: 'day',
-  createdAt: 'createdAt'
+  day: 'day'
 };
 
 exports.Prisma.AttendanceItemScalarFieldEnum = {
@@ -172,26 +182,36 @@ exports.Prisma.AttendanceItemScalarFieldEnum = {
   workerId: 'workerId',
   status: 'status',
   hoursWorked: 'hoursWorked',
-  overtimeHours: 'overtimeHours',
   wage: 'wage'
 };
 
 exports.Prisma.InvoiceScalarFieldEnum = {
   id: 'id',
   invoiceNumber: 'invoiceNumber',
-  partyId: 'partyId',
   issueDate: 'issueDate',
-  subtotal: 'subtotal',
-  gstAmount: 'gstAmount',
+  partyId: 'partyId',
+  shipToId: 'shipToId',
+  chNo: 'chNo',
+  poNo: 'poNo',
+  stateCode: 'stateCode',
+  vechileNo: 'vechileNo',
+  taxableAmount: 'taxableAmount',
+  sgst: 'sgst',
+  cgst: 'cgst',
+  igst: 'igst',
+  roundOff: 'roundOff',
   totalAmount: 'totalAmount',
   status: 'status',
+  isLabourBill: 'isLabourBill',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  financialYearId: 'financialYearId'
 };
 
 exports.Prisma.InvoiceItemScalarFieldEnum = {
   id: 'id',
   invoiceId: 'invoiceId',
+  srno: 'srno',
+  subdescription: 'subdescription',
   description: 'description',
   quantity: 'quantity',
   rate: 'rate',
@@ -217,8 +237,8 @@ exports.Prisma.LedgerEntryScalarFieldEnum = {
   debit: 'debit',
   credit: 'credit',
   date: 'date',
-  createdAt: 'createdAt',
-  paymentId: 'paymentId'
+  paymentId: 'paymentId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -237,8 +257,7 @@ exports.Prisma.NullsOrder = {
 };
 exports.PartyType = exports.$Enums.PartyType = {
   CUSTOMER: 'CUSTOMER',
-  SUPPLIER: 'SUPPLIER',
-  BOTH: 'BOTH'
+  SUPPLIER: 'SUPPLIER'
 };
 
 exports.WorkStatus = exports.$Enums.WorkStatus = {
@@ -250,14 +269,12 @@ exports.WorkStatus = exports.$Enums.WorkStatus = {
 
 exports.AttendanceStatus = exports.$Enums.AttendanceStatus = {
   PRESENT: 'PRESENT',
-  ABSENT: 'ABSENT',
-  HALF_DAY: 'HALF_DAY'
+  ABSENT: 'ABSENT'
 };
 
 exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
   DRAFT: 'DRAFT',
   SENT: 'SENT',
-  PAID: 'PAID',
   CANCELLED: 'CANCELLED'
 };
 
@@ -272,6 +289,7 @@ exports.LedgerReferenceType = exports.$Enums.LedgerReferenceType = {
 exports.Prisma.ModelName = {
   Party: 'Party',
   Worker: 'Worker',
+  FinancialYear: 'FinancialYear',
   WorkOrder: 'WorkOrder',
   AttendanceDay: 'AttendanceDay',
   AttendanceItem: 'AttendanceItem',

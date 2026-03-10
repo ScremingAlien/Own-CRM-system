@@ -1,0 +1,26 @@
+
+
+
+### get All fy
+GET http://localhost:4000/api/v1/reports/fy
+Content-Type: application/json
+
+### set Active
+PATCH  http://localhost:4000/api/v1/reports/fy/bec28e8e-29c2-438f-86f1-6cfef81e0b32/active
+Content-Type: application/json
+
+### Post Request
+POST http://localhost:4000/api/v1/reports/fy
+Content-Type: application/json
+
+{
+ "label": "2026-27",
+ "startDate": "2026-04-01",
+ "endDate": "2027-03-31"
+}
+
+
+### delete Request
+DELETE  http://localhost:4000/api/v1/reports/2
+Content-Type: application/json
+ 

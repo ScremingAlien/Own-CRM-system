@@ -24,6 +24,11 @@ export type Party = $Result.DefaultSelection<Prisma.$PartyPayload>
  */
 export type Worker = $Result.DefaultSelection<Prisma.$WorkerPayload>
 /**
+ * Model FinancialYear
+ * 
+ */
+export type FinancialYear = $Result.DefaultSelection<Prisma.$FinancialYearPayload>
+/**
  * Model WorkOrder
  * 
  */
@@ -65,8 +70,7 @@ export type LedgerEntry = $Result.DefaultSelection<Prisma.$LedgerEntryPayload>
 export namespace $Enums {
   export const PartyType: {
   CUSTOMER: 'CUSTOMER',
-  SUPPLIER: 'SUPPLIER',
-  BOTH: 'BOTH'
+  SUPPLIER: 'SUPPLIER'
 };
 
 export type PartyType = (typeof PartyType)[keyof typeof PartyType]
@@ -84,8 +88,7 @@ export type WorkStatus = (typeof WorkStatus)[keyof typeof WorkStatus]
 
 export const AttendanceStatus: {
   PRESENT: 'PRESENT',
-  ABSENT: 'ABSENT',
-  HALF_DAY: 'HALF_DAY'
+  ABSENT: 'ABSENT'
 };
 
 export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]
@@ -94,7 +97,6 @@ export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof Attendance
 export const InvoiceStatus: {
   DRAFT: 'DRAFT',
   SENT: 'SENT',
-  PAID: 'PAID',
   CANCELLED: 'CANCELLED'
 };
 
@@ -270,6 +272,16 @@ export class PrismaClient<
     * ```
     */
   get worker(): Prisma.WorkerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.financialYear`: Exposes CRUD operations for the **FinancialYear** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FinancialYears
+    * const financialYears = await prisma.financialYear.findMany()
+    * ```
+    */
+  get financialYear(): Prisma.FinancialYearDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.workOrder`: Exposes CRUD operations for the **WorkOrder** model.
@@ -783,6 +795,7 @@ export namespace Prisma {
   export const ModelName: {
     Party: 'Party',
     Worker: 'Worker',
+    FinancialYear: 'FinancialYear',
     WorkOrder: 'WorkOrder',
     AttendanceDay: 'AttendanceDay',
     AttendanceItem: 'AttendanceItem',
@@ -808,7 +821,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "party" | "worker" | "workOrder" | "attendanceDay" | "attendanceItem" | "invoice" | "invoiceItem" | "payment" | "ledgerEntry"
+      modelProps: "party" | "worker" | "financialYear" | "workOrder" | "attendanceDay" | "attendanceItem" | "invoice" | "invoiceItem" | "payment" | "ledgerEntry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -957,6 +970,80 @@ export namespace Prisma {
           count: {
             args: Prisma.WorkerCountArgs<ExtArgs>
             result: $Utils.Optional<WorkerCountAggregateOutputType> | number
+          }
+        }
+      }
+      FinancialYear: {
+        payload: Prisma.$FinancialYearPayload<ExtArgs>
+        fields: Prisma.FinancialYearFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FinancialYearFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialYearPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FinancialYearFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialYearPayload>
+          }
+          findFirst: {
+            args: Prisma.FinancialYearFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialYearPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FinancialYearFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialYearPayload>
+          }
+          findMany: {
+            args: Prisma.FinancialYearFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialYearPayload>[]
+          }
+          create: {
+            args: Prisma.FinancialYearCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialYearPayload>
+          }
+          createMany: {
+            args: Prisma.FinancialYearCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FinancialYearCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialYearPayload>[]
+          }
+          delete: {
+            args: Prisma.FinancialYearDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialYearPayload>
+          }
+          update: {
+            args: Prisma.FinancialYearUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialYearPayload>
+          }
+          deleteMany: {
+            args: Prisma.FinancialYearDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FinancialYearUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FinancialYearUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialYearPayload>[]
+          }
+          upsert: {
+            args: Prisma.FinancialYearUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialYearPayload>
+          }
+          aggregate: {
+            args: Prisma.FinancialYearAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFinancialYear>
+          }
+          groupBy: {
+            args: Prisma.FinancialYearGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FinancialYearGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FinancialYearCountArgs<ExtArgs>
+            result: $Utils.Optional<FinancialYearCountAggregateOutputType> | number
           }
         }
       }
@@ -1576,6 +1663,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     party?: PartyOmit
     worker?: WorkerOmit
+    financialYear?: FinancialYearOmit
     workOrder?: WorkOrderOmit
     attendanceDay?: AttendanceDayOmit
     attendanceItem?: AttendanceItemOmit
@@ -1664,6 +1752,7 @@ export namespace Prisma {
 
   export type PartyCountOutputType = {
     invoices: number
+    shippingFor: number
     payments: number
     ledgerEntries: number
     workOrders: number
@@ -1671,6 +1760,7 @@ export namespace Prisma {
 
   export type PartyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoices?: boolean | PartyCountOutputTypeCountInvoicesArgs
+    shippingFor?: boolean | PartyCountOutputTypeCountShippingForArgs
     payments?: boolean | PartyCountOutputTypeCountPaymentsArgs
     ledgerEntries?: boolean | PartyCountOutputTypeCountLedgerEntriesArgs
     workOrders?: boolean | PartyCountOutputTypeCountWorkOrdersArgs
@@ -1691,6 +1781,13 @@ export namespace Prisma {
    * PartyCountOutputType without action
    */
   export type PartyCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
+  }
+
+  /**
+   * PartyCountOutputType without action
+   */
+  export type PartyCountOutputTypeCountShippingForArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InvoiceWhereInput
   }
 
@@ -1744,6 +1841,37 @@ export namespace Prisma {
    */
   export type WorkerCountOutputTypeCountAttendancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AttendanceItemWhereInput
+  }
+
+
+  /**
+   * Count Type FinancialYearCountOutputType
+   */
+
+  export type FinancialYearCountOutputType = {
+    invoices: number
+  }
+
+  export type FinancialYearCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    invoices?: boolean | FinancialYearCountOutputTypeCountInvoicesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FinancialYearCountOutputType without action
+   */
+  export type FinancialYearCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYearCountOutputType
+     */
+    select?: FinancialYearCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FinancialYearCountOutputType without action
+   */
+  export type FinancialYearCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
   }
 
 
@@ -1860,7 +1988,9 @@ export namespace Prisma {
     phone: string | null
     gstNumber: string | null
     address: string | null
+    stateCode: string | null
     type: $Enums.PartyType | null
+    isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1871,7 +2001,9 @@ export namespace Prisma {
     phone: string | null
     gstNumber: string | null
     address: string | null
+    stateCode: string | null
     type: $Enums.PartyType | null
+    isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1882,7 +2014,9 @@ export namespace Prisma {
     phone: number
     gstNumber: number
     address: number
+    stateCode: number
     type: number
+    isActive: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1895,7 +2029,9 @@ export namespace Prisma {
     phone?: true
     gstNumber?: true
     address?: true
+    stateCode?: true
     type?: true
+    isActive?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1906,7 +2042,9 @@ export namespace Prisma {
     phone?: true
     gstNumber?: true
     address?: true
+    stateCode?: true
     type?: true
+    isActive?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1917,7 +2055,9 @@ export namespace Prisma {
     phone?: true
     gstNumber?: true
     address?: true
+    stateCode?: true
     type?: true
+    isActive?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2001,7 +2141,9 @@ export namespace Prisma {
     phone: string | null
     gstNumber: string | null
     address: string | null
+    stateCode: string | null
     type: $Enums.PartyType
+    isActive: boolean
     createdAt: Date
     updatedAt: Date
     _count: PartyCountAggregateOutputType | null
@@ -2029,10 +2171,13 @@ export namespace Prisma {
     phone?: boolean
     gstNumber?: boolean
     address?: boolean
+    stateCode?: boolean
     type?: boolean
+    isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     invoices?: boolean | Party$invoicesArgs<ExtArgs>
+    shippingFor?: boolean | Party$shippingForArgs<ExtArgs>
     payments?: boolean | Party$paymentsArgs<ExtArgs>
     ledgerEntries?: boolean | Party$ledgerEntriesArgs<ExtArgs>
     workOrders?: boolean | Party$workOrdersArgs<ExtArgs>
@@ -2045,7 +2190,9 @@ export namespace Prisma {
     phone?: boolean
     gstNumber?: boolean
     address?: boolean
+    stateCode?: boolean
     type?: boolean
+    isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["party"]>
@@ -2056,7 +2203,9 @@ export namespace Prisma {
     phone?: boolean
     gstNumber?: boolean
     address?: boolean
+    stateCode?: boolean
     type?: boolean
+    isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["party"]>
@@ -2067,14 +2216,17 @@ export namespace Prisma {
     phone?: boolean
     gstNumber?: boolean
     address?: boolean
+    stateCode?: boolean
     type?: boolean
+    isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PartyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "gstNumber" | "address" | "type" | "createdAt" | "updatedAt", ExtArgs["result"]["party"]>
+  export type PartyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "gstNumber" | "address" | "stateCode" | "type" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["party"]>
   export type PartyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoices?: boolean | Party$invoicesArgs<ExtArgs>
+    shippingFor?: boolean | Party$shippingForArgs<ExtArgs>
     payments?: boolean | Party$paymentsArgs<ExtArgs>
     ledgerEntries?: boolean | Party$ledgerEntriesArgs<ExtArgs>
     workOrders?: boolean | Party$workOrdersArgs<ExtArgs>
@@ -2087,6 +2239,7 @@ export namespace Prisma {
     name: "Party"
     objects: {
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
+      shippingFor: Prisma.$InvoicePayload<ExtArgs>[]
       payments: Prisma.$PaymentPayload<ExtArgs>[]
       ledgerEntries: Prisma.$LedgerEntryPayload<ExtArgs>[]
       workOrders: Prisma.$WorkOrderPayload<ExtArgs>[]
@@ -2097,7 +2250,9 @@ export namespace Prisma {
       phone: string | null
       gstNumber: string | null
       address: string | null
+      stateCode: string | null
       type: $Enums.PartyType
+      isActive: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["party"]>
@@ -2495,6 +2650,7 @@ export namespace Prisma {
   export interface Prisma__PartyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     invoices<T extends Party$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Party$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    shippingFor<T extends Party$shippingForArgs<ExtArgs> = {}>(args?: Subset<T, Party$shippingForArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payments<T extends Party$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Party$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ledgerEntries<T extends Party$ledgerEntriesArgs<ExtArgs> = {}>(args?: Subset<T, Party$ledgerEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LedgerEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workOrders<T extends Party$workOrdersArgs<ExtArgs> = {}>(args?: Subset<T, Party$workOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2532,7 +2688,9 @@ export namespace Prisma {
     readonly phone: FieldRef<"Party", 'String'>
     readonly gstNumber: FieldRef<"Party", 'String'>
     readonly address: FieldRef<"Party", 'String'>
+    readonly stateCode: FieldRef<"Party", 'String'>
     readonly type: FieldRef<"Party", 'PartyType'>
+    readonly isActive: FieldRef<"Party", 'Boolean'>
     readonly createdAt: FieldRef<"Party", 'DateTime'>
     readonly updatedAt: FieldRef<"Party", 'DateTime'>
   }
@@ -2947,6 +3105,30 @@ export namespace Prisma {
   }
 
   /**
+   * Party.shippingFor
+   */
+  export type Party$shippingForArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    cursor?: InvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
    * Party.payments
    */
   export type Party$paymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3065,7 +3247,6 @@ export namespace Prisma {
     defaultWage: Decimal | null
     isActive: boolean | null
     createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type WorkerMaxAggregateOutputType = {
@@ -3076,7 +3257,6 @@ export namespace Prisma {
     defaultWage: Decimal | null
     isActive: boolean | null
     createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type WorkerCountAggregateOutputType = {
@@ -3087,7 +3267,6 @@ export namespace Prisma {
     defaultWage: number
     isActive: number
     createdAt: number
-    updatedAt: number
     _all: number
   }
 
@@ -3108,7 +3287,6 @@ export namespace Prisma {
     defaultWage?: true
     isActive?: true
     createdAt?: true
-    updatedAt?: true
   }
 
   export type WorkerMaxAggregateInputType = {
@@ -3119,7 +3297,6 @@ export namespace Prisma {
     defaultWage?: true
     isActive?: true
     createdAt?: true
-    updatedAt?: true
   }
 
   export type WorkerCountAggregateInputType = {
@@ -3130,7 +3307,6 @@ export namespace Prisma {
     defaultWage?: true
     isActive?: true
     createdAt?: true
-    updatedAt?: true
     _all?: true
   }
 
@@ -3228,7 +3404,6 @@ export namespace Prisma {
     defaultWage: Decimal
     isActive: boolean
     createdAt: Date
-    updatedAt: Date
     _count: WorkerCountAggregateOutputType | null
     _avg: WorkerAvgAggregateOutputType | null
     _sum: WorkerSumAggregateOutputType | null
@@ -3258,7 +3433,6 @@ export namespace Prisma {
     defaultWage?: boolean
     isActive?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
     attendances?: boolean | Worker$attendancesArgs<ExtArgs>
     _count?: boolean | WorkerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["worker"]>
@@ -3271,7 +3445,6 @@ export namespace Prisma {
     defaultWage?: boolean
     isActive?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
   }, ExtArgs["result"]["worker"]>
 
   export type WorkerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3282,7 +3455,6 @@ export namespace Prisma {
     defaultWage?: boolean
     isActive?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
   }, ExtArgs["result"]["worker"]>
 
   export type WorkerSelectScalar = {
@@ -3293,10 +3465,9 @@ export namespace Prisma {
     defaultWage?: boolean
     isActive?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
   }
 
-  export type WorkerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "skillType" | "defaultWage" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["worker"]>
+  export type WorkerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "skillType" | "defaultWage" | "isActive" | "createdAt", ExtArgs["result"]["worker"]>
   export type WorkerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     attendances?: boolean | Worker$attendancesArgs<ExtArgs>
     _count?: boolean | WorkerCountOutputTypeDefaultArgs<ExtArgs>
@@ -3317,7 +3488,6 @@ export namespace Prisma {
       defaultWage: Prisma.Decimal
       isActive: boolean
       createdAt: Date
-      updatedAt: Date
     }, ExtArgs["result"]["worker"]>
     composites: {}
   }
@@ -3749,7 +3919,6 @@ export namespace Prisma {
     readonly defaultWage: FieldRef<"Worker", 'Decimal'>
     readonly isActive: FieldRef<"Worker", 'Boolean'>
     readonly createdAt: FieldRef<"Worker", 'DateTime'>
-    readonly updatedAt: FieldRef<"Worker", 'DateTime'>
   }
     
 
@@ -4181,6 +4350,1102 @@ export namespace Prisma {
 
 
   /**
+   * Model FinancialYear
+   */
+
+  export type AggregateFinancialYear = {
+    _count: FinancialYearCountAggregateOutputType | null
+    _min: FinancialYearMinAggregateOutputType | null
+    _max: FinancialYearMaxAggregateOutputType | null
+  }
+
+  export type FinancialYearMinAggregateOutputType = {
+    id: string | null
+    label: string | null
+    startDate: string | null
+    endDate: string | null
+    isActive: boolean | null
+    isClosed: boolean | null
+    createdAt: Date | null
+  }
+
+  export type FinancialYearMaxAggregateOutputType = {
+    id: string | null
+    label: string | null
+    startDate: string | null
+    endDate: string | null
+    isActive: boolean | null
+    isClosed: boolean | null
+    createdAt: Date | null
+  }
+
+  export type FinancialYearCountAggregateOutputType = {
+    id: number
+    label: number
+    startDate: number
+    endDate: number
+    isActive: number
+    isClosed: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type FinancialYearMinAggregateInputType = {
+    id?: true
+    label?: true
+    startDate?: true
+    endDate?: true
+    isActive?: true
+    isClosed?: true
+    createdAt?: true
+  }
+
+  export type FinancialYearMaxAggregateInputType = {
+    id?: true
+    label?: true
+    startDate?: true
+    endDate?: true
+    isActive?: true
+    isClosed?: true
+    createdAt?: true
+  }
+
+  export type FinancialYearCountAggregateInputType = {
+    id?: true
+    label?: true
+    startDate?: true
+    endDate?: true
+    isActive?: true
+    isClosed?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type FinancialYearAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FinancialYear to aggregate.
+     */
+    where?: FinancialYearWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialYears to fetch.
+     */
+    orderBy?: FinancialYearOrderByWithRelationInput | FinancialYearOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FinancialYearWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialYears from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialYears.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FinancialYears
+    **/
+    _count?: true | FinancialYearCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FinancialYearMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FinancialYearMaxAggregateInputType
+  }
+
+  export type GetFinancialYearAggregateType<T extends FinancialYearAggregateArgs> = {
+        [P in keyof T & keyof AggregateFinancialYear]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFinancialYear[P]>
+      : GetScalarType<T[P], AggregateFinancialYear[P]>
+  }
+
+
+
+
+  export type FinancialYearGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialYearWhereInput
+    orderBy?: FinancialYearOrderByWithAggregationInput | FinancialYearOrderByWithAggregationInput[]
+    by: FinancialYearScalarFieldEnum[] | FinancialYearScalarFieldEnum
+    having?: FinancialYearScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FinancialYearCountAggregateInputType | true
+    _min?: FinancialYearMinAggregateInputType
+    _max?: FinancialYearMaxAggregateInputType
+  }
+
+  export type FinancialYearGroupByOutputType = {
+    id: string
+    label: string
+    startDate: string | null
+    endDate: string | null
+    isActive: boolean
+    isClosed: boolean
+    createdAt: Date
+    _count: FinancialYearCountAggregateOutputType | null
+    _min: FinancialYearMinAggregateOutputType | null
+    _max: FinancialYearMaxAggregateOutputType | null
+  }
+
+  type GetFinancialYearGroupByPayload<T extends FinancialYearGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FinancialYearGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FinancialYearGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FinancialYearGroupByOutputType[P]>
+            : GetScalarType<T[P], FinancialYearGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FinancialYearSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    isActive?: boolean
+    isClosed?: boolean
+    createdAt?: boolean
+    invoices?: boolean | FinancialYear$invoicesArgs<ExtArgs>
+    _count?: boolean | FinancialYearCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["financialYear"]>
+
+  export type FinancialYearSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    isActive?: boolean
+    isClosed?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["financialYear"]>
+
+  export type FinancialYearSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    isActive?: boolean
+    isClosed?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["financialYear"]>
+
+  export type FinancialYearSelectScalar = {
+    id?: boolean
+    label?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    isActive?: boolean
+    isClosed?: boolean
+    createdAt?: boolean
+  }
+
+  export type FinancialYearOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "label" | "startDate" | "endDate" | "isActive" | "isClosed" | "createdAt", ExtArgs["result"]["financialYear"]>
+  export type FinancialYearInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    invoices?: boolean | FinancialYear$invoicesArgs<ExtArgs>
+    _count?: boolean | FinancialYearCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type FinancialYearIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type FinancialYearIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $FinancialYearPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FinancialYear"
+    objects: {
+      invoices: Prisma.$InvoicePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      label: string
+      startDate: string | null
+      endDate: string | null
+      isActive: boolean
+      isClosed: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["financialYear"]>
+    composites: {}
+  }
+
+  type FinancialYearGetPayload<S extends boolean | null | undefined | FinancialYearDefaultArgs> = $Result.GetResult<Prisma.$FinancialYearPayload, S>
+
+  type FinancialYearCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FinancialYearFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FinancialYearCountAggregateInputType | true
+    }
+
+  export interface FinancialYearDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FinancialYear'], meta: { name: 'FinancialYear' } }
+    /**
+     * Find zero or one FinancialYear that matches the filter.
+     * @param {FinancialYearFindUniqueArgs} args - Arguments to find a FinancialYear
+     * @example
+     * // Get one FinancialYear
+     * const financialYear = await prisma.financialYear.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FinancialYearFindUniqueArgs>(args: SelectSubset<T, FinancialYearFindUniqueArgs<ExtArgs>>): Prisma__FinancialYearClient<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FinancialYear that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FinancialYearFindUniqueOrThrowArgs} args - Arguments to find a FinancialYear
+     * @example
+     * // Get one FinancialYear
+     * const financialYear = await prisma.financialYear.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FinancialYearFindUniqueOrThrowArgs>(args: SelectSubset<T, FinancialYearFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FinancialYearClient<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FinancialYear that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialYearFindFirstArgs} args - Arguments to find a FinancialYear
+     * @example
+     * // Get one FinancialYear
+     * const financialYear = await prisma.financialYear.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FinancialYearFindFirstArgs>(args?: SelectSubset<T, FinancialYearFindFirstArgs<ExtArgs>>): Prisma__FinancialYearClient<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FinancialYear that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialYearFindFirstOrThrowArgs} args - Arguments to find a FinancialYear
+     * @example
+     * // Get one FinancialYear
+     * const financialYear = await prisma.financialYear.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FinancialYearFindFirstOrThrowArgs>(args?: SelectSubset<T, FinancialYearFindFirstOrThrowArgs<ExtArgs>>): Prisma__FinancialYearClient<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FinancialYears that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialYearFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FinancialYears
+     * const financialYears = await prisma.financialYear.findMany()
+     * 
+     * // Get first 10 FinancialYears
+     * const financialYears = await prisma.financialYear.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const financialYearWithIdOnly = await prisma.financialYear.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FinancialYearFindManyArgs>(args?: SelectSubset<T, FinancialYearFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FinancialYear.
+     * @param {FinancialYearCreateArgs} args - Arguments to create a FinancialYear.
+     * @example
+     * // Create one FinancialYear
+     * const FinancialYear = await prisma.financialYear.create({
+     *   data: {
+     *     // ... data to create a FinancialYear
+     *   }
+     * })
+     * 
+     */
+    create<T extends FinancialYearCreateArgs>(args: SelectSubset<T, FinancialYearCreateArgs<ExtArgs>>): Prisma__FinancialYearClient<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FinancialYears.
+     * @param {FinancialYearCreateManyArgs} args - Arguments to create many FinancialYears.
+     * @example
+     * // Create many FinancialYears
+     * const financialYear = await prisma.financialYear.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FinancialYearCreateManyArgs>(args?: SelectSubset<T, FinancialYearCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FinancialYears and returns the data saved in the database.
+     * @param {FinancialYearCreateManyAndReturnArgs} args - Arguments to create many FinancialYears.
+     * @example
+     * // Create many FinancialYears
+     * const financialYear = await prisma.financialYear.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FinancialYears and only return the `id`
+     * const financialYearWithIdOnly = await prisma.financialYear.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FinancialYearCreateManyAndReturnArgs>(args?: SelectSubset<T, FinancialYearCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a FinancialYear.
+     * @param {FinancialYearDeleteArgs} args - Arguments to delete one FinancialYear.
+     * @example
+     * // Delete one FinancialYear
+     * const FinancialYear = await prisma.financialYear.delete({
+     *   where: {
+     *     // ... filter to delete one FinancialYear
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FinancialYearDeleteArgs>(args: SelectSubset<T, FinancialYearDeleteArgs<ExtArgs>>): Prisma__FinancialYearClient<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FinancialYear.
+     * @param {FinancialYearUpdateArgs} args - Arguments to update one FinancialYear.
+     * @example
+     * // Update one FinancialYear
+     * const financialYear = await prisma.financialYear.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FinancialYearUpdateArgs>(args: SelectSubset<T, FinancialYearUpdateArgs<ExtArgs>>): Prisma__FinancialYearClient<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FinancialYears.
+     * @param {FinancialYearDeleteManyArgs} args - Arguments to filter FinancialYears to delete.
+     * @example
+     * // Delete a few FinancialYears
+     * const { count } = await prisma.financialYear.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FinancialYearDeleteManyArgs>(args?: SelectSubset<T, FinancialYearDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FinancialYears.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialYearUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FinancialYears
+     * const financialYear = await prisma.financialYear.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FinancialYearUpdateManyArgs>(args: SelectSubset<T, FinancialYearUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FinancialYears and returns the data updated in the database.
+     * @param {FinancialYearUpdateManyAndReturnArgs} args - Arguments to update many FinancialYears.
+     * @example
+     * // Update many FinancialYears
+     * const financialYear = await prisma.financialYear.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more FinancialYears and only return the `id`
+     * const financialYearWithIdOnly = await prisma.financialYear.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FinancialYearUpdateManyAndReturnArgs>(args: SelectSubset<T, FinancialYearUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one FinancialYear.
+     * @param {FinancialYearUpsertArgs} args - Arguments to update or create a FinancialYear.
+     * @example
+     * // Update or create a FinancialYear
+     * const financialYear = await prisma.financialYear.upsert({
+     *   create: {
+     *     // ... data to create a FinancialYear
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FinancialYear we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FinancialYearUpsertArgs>(args: SelectSubset<T, FinancialYearUpsertArgs<ExtArgs>>): Prisma__FinancialYearClient<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FinancialYears.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialYearCountArgs} args - Arguments to filter FinancialYears to count.
+     * @example
+     * // Count the number of FinancialYears
+     * const count = await prisma.financialYear.count({
+     *   where: {
+     *     // ... the filter for the FinancialYears we want to count
+     *   }
+     * })
+    **/
+    count<T extends FinancialYearCountArgs>(
+      args?: Subset<T, FinancialYearCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FinancialYearCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FinancialYear.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialYearAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FinancialYearAggregateArgs>(args: Subset<T, FinancialYearAggregateArgs>): Prisma.PrismaPromise<GetFinancialYearAggregateType<T>>
+
+    /**
+     * Group by FinancialYear.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialYearGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FinancialYearGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FinancialYearGroupByArgs['orderBy'] }
+        : { orderBy?: FinancialYearGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FinancialYearGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFinancialYearGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FinancialYear model
+   */
+  readonly fields: FinancialYearFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FinancialYear.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FinancialYearClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    invoices<T extends FinancialYear$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, FinancialYear$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FinancialYear model
+   */
+  interface FinancialYearFieldRefs {
+    readonly id: FieldRef<"FinancialYear", 'String'>
+    readonly label: FieldRef<"FinancialYear", 'String'>
+    readonly startDate: FieldRef<"FinancialYear", 'String'>
+    readonly endDate: FieldRef<"FinancialYear", 'String'>
+    readonly isActive: FieldRef<"FinancialYear", 'Boolean'>
+    readonly isClosed: FieldRef<"FinancialYear", 'Boolean'>
+    readonly createdAt: FieldRef<"FinancialYear", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FinancialYear findUnique
+   */
+  export type FinancialYearFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialYearInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialYear to fetch.
+     */
+    where: FinancialYearWhereUniqueInput
+  }
+
+  /**
+   * FinancialYear findUniqueOrThrow
+   */
+  export type FinancialYearFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialYearInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialYear to fetch.
+     */
+    where: FinancialYearWhereUniqueInput
+  }
+
+  /**
+   * FinancialYear findFirst
+   */
+  export type FinancialYearFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialYearInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialYear to fetch.
+     */
+    where?: FinancialYearWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialYears to fetch.
+     */
+    orderBy?: FinancialYearOrderByWithRelationInput | FinancialYearOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FinancialYears.
+     */
+    cursor?: FinancialYearWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialYears from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialYears.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FinancialYears.
+     */
+    distinct?: FinancialYearScalarFieldEnum | FinancialYearScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialYear findFirstOrThrow
+   */
+  export type FinancialYearFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialYearInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialYear to fetch.
+     */
+    where?: FinancialYearWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialYears to fetch.
+     */
+    orderBy?: FinancialYearOrderByWithRelationInput | FinancialYearOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FinancialYears.
+     */
+    cursor?: FinancialYearWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialYears from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialYears.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FinancialYears.
+     */
+    distinct?: FinancialYearScalarFieldEnum | FinancialYearScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialYear findMany
+   */
+  export type FinancialYearFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialYearInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialYears to fetch.
+     */
+    where?: FinancialYearWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialYears to fetch.
+     */
+    orderBy?: FinancialYearOrderByWithRelationInput | FinancialYearOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FinancialYears.
+     */
+    cursor?: FinancialYearWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialYears from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialYears.
+     */
+    skip?: number
+    distinct?: FinancialYearScalarFieldEnum | FinancialYearScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialYear create
+   */
+  export type FinancialYearCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialYearInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FinancialYear.
+     */
+    data: XOR<FinancialYearCreateInput, FinancialYearUncheckedCreateInput>
+  }
+
+  /**
+   * FinancialYear createMany
+   */
+  export type FinancialYearCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FinancialYears.
+     */
+    data: FinancialYearCreateManyInput | FinancialYearCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FinancialYear createManyAndReturn
+   */
+  export type FinancialYearCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * The data used to create many FinancialYears.
+     */
+    data: FinancialYearCreateManyInput | FinancialYearCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FinancialYear update
+   */
+  export type FinancialYearUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialYearInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FinancialYear.
+     */
+    data: XOR<FinancialYearUpdateInput, FinancialYearUncheckedUpdateInput>
+    /**
+     * Choose, which FinancialYear to update.
+     */
+    where: FinancialYearWhereUniqueInput
+  }
+
+  /**
+   * FinancialYear updateMany
+   */
+  export type FinancialYearUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FinancialYears.
+     */
+    data: XOR<FinancialYearUpdateManyMutationInput, FinancialYearUncheckedUpdateManyInput>
+    /**
+     * Filter which FinancialYears to update
+     */
+    where?: FinancialYearWhereInput
+    /**
+     * Limit how many FinancialYears to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FinancialYear updateManyAndReturn
+   */
+  export type FinancialYearUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * The data used to update FinancialYears.
+     */
+    data: XOR<FinancialYearUpdateManyMutationInput, FinancialYearUncheckedUpdateManyInput>
+    /**
+     * Filter which FinancialYears to update
+     */
+    where?: FinancialYearWhereInput
+    /**
+     * Limit how many FinancialYears to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FinancialYear upsert
+   */
+  export type FinancialYearUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialYearInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FinancialYear to update in case it exists.
+     */
+    where: FinancialYearWhereUniqueInput
+    /**
+     * In case the FinancialYear found by the `where` argument doesn't exist, create a new FinancialYear with this data.
+     */
+    create: XOR<FinancialYearCreateInput, FinancialYearUncheckedCreateInput>
+    /**
+     * In case the FinancialYear was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FinancialYearUpdateInput, FinancialYearUncheckedUpdateInput>
+  }
+
+  /**
+   * FinancialYear delete
+   */
+  export type FinancialYearDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialYearInclude<ExtArgs> | null
+    /**
+     * Filter which FinancialYear to delete.
+     */
+    where: FinancialYearWhereUniqueInput
+  }
+
+  /**
+   * FinancialYear deleteMany
+   */
+  export type FinancialYearDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FinancialYears to delete
+     */
+    where?: FinancialYearWhereInput
+    /**
+     * Limit how many FinancialYears to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FinancialYear.invoices
+   */
+  export type FinancialYear$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    cursor?: InvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialYear without action
+   */
+  export type FinancialYearDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialYearInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model WorkOrder
    */
 
@@ -4206,8 +5471,8 @@ export namespace Prisma {
     description: string | null
     partyId: string | null
     status: $Enums.WorkStatus | null
-    startDate: Date | null
-    endDate: Date | null
+    startDate: string | null
+    endDate: string | null
     estimatedCost: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4219,8 +5484,8 @@ export namespace Prisma {
     description: string | null
     partyId: string | null
     status: $Enums.WorkStatus | null
-    startDate: Date | null
-    endDate: Date | null
+    startDate: string | null
+    endDate: string | null
     estimatedCost: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4381,8 +5646,8 @@ export namespace Prisma {
     description: string | null
     partyId: string | null
     status: $Enums.WorkStatus
-    startDate: Date
-    endDate: Date | null
+    startDate: string
+    endDate: string | null
     estimatedCost: Decimal | null
     createdAt: Date
     updatedAt: Date
@@ -4484,8 +5749,8 @@ export namespace Prisma {
       description: string | null
       partyId: string | null
       status: $Enums.WorkStatus
-      startDate: Date
-      endDate: Date | null
+      startDate: string
+      endDate: string | null
       estimatedCost: Prisma.Decimal | null
       createdAt: Date
       updatedAt: Date
@@ -4918,8 +6183,8 @@ export namespace Prisma {
     readonly description: FieldRef<"WorkOrder", 'String'>
     readonly partyId: FieldRef<"WorkOrder", 'String'>
     readonly status: FieldRef<"WorkOrder", 'WorkStatus'>
-    readonly startDate: FieldRef<"WorkOrder", 'DateTime'>
-    readonly endDate: FieldRef<"WorkOrder", 'DateTime'>
+    readonly startDate: FieldRef<"WorkOrder", 'String'>
+    readonly endDate: FieldRef<"WorkOrder", 'String'>
     readonly estimatedCost: FieldRef<"WorkOrder", 'Decimal'>
     readonly createdAt: FieldRef<"WorkOrder", 'DateTime'>
     readonly updatedAt: FieldRef<"WorkOrder", 'DateTime'>
@@ -5387,7 +6652,6 @@ export namespace Prisma {
     year: number | null
     month: number | null
     day: number | null
-    createdAt: Date | null
   }
 
   export type AttendanceDayMaxAggregateOutputType = {
@@ -5397,7 +6661,6 @@ export namespace Prisma {
     year: number | null
     month: number | null
     day: number | null
-    createdAt: Date | null
   }
 
   export type AttendanceDayCountAggregateOutputType = {
@@ -5407,7 +6670,6 @@ export namespace Prisma {
     year: number
     month: number
     day: number
-    createdAt: number
     _all: number
   }
 
@@ -5431,7 +6693,6 @@ export namespace Prisma {
     year?: true
     month?: true
     day?: true
-    createdAt?: true
   }
 
   export type AttendanceDayMaxAggregateInputType = {
@@ -5441,7 +6702,6 @@ export namespace Prisma {
     year?: true
     month?: true
     day?: true
-    createdAt?: true
   }
 
   export type AttendanceDayCountAggregateInputType = {
@@ -5451,7 +6711,6 @@ export namespace Prisma {
     year?: true
     month?: true
     day?: true
-    createdAt?: true
     _all?: true
   }
 
@@ -5548,7 +6807,6 @@ export namespace Prisma {
     year: number
     month: number
     day: number
-    createdAt: Date
     _count: AttendanceDayCountAggregateOutputType | null
     _avg: AttendanceDayAvgAggregateOutputType | null
     _sum: AttendanceDaySumAggregateOutputType | null
@@ -5577,7 +6835,6 @@ export namespace Prisma {
     year?: boolean
     month?: boolean
     day?: boolean
-    createdAt?: boolean
     items?: boolean | AttendanceDay$itemsArgs<ExtArgs>
     _count?: boolean | AttendanceDayCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["attendanceDay"]>
@@ -5589,7 +6846,6 @@ export namespace Prisma {
     year?: boolean
     month?: boolean
     day?: boolean
-    createdAt?: boolean
   }, ExtArgs["result"]["attendanceDay"]>
 
   export type AttendanceDaySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5599,7 +6855,6 @@ export namespace Prisma {
     year?: boolean
     month?: boolean
     day?: boolean
-    createdAt?: boolean
   }, ExtArgs["result"]["attendanceDay"]>
 
   export type AttendanceDaySelectScalar = {
@@ -5609,10 +6864,9 @@ export namespace Prisma {
     year?: boolean
     month?: boolean
     day?: boolean
-    createdAt?: boolean
   }
 
-  export type AttendanceDayOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "monthKey" | "year" | "month" | "day" | "createdAt", ExtArgs["result"]["attendanceDay"]>
+  export type AttendanceDayOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "monthKey" | "year" | "month" | "day", ExtArgs["result"]["attendanceDay"]>
   export type AttendanceDayInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | AttendanceDay$itemsArgs<ExtArgs>
     _count?: boolean | AttendanceDayCountOutputTypeDefaultArgs<ExtArgs>
@@ -5632,7 +6886,6 @@ export namespace Prisma {
       year: number
       month: number
       day: number
-      createdAt: Date
     }, ExtArgs["result"]["attendanceDay"]>
     composites: {}
   }
@@ -6063,7 +7316,6 @@ export namespace Prisma {
     readonly year: FieldRef<"AttendanceDay", 'Int'>
     readonly month: FieldRef<"AttendanceDay", 'Int'>
     readonly day: FieldRef<"AttendanceDay", 'Int'>
-    readonly createdAt: FieldRef<"AttendanceDay", 'DateTime'>
   }
     
 
@@ -6508,13 +7760,11 @@ export namespace Prisma {
 
   export type AttendanceItemAvgAggregateOutputType = {
     hoursWorked: number | null
-    overtimeHours: number | null
     wage: Decimal | null
   }
 
   export type AttendanceItemSumAggregateOutputType = {
     hoursWorked: number | null
-    overtimeHours: number | null
     wage: Decimal | null
   }
 
@@ -6524,7 +7774,6 @@ export namespace Prisma {
     workerId: string | null
     status: $Enums.AttendanceStatus | null
     hoursWorked: number | null
-    overtimeHours: number | null
     wage: Decimal | null
   }
 
@@ -6534,7 +7783,6 @@ export namespace Prisma {
     workerId: string | null
     status: $Enums.AttendanceStatus | null
     hoursWorked: number | null
-    overtimeHours: number | null
     wage: Decimal | null
   }
 
@@ -6544,7 +7792,6 @@ export namespace Prisma {
     workerId: number
     status: number
     hoursWorked: number
-    overtimeHours: number
     wage: number
     _all: number
   }
@@ -6552,13 +7799,11 @@ export namespace Prisma {
 
   export type AttendanceItemAvgAggregateInputType = {
     hoursWorked?: true
-    overtimeHours?: true
     wage?: true
   }
 
   export type AttendanceItemSumAggregateInputType = {
     hoursWorked?: true
-    overtimeHours?: true
     wage?: true
   }
 
@@ -6568,7 +7813,6 @@ export namespace Prisma {
     workerId?: true
     status?: true
     hoursWorked?: true
-    overtimeHours?: true
     wage?: true
   }
 
@@ -6578,7 +7822,6 @@ export namespace Prisma {
     workerId?: true
     status?: true
     hoursWorked?: true
-    overtimeHours?: true
     wage?: true
   }
 
@@ -6588,7 +7831,6 @@ export namespace Prisma {
     workerId?: true
     status?: true
     hoursWorked?: true
-    overtimeHours?: true
     wage?: true
     _all?: true
   }
@@ -6685,7 +7927,6 @@ export namespace Prisma {
     workerId: string
     status: $Enums.AttendanceStatus
     hoursWorked: number | null
-    overtimeHours: number | null
     wage: Decimal | null
     _count: AttendanceItemCountAggregateOutputType | null
     _avg: AttendanceItemAvgAggregateOutputType | null
@@ -6714,7 +7955,6 @@ export namespace Prisma {
     workerId?: boolean
     status?: boolean
     hoursWorked?: boolean
-    overtimeHours?: boolean
     wage?: boolean
     worker?: boolean | WorkerDefaultArgs<ExtArgs>
     attendanceDay?: boolean | AttendanceDayDefaultArgs<ExtArgs>
@@ -6726,7 +7966,6 @@ export namespace Prisma {
     workerId?: boolean
     status?: boolean
     hoursWorked?: boolean
-    overtimeHours?: boolean
     wage?: boolean
     worker?: boolean | WorkerDefaultArgs<ExtArgs>
     attendanceDay?: boolean | AttendanceDayDefaultArgs<ExtArgs>
@@ -6738,7 +7977,6 @@ export namespace Prisma {
     workerId?: boolean
     status?: boolean
     hoursWorked?: boolean
-    overtimeHours?: boolean
     wage?: boolean
     worker?: boolean | WorkerDefaultArgs<ExtArgs>
     attendanceDay?: boolean | AttendanceDayDefaultArgs<ExtArgs>
@@ -6750,11 +7988,10 @@ export namespace Prisma {
     workerId?: boolean
     status?: boolean
     hoursWorked?: boolean
-    overtimeHours?: boolean
     wage?: boolean
   }
 
-  export type AttendanceItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "attendanceDayId" | "workerId" | "status" | "hoursWorked" | "overtimeHours" | "wage", ExtArgs["result"]["attendanceItem"]>
+  export type AttendanceItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "attendanceDayId" | "workerId" | "status" | "hoursWorked" | "wage", ExtArgs["result"]["attendanceItem"]>
   export type AttendanceItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     worker?: boolean | WorkerDefaultArgs<ExtArgs>
     attendanceDay?: boolean | AttendanceDayDefaultArgs<ExtArgs>
@@ -6780,7 +8017,6 @@ export namespace Prisma {
       workerId: string
       status: $Enums.AttendanceStatus
       hoursWorked: number | null
-      overtimeHours: number | null
       wage: Prisma.Decimal | null
     }, ExtArgs["result"]["attendanceItem"]>
     composites: {}
@@ -7212,7 +8448,6 @@ export namespace Prisma {
     readonly workerId: FieldRef<"AttendanceItem", 'String'>
     readonly status: FieldRef<"AttendanceItem", 'AttendanceStatus'>
     readonly hoursWorked: FieldRef<"AttendanceItem", 'Float'>
-    readonly overtimeHours: FieldRef<"AttendanceItem", 'Float'>
     readonly wage: FieldRef<"AttendanceItem", 'Decimal'>
   }
     
@@ -7641,107 +8876,173 @@ export namespace Prisma {
   }
 
   export type InvoiceAvgAggregateOutputType = {
-    subtotal: Decimal | null
-    gstAmount: Decimal | null
+    taxableAmount: Decimal | null
+    sgst: Decimal | null
+    cgst: Decimal | null
+    igst: Decimal | null
+    roundOff: Decimal | null
     totalAmount: Decimal | null
   }
 
   export type InvoiceSumAggregateOutputType = {
-    subtotal: Decimal | null
-    gstAmount: Decimal | null
+    taxableAmount: Decimal | null
+    sgst: Decimal | null
+    cgst: Decimal | null
+    igst: Decimal | null
+    roundOff: Decimal | null
     totalAmount: Decimal | null
   }
 
   export type InvoiceMinAggregateOutputType = {
     id: string | null
     invoiceNumber: string | null
-    partyId: string | null
     issueDate: Date | null
-    subtotal: Decimal | null
-    gstAmount: Decimal | null
+    partyId: string | null
+    shipToId: string | null
+    chNo: string | null
+    poNo: string | null
+    stateCode: string | null
+    vechileNo: string | null
+    taxableAmount: Decimal | null
+    sgst: Decimal | null
+    cgst: Decimal | null
+    igst: Decimal | null
+    roundOff: Decimal | null
     totalAmount: Decimal | null
     status: $Enums.InvoiceStatus | null
+    isLabourBill: boolean | null
     createdAt: Date | null
-    updatedAt: Date | null
+    financialYearId: string | null
   }
 
   export type InvoiceMaxAggregateOutputType = {
     id: string | null
     invoiceNumber: string | null
-    partyId: string | null
     issueDate: Date | null
-    subtotal: Decimal | null
-    gstAmount: Decimal | null
+    partyId: string | null
+    shipToId: string | null
+    chNo: string | null
+    poNo: string | null
+    stateCode: string | null
+    vechileNo: string | null
+    taxableAmount: Decimal | null
+    sgst: Decimal | null
+    cgst: Decimal | null
+    igst: Decimal | null
+    roundOff: Decimal | null
     totalAmount: Decimal | null
     status: $Enums.InvoiceStatus | null
+    isLabourBill: boolean | null
     createdAt: Date | null
-    updatedAt: Date | null
+    financialYearId: string | null
   }
 
   export type InvoiceCountAggregateOutputType = {
     id: number
     invoiceNumber: number
-    partyId: number
     issueDate: number
-    subtotal: number
-    gstAmount: number
+    partyId: number
+    shipToId: number
+    chNo: number
+    poNo: number
+    stateCode: number
+    vechileNo: number
+    taxableAmount: number
+    sgst: number
+    cgst: number
+    igst: number
+    roundOff: number
     totalAmount: number
     status: number
+    isLabourBill: number
     createdAt: number
-    updatedAt: number
+    financialYearId: number
     _all: number
   }
 
 
   export type InvoiceAvgAggregateInputType = {
-    subtotal?: true
-    gstAmount?: true
+    taxableAmount?: true
+    sgst?: true
+    cgst?: true
+    igst?: true
+    roundOff?: true
     totalAmount?: true
   }
 
   export type InvoiceSumAggregateInputType = {
-    subtotal?: true
-    gstAmount?: true
+    taxableAmount?: true
+    sgst?: true
+    cgst?: true
+    igst?: true
+    roundOff?: true
     totalAmount?: true
   }
 
   export type InvoiceMinAggregateInputType = {
     id?: true
     invoiceNumber?: true
-    partyId?: true
     issueDate?: true
-    subtotal?: true
-    gstAmount?: true
+    partyId?: true
+    shipToId?: true
+    chNo?: true
+    poNo?: true
+    stateCode?: true
+    vechileNo?: true
+    taxableAmount?: true
+    sgst?: true
+    cgst?: true
+    igst?: true
+    roundOff?: true
     totalAmount?: true
     status?: true
+    isLabourBill?: true
     createdAt?: true
-    updatedAt?: true
+    financialYearId?: true
   }
 
   export type InvoiceMaxAggregateInputType = {
     id?: true
     invoiceNumber?: true
-    partyId?: true
     issueDate?: true
-    subtotal?: true
-    gstAmount?: true
+    partyId?: true
+    shipToId?: true
+    chNo?: true
+    poNo?: true
+    stateCode?: true
+    vechileNo?: true
+    taxableAmount?: true
+    sgst?: true
+    cgst?: true
+    igst?: true
+    roundOff?: true
     totalAmount?: true
     status?: true
+    isLabourBill?: true
     createdAt?: true
-    updatedAt?: true
+    financialYearId?: true
   }
 
   export type InvoiceCountAggregateInputType = {
     id?: true
     invoiceNumber?: true
-    partyId?: true
     issueDate?: true
-    subtotal?: true
-    gstAmount?: true
+    partyId?: true
+    shipToId?: true
+    chNo?: true
+    poNo?: true
+    stateCode?: true
+    vechileNo?: true
+    taxableAmount?: true
+    sgst?: true
+    cgst?: true
+    igst?: true
+    roundOff?: true
     totalAmount?: true
     status?: true
+    isLabourBill?: true
     createdAt?: true
-    updatedAt?: true
+    financialYearId?: true
     _all?: true
   }
 
@@ -7834,14 +9135,23 @@ export namespace Prisma {
   export type InvoiceGroupByOutputType = {
     id: string
     invoiceNumber: string
-    partyId: string
     issueDate: Date
-    subtotal: Decimal
-    gstAmount: Decimal
+    partyId: string
+    shipToId: string | null
+    chNo: string | null
+    poNo: string | null
+    stateCode: string | null
+    vechileNo: string | null
+    taxableAmount: Decimal
+    sgst: Decimal
+    cgst: Decimal
+    igst: Decimal
+    roundOff: Decimal
     totalAmount: Decimal
     status: $Enums.InvoiceStatus
+    isLabourBill: boolean
     createdAt: Date
-    updatedAt: Date
+    financialYearId: string | null
     _count: InvoiceCountAggregateOutputType | null
     _avg: InvoiceAvgAggregateOutputType | null
     _sum: InvoiceSumAggregateOutputType | null
@@ -7866,90 +9176,149 @@ export namespace Prisma {
   export type InvoiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     invoiceNumber?: boolean
-    partyId?: boolean
     issueDate?: boolean
-    subtotal?: boolean
-    gstAmount?: boolean
+    partyId?: boolean
+    shipToId?: boolean
+    chNo?: boolean
+    poNo?: boolean
+    stateCode?: boolean
+    vechileNo?: boolean
+    taxableAmount?: boolean
+    sgst?: boolean
+    cgst?: boolean
+    igst?: boolean
+    roundOff?: boolean
     totalAmount?: boolean
     status?: boolean
+    isLabourBill?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
+    financialYearId?: boolean
     party?: boolean | PartyDefaultArgs<ExtArgs>
+    shipTo?: boolean | Invoice$shipToArgs<ExtArgs>
     items?: boolean | Invoice$itemsArgs<ExtArgs>
+    financialYear?: boolean | Invoice$financialYearArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     invoiceNumber?: boolean
-    partyId?: boolean
     issueDate?: boolean
-    subtotal?: boolean
-    gstAmount?: boolean
+    partyId?: boolean
+    shipToId?: boolean
+    chNo?: boolean
+    poNo?: boolean
+    stateCode?: boolean
+    vechileNo?: boolean
+    taxableAmount?: boolean
+    sgst?: boolean
+    cgst?: boolean
+    igst?: boolean
+    roundOff?: boolean
     totalAmount?: boolean
     status?: boolean
+    isLabourBill?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
+    financialYearId?: boolean
     party?: boolean | PartyDefaultArgs<ExtArgs>
+    shipTo?: boolean | Invoice$shipToArgs<ExtArgs>
+    financialYear?: boolean | Invoice$financialYearArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     invoiceNumber?: boolean
-    partyId?: boolean
     issueDate?: boolean
-    subtotal?: boolean
-    gstAmount?: boolean
+    partyId?: boolean
+    shipToId?: boolean
+    chNo?: boolean
+    poNo?: boolean
+    stateCode?: boolean
+    vechileNo?: boolean
+    taxableAmount?: boolean
+    sgst?: boolean
+    cgst?: boolean
+    igst?: boolean
+    roundOff?: boolean
     totalAmount?: boolean
     status?: boolean
+    isLabourBill?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
+    financialYearId?: boolean
     party?: boolean | PartyDefaultArgs<ExtArgs>
+    shipTo?: boolean | Invoice$shipToArgs<ExtArgs>
+    financialYear?: boolean | Invoice$financialYearArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectScalar = {
     id?: boolean
     invoiceNumber?: boolean
-    partyId?: boolean
     issueDate?: boolean
-    subtotal?: boolean
-    gstAmount?: boolean
+    partyId?: boolean
+    shipToId?: boolean
+    chNo?: boolean
+    poNo?: boolean
+    stateCode?: boolean
+    vechileNo?: boolean
+    taxableAmount?: boolean
+    sgst?: boolean
+    cgst?: boolean
+    igst?: boolean
+    roundOff?: boolean
     totalAmount?: boolean
     status?: boolean
+    isLabourBill?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
+    financialYearId?: boolean
   }
 
-  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "invoiceNumber" | "partyId" | "issueDate" | "subtotal" | "gstAmount" | "totalAmount" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["invoice"]>
+  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "invoiceNumber" | "issueDate" | "partyId" | "shipToId" | "chNo" | "poNo" | "stateCode" | "vechileNo" | "taxableAmount" | "sgst" | "cgst" | "igst" | "roundOff" | "totalAmount" | "status" | "isLabourBill" | "createdAt" | "financialYearId", ExtArgs["result"]["invoice"]>
   export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     party?: boolean | PartyDefaultArgs<ExtArgs>
+    shipTo?: boolean | Invoice$shipToArgs<ExtArgs>
     items?: boolean | Invoice$itemsArgs<ExtArgs>
+    financialYear?: boolean | Invoice$financialYearArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     party?: boolean | PartyDefaultArgs<ExtArgs>
+    shipTo?: boolean | Invoice$shipToArgs<ExtArgs>
+    financialYear?: boolean | Invoice$financialYearArgs<ExtArgs>
   }
   export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     party?: boolean | PartyDefaultArgs<ExtArgs>
+    shipTo?: boolean | Invoice$shipToArgs<ExtArgs>
+    financialYear?: boolean | Invoice$financialYearArgs<ExtArgs>
   }
 
   export type $InvoicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Invoice"
     objects: {
       party: Prisma.$PartyPayload<ExtArgs>
+      shipTo: Prisma.$PartyPayload<ExtArgs> | null
       items: Prisma.$InvoiceItemPayload<ExtArgs>[]
+      financialYear: Prisma.$FinancialYearPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       invoiceNumber: string
-      partyId: string
       issueDate: Date
-      subtotal: Prisma.Decimal
-      gstAmount: Prisma.Decimal
+      partyId: string
+      shipToId: string | null
+      chNo: string | null
+      poNo: string | null
+      stateCode: string | null
+      vechileNo: string | null
+      taxableAmount: Prisma.Decimal
+      sgst: Prisma.Decimal
+      cgst: Prisma.Decimal
+      igst: Prisma.Decimal
+      roundOff: Prisma.Decimal
       totalAmount: Prisma.Decimal
       status: $Enums.InvoiceStatus
+      isLabourBill: boolean
       createdAt: Date
-      updatedAt: Date
+      financialYearId: string | null
     }, ExtArgs["result"]["invoice"]>
     composites: {}
   }
@@ -8345,7 +9714,9 @@ export namespace Prisma {
   export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     party<T extends PartyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PartyDefaultArgs<ExtArgs>>): Prisma__PartyClient<$Result.GetResult<Prisma.$PartyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    shipTo<T extends Invoice$shipToArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$shipToArgs<ExtArgs>>): Prisma__PartyClient<$Result.GetResult<Prisma.$PartyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     items<T extends Invoice$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoiceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    financialYear<T extends Invoice$financialYearArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$financialYearArgs<ExtArgs>>): Prisma__FinancialYearClient<$Result.GetResult<Prisma.$FinancialYearPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8377,14 +9748,23 @@ export namespace Prisma {
   interface InvoiceFieldRefs {
     readonly id: FieldRef<"Invoice", 'String'>
     readonly invoiceNumber: FieldRef<"Invoice", 'String'>
-    readonly partyId: FieldRef<"Invoice", 'String'>
     readonly issueDate: FieldRef<"Invoice", 'DateTime'>
-    readonly subtotal: FieldRef<"Invoice", 'Decimal'>
-    readonly gstAmount: FieldRef<"Invoice", 'Decimal'>
+    readonly partyId: FieldRef<"Invoice", 'String'>
+    readonly shipToId: FieldRef<"Invoice", 'String'>
+    readonly chNo: FieldRef<"Invoice", 'String'>
+    readonly poNo: FieldRef<"Invoice", 'String'>
+    readonly stateCode: FieldRef<"Invoice", 'String'>
+    readonly vechileNo: FieldRef<"Invoice", 'String'>
+    readonly taxableAmount: FieldRef<"Invoice", 'Decimal'>
+    readonly sgst: FieldRef<"Invoice", 'Decimal'>
+    readonly cgst: FieldRef<"Invoice", 'Decimal'>
+    readonly igst: FieldRef<"Invoice", 'Decimal'>
+    readonly roundOff: FieldRef<"Invoice", 'Decimal'>
     readonly totalAmount: FieldRef<"Invoice", 'Decimal'>
     readonly status: FieldRef<"Invoice", 'InvoiceStatus'>
+    readonly isLabourBill: FieldRef<"Invoice", 'Boolean'>
     readonly createdAt: FieldRef<"Invoice", 'DateTime'>
-    readonly updatedAt: FieldRef<"Invoice", 'DateTime'>
+    readonly financialYearId: FieldRef<"Invoice", 'String'>
   }
     
 
@@ -8781,6 +10161,25 @@ export namespace Prisma {
   }
 
   /**
+   * Invoice.shipTo
+   */
+  export type Invoice$shipToArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Party
+     */
+    select?: PartySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Party
+     */
+    omit?: PartyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartyInclude<ExtArgs> | null
+    where?: PartyWhereInput
+  }
+
+  /**
    * Invoice.items
    */
   export type Invoice$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8802,6 +10201,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InvoiceItemScalarFieldEnum | InvoiceItemScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice.financialYear
+   */
+  export type Invoice$financialYearArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialYear
+     */
+    select?: FinancialYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialYear
+     */
+    omit?: FinancialYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialYearInclude<ExtArgs> | null
+    where?: FinancialYearWhereInput
   }
 
   /**
@@ -8836,12 +10254,14 @@ export namespace Prisma {
   }
 
   export type InvoiceItemAvgAggregateOutputType = {
+    srno: number | null
     quantity: Decimal | null
     rate: Decimal | null
     amount: Decimal | null
   }
 
   export type InvoiceItemSumAggregateOutputType = {
+    srno: number | null
     quantity: Decimal | null
     rate: Decimal | null
     amount: Decimal | null
@@ -8850,6 +10270,7 @@ export namespace Prisma {
   export type InvoiceItemMinAggregateOutputType = {
     id: string | null
     invoiceId: string | null
+    srno: number | null
     description: string | null
     quantity: Decimal | null
     rate: Decimal | null
@@ -8859,6 +10280,7 @@ export namespace Prisma {
   export type InvoiceItemMaxAggregateOutputType = {
     id: string | null
     invoiceId: string | null
+    srno: number | null
     description: string | null
     quantity: Decimal | null
     rate: Decimal | null
@@ -8868,6 +10290,8 @@ export namespace Prisma {
   export type InvoiceItemCountAggregateOutputType = {
     id: number
     invoiceId: number
+    srno: number
+    subdescription: number
     description: number
     quantity: number
     rate: number
@@ -8877,12 +10301,14 @@ export namespace Prisma {
 
 
   export type InvoiceItemAvgAggregateInputType = {
+    srno?: true
     quantity?: true
     rate?: true
     amount?: true
   }
 
   export type InvoiceItemSumAggregateInputType = {
+    srno?: true
     quantity?: true
     rate?: true
     amount?: true
@@ -8891,6 +10317,7 @@ export namespace Prisma {
   export type InvoiceItemMinAggregateInputType = {
     id?: true
     invoiceId?: true
+    srno?: true
     description?: true
     quantity?: true
     rate?: true
@@ -8900,6 +10327,7 @@ export namespace Prisma {
   export type InvoiceItemMaxAggregateInputType = {
     id?: true
     invoiceId?: true
+    srno?: true
     description?: true
     quantity?: true
     rate?: true
@@ -8909,6 +10337,8 @@ export namespace Prisma {
   export type InvoiceItemCountAggregateInputType = {
     id?: true
     invoiceId?: true
+    srno?: true
+    subdescription?: true
     description?: true
     quantity?: true
     rate?: true
@@ -9005,6 +10435,8 @@ export namespace Prisma {
   export type InvoiceItemGroupByOutputType = {
     id: string
     invoiceId: string
+    srno: number
+    subdescription: string[]
     description: string
     quantity: Decimal
     rate: Decimal
@@ -9033,6 +10465,8 @@ export namespace Prisma {
   export type InvoiceItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     invoiceId?: boolean
+    srno?: boolean
+    subdescription?: boolean
     description?: boolean
     quantity?: boolean
     rate?: boolean
@@ -9043,6 +10477,8 @@ export namespace Prisma {
   export type InvoiceItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     invoiceId?: boolean
+    srno?: boolean
+    subdescription?: boolean
     description?: boolean
     quantity?: boolean
     rate?: boolean
@@ -9053,6 +10489,8 @@ export namespace Prisma {
   export type InvoiceItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     invoiceId?: boolean
+    srno?: boolean
+    subdescription?: boolean
     description?: boolean
     quantity?: boolean
     rate?: boolean
@@ -9063,13 +10501,15 @@ export namespace Prisma {
   export type InvoiceItemSelectScalar = {
     id?: boolean
     invoiceId?: boolean
+    srno?: boolean
+    subdescription?: boolean
     description?: boolean
     quantity?: boolean
     rate?: boolean
     amount?: boolean
   }
 
-  export type InvoiceItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "invoiceId" | "description" | "quantity" | "rate" | "amount", ExtArgs["result"]["invoiceItem"]>
+  export type InvoiceItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "invoiceId" | "srno" | "subdescription" | "description" | "quantity" | "rate" | "amount", ExtArgs["result"]["invoiceItem"]>
   export type InvoiceItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoice?: boolean | InvoiceDefaultArgs<ExtArgs>
   }
@@ -9088,6 +10528,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       invoiceId: string
+      srno: number
+      subdescription: string[]
       description: string
       quantity: Prisma.Decimal
       rate: Prisma.Decimal
@@ -9518,6 +10960,8 @@ export namespace Prisma {
   interface InvoiceItemFieldRefs {
     readonly id: FieldRef<"InvoiceItem", 'String'>
     readonly invoiceId: FieldRef<"InvoiceItem", 'String'>
+    readonly srno: FieldRef<"InvoiceItem", 'Int'>
+    readonly subdescription: FieldRef<"InvoiceItem", 'String[]'>
     readonly description: FieldRef<"InvoiceItem", 'String'>
     readonly quantity: FieldRef<"InvoiceItem", 'Decimal'>
     readonly rate: FieldRef<"InvoiceItem", 'Decimal'>
@@ -11115,8 +12559,8 @@ export namespace Prisma {
     debit: Decimal | null
     credit: Decimal | null
     date: Date | null
-    createdAt: Date | null
     paymentId: string | null
+    createdAt: Date | null
   }
 
   export type LedgerEntryMaxAggregateOutputType = {
@@ -11128,8 +12572,8 @@ export namespace Prisma {
     debit: Decimal | null
     credit: Decimal | null
     date: Date | null
-    createdAt: Date | null
     paymentId: string | null
+    createdAt: Date | null
   }
 
   export type LedgerEntryCountAggregateOutputType = {
@@ -11141,8 +12585,8 @@ export namespace Prisma {
     debit: number
     credit: number
     date: number
-    createdAt: number
     paymentId: number
+    createdAt: number
     _all: number
   }
 
@@ -11166,8 +12610,8 @@ export namespace Prisma {
     debit?: true
     credit?: true
     date?: true
-    createdAt?: true
     paymentId?: true
+    createdAt?: true
   }
 
   export type LedgerEntryMaxAggregateInputType = {
@@ -11179,8 +12623,8 @@ export namespace Prisma {
     debit?: true
     credit?: true
     date?: true
-    createdAt?: true
     paymentId?: true
+    createdAt?: true
   }
 
   export type LedgerEntryCountAggregateInputType = {
@@ -11192,8 +12636,8 @@ export namespace Prisma {
     debit?: true
     credit?: true
     date?: true
-    createdAt?: true
     paymentId?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -11292,8 +12736,8 @@ export namespace Prisma {
     debit: Decimal
     credit: Decimal
     date: Date
-    createdAt: Date
     paymentId: string | null
+    createdAt: Date
     _count: LedgerEntryCountAggregateOutputType | null
     _avg: LedgerEntryAvgAggregateOutputType | null
     _sum: LedgerEntrySumAggregateOutputType | null
@@ -11324,8 +12768,8 @@ export namespace Prisma {
     debit?: boolean
     credit?: boolean
     date?: boolean
-    createdAt?: boolean
     paymentId?: boolean
+    createdAt?: boolean
     party?: boolean | PartyDefaultArgs<ExtArgs>
     payment?: boolean | LedgerEntry$paymentArgs<ExtArgs>
   }, ExtArgs["result"]["ledgerEntry"]>
@@ -11339,8 +12783,8 @@ export namespace Prisma {
     debit?: boolean
     credit?: boolean
     date?: boolean
-    createdAt?: boolean
     paymentId?: boolean
+    createdAt?: boolean
     party?: boolean | PartyDefaultArgs<ExtArgs>
     payment?: boolean | LedgerEntry$paymentArgs<ExtArgs>
   }, ExtArgs["result"]["ledgerEntry"]>
@@ -11354,8 +12798,8 @@ export namespace Prisma {
     debit?: boolean
     credit?: boolean
     date?: boolean
-    createdAt?: boolean
     paymentId?: boolean
+    createdAt?: boolean
     party?: boolean | PartyDefaultArgs<ExtArgs>
     payment?: boolean | LedgerEntry$paymentArgs<ExtArgs>
   }, ExtArgs["result"]["ledgerEntry"]>
@@ -11369,11 +12813,11 @@ export namespace Prisma {
     debit?: boolean
     credit?: boolean
     date?: boolean
-    createdAt?: boolean
     paymentId?: boolean
+    createdAt?: boolean
   }
 
-  export type LedgerEntryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "partyId" | "referenceType" | "referenceId" | "description" | "debit" | "credit" | "date" | "createdAt" | "paymentId", ExtArgs["result"]["ledgerEntry"]>
+  export type LedgerEntryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "partyId" | "referenceType" | "referenceId" | "description" | "debit" | "credit" | "date" | "paymentId" | "createdAt", ExtArgs["result"]["ledgerEntry"]>
   export type LedgerEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     party?: boolean | PartyDefaultArgs<ExtArgs>
     payment?: boolean | LedgerEntry$paymentArgs<ExtArgs>
@@ -11402,8 +12846,8 @@ export namespace Prisma {
       debit: Prisma.Decimal
       credit: Prisma.Decimal
       date: Date
-      createdAt: Date
       paymentId: string | null
+      createdAt: Date
     }, ExtArgs["result"]["ledgerEntry"]>
     composites: {}
   }
@@ -11837,8 +13281,8 @@ export namespace Prisma {
     readonly debit: FieldRef<"LedgerEntry", 'Decimal'>
     readonly credit: FieldRef<"LedgerEntry", 'Decimal'>
     readonly date: FieldRef<"LedgerEntry", 'DateTime'>
-    readonly createdAt: FieldRef<"LedgerEntry", 'DateTime'>
     readonly paymentId: FieldRef<"LedgerEntry", 'String'>
+    readonly createdAt: FieldRef<"LedgerEntry", 'DateTime'>
   }
     
 
@@ -12292,7 +13736,9 @@ export namespace Prisma {
     phone: 'phone',
     gstNumber: 'gstNumber',
     address: 'address',
+    stateCode: 'stateCode',
     type: 'type',
+    isActive: 'isActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -12307,11 +13753,23 @@ export namespace Prisma {
     skillType: 'skillType',
     defaultWage: 'defaultWage',
     isActive: 'isActive',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    createdAt: 'createdAt'
   };
 
   export type WorkerScalarFieldEnum = (typeof WorkerScalarFieldEnum)[keyof typeof WorkerScalarFieldEnum]
+
+
+  export const FinancialYearScalarFieldEnum: {
+    id: 'id',
+    label: 'label',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    isActive: 'isActive',
+    isClosed: 'isClosed',
+    createdAt: 'createdAt'
+  };
+
+  export type FinancialYearScalarFieldEnum = (typeof FinancialYearScalarFieldEnum)[keyof typeof FinancialYearScalarFieldEnum]
 
 
   export const WorkOrderScalarFieldEnum: {
@@ -12336,8 +13794,7 @@ export namespace Prisma {
     monthKey: 'monthKey',
     year: 'year',
     month: 'month',
-    day: 'day',
-    createdAt: 'createdAt'
+    day: 'day'
   };
 
   export type AttendanceDayScalarFieldEnum = (typeof AttendanceDayScalarFieldEnum)[keyof typeof AttendanceDayScalarFieldEnum]
@@ -12349,7 +13806,6 @@ export namespace Prisma {
     workerId: 'workerId',
     status: 'status',
     hoursWorked: 'hoursWorked',
-    overtimeHours: 'overtimeHours',
     wage: 'wage'
   };
 
@@ -12359,14 +13815,23 @@ export namespace Prisma {
   export const InvoiceScalarFieldEnum: {
     id: 'id',
     invoiceNumber: 'invoiceNumber',
-    partyId: 'partyId',
     issueDate: 'issueDate',
-    subtotal: 'subtotal',
-    gstAmount: 'gstAmount',
+    partyId: 'partyId',
+    shipToId: 'shipToId',
+    chNo: 'chNo',
+    poNo: 'poNo',
+    stateCode: 'stateCode',
+    vechileNo: 'vechileNo',
+    taxableAmount: 'taxableAmount',
+    sgst: 'sgst',
+    cgst: 'cgst',
+    igst: 'igst',
+    roundOff: 'roundOff',
     totalAmount: 'totalAmount',
     status: 'status',
+    isLabourBill: 'isLabourBill',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    financialYearId: 'financialYearId'
   };
 
   export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
@@ -12375,6 +13840,8 @@ export namespace Prisma {
   export const InvoiceItemScalarFieldEnum: {
     id: 'id',
     invoiceId: 'invoiceId',
+    srno: 'srno',
+    subdescription: 'subdescription',
     description: 'description',
     quantity: 'quantity',
     rate: 'rate',
@@ -12406,8 +13873,8 @@ export namespace Prisma {
     debit: 'debit',
     credit: 'credit',
     date: 'date',
-    createdAt: 'createdAt',
-    paymentId: 'paymentId'
+    paymentId: 'paymentId',
+    createdAt: 'createdAt'
   };
 
   export type LedgerEntryScalarFieldEnum = (typeof LedgerEntryScalarFieldEnum)[keyof typeof LedgerEntryScalarFieldEnum]
@@ -12471,6 +13938,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -12495,13 +13969,6 @@ export namespace Prisma {
    * Reference to a field of type 'Decimal[]'
    */
   export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -12601,10 +14068,13 @@ export namespace Prisma {
     phone?: StringNullableFilter<"Party"> | string | null
     gstNumber?: StringNullableFilter<"Party"> | string | null
     address?: StringNullableFilter<"Party"> | string | null
+    stateCode?: StringNullableFilter<"Party"> | string | null
     type?: EnumPartyTypeFilter<"Party"> | $Enums.PartyType
+    isActive?: BoolFilter<"Party"> | boolean
     createdAt?: DateTimeFilter<"Party"> | Date | string
     updatedAt?: DateTimeFilter<"Party"> | Date | string
     invoices?: InvoiceListRelationFilter
+    shippingFor?: InvoiceListRelationFilter
     payments?: PaymentListRelationFilter
     ledgerEntries?: LedgerEntryListRelationFilter
     workOrders?: WorkOrderListRelationFilter
@@ -12616,10 +14086,13 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     gstNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
+    stateCode?: SortOrderInput | SortOrder
     type?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     invoices?: InvoiceOrderByRelationAggregateInput
+    shippingFor?: InvoiceOrderByRelationAggregateInput
     payments?: PaymentOrderByRelationAggregateInput
     ledgerEntries?: LedgerEntryOrderByRelationAggregateInput
     workOrders?: WorkOrderOrderByRelationAggregateInput
@@ -12634,10 +14107,13 @@ export namespace Prisma {
     phone?: StringNullableFilter<"Party"> | string | null
     gstNumber?: StringNullableFilter<"Party"> | string | null
     address?: StringNullableFilter<"Party"> | string | null
+    stateCode?: StringNullableFilter<"Party"> | string | null
     type?: EnumPartyTypeFilter<"Party"> | $Enums.PartyType
+    isActive?: BoolFilter<"Party"> | boolean
     createdAt?: DateTimeFilter<"Party"> | Date | string
     updatedAt?: DateTimeFilter<"Party"> | Date | string
     invoices?: InvoiceListRelationFilter
+    shippingFor?: InvoiceListRelationFilter
     payments?: PaymentListRelationFilter
     ledgerEntries?: LedgerEntryListRelationFilter
     workOrders?: WorkOrderListRelationFilter
@@ -12649,7 +14125,9 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     gstNumber?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
+    stateCode?: SortOrderInput | SortOrder
     type?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PartyCountOrderByAggregateInput
@@ -12666,7 +14144,9 @@ export namespace Prisma {
     phone?: StringNullableWithAggregatesFilter<"Party"> | string | null
     gstNumber?: StringNullableWithAggregatesFilter<"Party"> | string | null
     address?: StringNullableWithAggregatesFilter<"Party"> | string | null
+    stateCode?: StringNullableWithAggregatesFilter<"Party"> | string | null
     type?: EnumPartyTypeWithAggregatesFilter<"Party"> | $Enums.PartyType
+    isActive?: BoolWithAggregatesFilter<"Party"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Party"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Party"> | Date | string
   }
@@ -12682,7 +14162,6 @@ export namespace Prisma {
     defaultWage?: DecimalFilter<"Worker"> | Decimal | DecimalJsLike | number | string
     isActive?: BoolFilter<"Worker"> | boolean
     createdAt?: DateTimeFilter<"Worker"> | Date | string
-    updatedAt?: DateTimeFilter<"Worker"> | Date | string
     attendances?: AttendanceItemListRelationFilter
   }
 
@@ -12694,7 +14173,6 @@ export namespace Prisma {
     defaultWage?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
     attendances?: AttendanceItemOrderByRelationAggregateInput
   }
 
@@ -12709,7 +14187,6 @@ export namespace Prisma {
     defaultWage?: DecimalFilter<"Worker"> | Decimal | DecimalJsLike | number | string
     isActive?: BoolFilter<"Worker"> | boolean
     createdAt?: DateTimeFilter<"Worker"> | Date | string
-    updatedAt?: DateTimeFilter<"Worker"> | Date | string
     attendances?: AttendanceItemListRelationFilter
   }, "id">
 
@@ -12721,7 +14198,6 @@ export namespace Prisma {
     defaultWage?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
     _count?: WorkerCountOrderByAggregateInput
     _avg?: WorkerAvgOrderByAggregateInput
     _max?: WorkerMaxOrderByAggregateInput
@@ -12740,7 +14216,71 @@ export namespace Prisma {
     defaultWage?: DecimalWithAggregatesFilter<"Worker"> | Decimal | DecimalJsLike | number | string
     isActive?: BoolWithAggregatesFilter<"Worker"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Worker"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Worker"> | Date | string
+  }
+
+  export type FinancialYearWhereInput = {
+    AND?: FinancialYearWhereInput | FinancialYearWhereInput[]
+    OR?: FinancialYearWhereInput[]
+    NOT?: FinancialYearWhereInput | FinancialYearWhereInput[]
+    id?: StringFilter<"FinancialYear"> | string
+    label?: StringFilter<"FinancialYear"> | string
+    startDate?: StringNullableFilter<"FinancialYear"> | string | null
+    endDate?: StringNullableFilter<"FinancialYear"> | string | null
+    isActive?: BoolFilter<"FinancialYear"> | boolean
+    isClosed?: BoolFilter<"FinancialYear"> | boolean
+    createdAt?: DateTimeFilter<"FinancialYear"> | Date | string
+    invoices?: InvoiceListRelationFilter
+  }
+
+  export type FinancialYearOrderByWithRelationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    isClosed?: SortOrder
+    createdAt?: SortOrder
+    invoices?: InvoiceOrderByRelationAggregateInput
+  }
+
+  export type FinancialYearWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    label?: string
+    AND?: FinancialYearWhereInput | FinancialYearWhereInput[]
+    OR?: FinancialYearWhereInput[]
+    NOT?: FinancialYearWhereInput | FinancialYearWhereInput[]
+    startDate?: StringNullableFilter<"FinancialYear"> | string | null
+    endDate?: StringNullableFilter<"FinancialYear"> | string | null
+    isActive?: BoolFilter<"FinancialYear"> | boolean
+    isClosed?: BoolFilter<"FinancialYear"> | boolean
+    createdAt?: DateTimeFilter<"FinancialYear"> | Date | string
+    invoices?: InvoiceListRelationFilter
+  }, "id" | "label">
+
+  export type FinancialYearOrderByWithAggregationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    isClosed?: SortOrder
+    createdAt?: SortOrder
+    _count?: FinancialYearCountOrderByAggregateInput
+    _max?: FinancialYearMaxOrderByAggregateInput
+    _min?: FinancialYearMinOrderByAggregateInput
+  }
+
+  export type FinancialYearScalarWhereWithAggregatesInput = {
+    AND?: FinancialYearScalarWhereWithAggregatesInput | FinancialYearScalarWhereWithAggregatesInput[]
+    OR?: FinancialYearScalarWhereWithAggregatesInput[]
+    NOT?: FinancialYearScalarWhereWithAggregatesInput | FinancialYearScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FinancialYear"> | string
+    label?: StringWithAggregatesFilter<"FinancialYear"> | string
+    startDate?: StringNullableWithAggregatesFilter<"FinancialYear"> | string | null
+    endDate?: StringNullableWithAggregatesFilter<"FinancialYear"> | string | null
+    isActive?: BoolWithAggregatesFilter<"FinancialYear"> | boolean
+    isClosed?: BoolWithAggregatesFilter<"FinancialYear"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"FinancialYear"> | Date | string
   }
 
   export type WorkOrderWhereInput = {
@@ -12752,8 +14292,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"WorkOrder"> | string | null
     partyId?: StringNullableFilter<"WorkOrder"> | string | null
     status?: EnumWorkStatusFilter<"WorkOrder"> | $Enums.WorkStatus
-    startDate?: DateTimeFilter<"WorkOrder"> | Date | string
-    endDate?: DateTimeNullableFilter<"WorkOrder"> | Date | string | null
+    startDate?: StringFilter<"WorkOrder"> | string
+    endDate?: StringNullableFilter<"WorkOrder"> | string | null
     estimatedCost?: DecimalNullableFilter<"WorkOrder"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"WorkOrder"> | Date | string
     updatedAt?: DateTimeFilter<"WorkOrder"> | Date | string
@@ -12783,8 +14323,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"WorkOrder"> | string | null
     partyId?: StringNullableFilter<"WorkOrder"> | string | null
     status?: EnumWorkStatusFilter<"WorkOrder"> | $Enums.WorkStatus
-    startDate?: DateTimeFilter<"WorkOrder"> | Date | string
-    endDate?: DateTimeNullableFilter<"WorkOrder"> | Date | string | null
+    startDate?: StringFilter<"WorkOrder"> | string
+    endDate?: StringNullableFilter<"WorkOrder"> | string | null
     estimatedCost?: DecimalNullableFilter<"WorkOrder"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"WorkOrder"> | Date | string
     updatedAt?: DateTimeFilter<"WorkOrder"> | Date | string
@@ -12818,8 +14358,8 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"WorkOrder"> | string | null
     partyId?: StringNullableWithAggregatesFilter<"WorkOrder"> | string | null
     status?: EnumWorkStatusWithAggregatesFilter<"WorkOrder"> | $Enums.WorkStatus
-    startDate?: DateTimeWithAggregatesFilter<"WorkOrder"> | Date | string
-    endDate?: DateTimeNullableWithAggregatesFilter<"WorkOrder"> | Date | string | null
+    startDate?: StringWithAggregatesFilter<"WorkOrder"> | string
+    endDate?: StringNullableWithAggregatesFilter<"WorkOrder"> | string | null
     estimatedCost?: DecimalNullableWithAggregatesFilter<"WorkOrder"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeWithAggregatesFilter<"WorkOrder"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"WorkOrder"> | Date | string
@@ -12835,7 +14375,6 @@ export namespace Prisma {
     year?: IntFilter<"AttendanceDay"> | number
     month?: IntFilter<"AttendanceDay"> | number
     day?: IntFilter<"AttendanceDay"> | number
-    createdAt?: DateTimeFilter<"AttendanceDay"> | Date | string
     items?: AttendanceItemListRelationFilter
   }
 
@@ -12846,7 +14385,6 @@ export namespace Prisma {
     year?: SortOrder
     month?: SortOrder
     day?: SortOrder
-    createdAt?: SortOrder
     items?: AttendanceItemOrderByRelationAggregateInput
   }
 
@@ -12860,7 +14398,6 @@ export namespace Prisma {
     year?: IntFilter<"AttendanceDay"> | number
     month?: IntFilter<"AttendanceDay"> | number
     day?: IntFilter<"AttendanceDay"> | number
-    createdAt?: DateTimeFilter<"AttendanceDay"> | Date | string
     items?: AttendanceItemListRelationFilter
   }, "id" | "date">
 
@@ -12871,7 +14408,6 @@ export namespace Prisma {
     year?: SortOrder
     month?: SortOrder
     day?: SortOrder
-    createdAt?: SortOrder
     _count?: AttendanceDayCountOrderByAggregateInput
     _avg?: AttendanceDayAvgOrderByAggregateInput
     _max?: AttendanceDayMaxOrderByAggregateInput
@@ -12889,7 +14425,6 @@ export namespace Prisma {
     year?: IntWithAggregatesFilter<"AttendanceDay"> | number
     month?: IntWithAggregatesFilter<"AttendanceDay"> | number
     day?: IntWithAggregatesFilter<"AttendanceDay"> | number
-    createdAt?: DateTimeWithAggregatesFilter<"AttendanceDay"> | Date | string
   }
 
   export type AttendanceItemWhereInput = {
@@ -12901,7 +14436,6 @@ export namespace Prisma {
     workerId?: StringFilter<"AttendanceItem"> | string
     status?: EnumAttendanceStatusFilter<"AttendanceItem"> | $Enums.AttendanceStatus
     hoursWorked?: FloatNullableFilter<"AttendanceItem"> | number | null
-    overtimeHours?: FloatNullableFilter<"AttendanceItem"> | number | null
     wage?: DecimalNullableFilter<"AttendanceItem"> | Decimal | DecimalJsLike | number | string | null
     worker?: XOR<WorkerScalarRelationFilter, WorkerWhereInput>
     attendanceDay?: XOR<AttendanceDayScalarRelationFilter, AttendanceDayWhereInput>
@@ -12913,7 +14447,6 @@ export namespace Prisma {
     workerId?: SortOrder
     status?: SortOrder
     hoursWorked?: SortOrderInput | SortOrder
-    overtimeHours?: SortOrderInput | SortOrder
     wage?: SortOrderInput | SortOrder
     worker?: WorkerOrderByWithRelationInput
     attendanceDay?: AttendanceDayOrderByWithRelationInput
@@ -12929,7 +14462,6 @@ export namespace Prisma {
     workerId?: StringFilter<"AttendanceItem"> | string
     status?: EnumAttendanceStatusFilter<"AttendanceItem"> | $Enums.AttendanceStatus
     hoursWorked?: FloatNullableFilter<"AttendanceItem"> | number | null
-    overtimeHours?: FloatNullableFilter<"AttendanceItem"> | number | null
     wage?: DecimalNullableFilter<"AttendanceItem"> | Decimal | DecimalJsLike | number | string | null
     worker?: XOR<WorkerScalarRelationFilter, WorkerWhereInput>
     attendanceDay?: XOR<AttendanceDayScalarRelationFilter, AttendanceDayWhereInput>
@@ -12941,7 +14473,6 @@ export namespace Prisma {
     workerId?: SortOrder
     status?: SortOrder
     hoursWorked?: SortOrderInput | SortOrder
-    overtimeHours?: SortOrderInput | SortOrder
     wage?: SortOrderInput | SortOrder
     _count?: AttendanceItemCountOrderByAggregateInput
     _avg?: AttendanceItemAvgOrderByAggregateInput
@@ -12959,7 +14490,6 @@ export namespace Prisma {
     workerId?: StringWithAggregatesFilter<"AttendanceItem"> | string
     status?: EnumAttendanceStatusWithAggregatesFilter<"AttendanceItem"> | $Enums.AttendanceStatus
     hoursWorked?: FloatNullableWithAggregatesFilter<"AttendanceItem"> | number | null
-    overtimeHours?: FloatNullableWithAggregatesFilter<"AttendanceItem"> | number | null
     wage?: DecimalNullableWithAggregatesFilter<"AttendanceItem"> | Decimal | DecimalJsLike | number | string | null
   }
 
@@ -12969,31 +14499,53 @@ export namespace Prisma {
     NOT?: InvoiceWhereInput | InvoiceWhereInput[]
     id?: StringFilter<"Invoice"> | string
     invoiceNumber?: StringFilter<"Invoice"> | string
-    partyId?: StringFilter<"Invoice"> | string
     issueDate?: DateTimeFilter<"Invoice"> | Date | string
-    subtotal?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    partyId?: StringFilter<"Invoice"> | string
+    shipToId?: StringNullableFilter<"Invoice"> | string | null
+    chNo?: StringNullableFilter<"Invoice"> | string | null
+    poNo?: StringNullableFilter<"Invoice"> | string | null
+    stateCode?: StringNullableFilter<"Invoice"> | string | null
+    vechileNo?: StringNullableFilter<"Invoice"> | string | null
+    taxableAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    isLabourBill?: BoolFilter<"Invoice"> | boolean
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
-    updatedAt?: DateTimeFilter<"Invoice"> | Date | string
+    financialYearId?: StringNullableFilter<"Invoice"> | string | null
     party?: XOR<PartyScalarRelationFilter, PartyWhereInput>
+    shipTo?: XOR<PartyNullableScalarRelationFilter, PartyWhereInput> | null
     items?: InvoiceItemListRelationFilter
+    financialYear?: XOR<FinancialYearNullableScalarRelationFilter, FinancialYearWhereInput> | null
   }
 
   export type InvoiceOrderByWithRelationInput = {
     id?: SortOrder
     invoiceNumber?: SortOrder
-    partyId?: SortOrder
     issueDate?: SortOrder
-    subtotal?: SortOrder
-    gstAmount?: SortOrder
+    partyId?: SortOrder
+    shipToId?: SortOrderInput | SortOrder
+    chNo?: SortOrderInput | SortOrder
+    poNo?: SortOrderInput | SortOrder
+    stateCode?: SortOrderInput | SortOrder
+    vechileNo?: SortOrderInput | SortOrder
+    taxableAmount?: SortOrder
+    sgst?: SortOrder
+    cgst?: SortOrder
+    igst?: SortOrder
+    roundOff?: SortOrder
     totalAmount?: SortOrder
     status?: SortOrder
+    isLabourBill?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    financialYearId?: SortOrderInput | SortOrder
     party?: PartyOrderByWithRelationInput
+    shipTo?: PartyOrderByWithRelationInput
     items?: InvoiceItemOrderByRelationAggregateInput
+    financialYear?: FinancialYearOrderByWithRelationInput
   }
 
   export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
@@ -13002,29 +14554,49 @@ export namespace Prisma {
     AND?: InvoiceWhereInput | InvoiceWhereInput[]
     OR?: InvoiceWhereInput[]
     NOT?: InvoiceWhereInput | InvoiceWhereInput[]
-    partyId?: StringFilter<"Invoice"> | string
     issueDate?: DateTimeFilter<"Invoice"> | Date | string
-    subtotal?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    partyId?: StringFilter<"Invoice"> | string
+    shipToId?: StringNullableFilter<"Invoice"> | string | null
+    chNo?: StringNullableFilter<"Invoice"> | string | null
+    poNo?: StringNullableFilter<"Invoice"> | string | null
+    stateCode?: StringNullableFilter<"Invoice"> | string | null
+    vechileNo?: StringNullableFilter<"Invoice"> | string | null
+    taxableAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    isLabourBill?: BoolFilter<"Invoice"> | boolean
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
-    updatedAt?: DateTimeFilter<"Invoice"> | Date | string
+    financialYearId?: StringNullableFilter<"Invoice"> | string | null
     party?: XOR<PartyScalarRelationFilter, PartyWhereInput>
+    shipTo?: XOR<PartyNullableScalarRelationFilter, PartyWhereInput> | null
     items?: InvoiceItemListRelationFilter
+    financialYear?: XOR<FinancialYearNullableScalarRelationFilter, FinancialYearWhereInput> | null
   }, "id" | "invoiceNumber">
 
   export type InvoiceOrderByWithAggregationInput = {
     id?: SortOrder
     invoiceNumber?: SortOrder
-    partyId?: SortOrder
     issueDate?: SortOrder
-    subtotal?: SortOrder
-    gstAmount?: SortOrder
+    partyId?: SortOrder
+    shipToId?: SortOrderInput | SortOrder
+    chNo?: SortOrderInput | SortOrder
+    poNo?: SortOrderInput | SortOrder
+    stateCode?: SortOrderInput | SortOrder
+    vechileNo?: SortOrderInput | SortOrder
+    taxableAmount?: SortOrder
+    sgst?: SortOrder
+    cgst?: SortOrder
+    igst?: SortOrder
+    roundOff?: SortOrder
     totalAmount?: SortOrder
     status?: SortOrder
+    isLabourBill?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    financialYearId?: SortOrderInput | SortOrder
     _count?: InvoiceCountOrderByAggregateInput
     _avg?: InvoiceAvgOrderByAggregateInput
     _max?: InvoiceMaxOrderByAggregateInput
@@ -13038,14 +14610,23 @@ export namespace Prisma {
     NOT?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Invoice"> | string
     invoiceNumber?: StringWithAggregatesFilter<"Invoice"> | string
-    partyId?: StringWithAggregatesFilter<"Invoice"> | string
     issueDate?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
-    subtotal?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    partyId?: StringWithAggregatesFilter<"Invoice"> | string
+    shipToId?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    chNo?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    poNo?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    stateCode?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    vechileNo?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    taxableAmount?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    igst?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusWithAggregatesFilter<"Invoice"> | $Enums.InvoiceStatus
+    isLabourBill?: BoolWithAggregatesFilter<"Invoice"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
+    financialYearId?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
   }
 
   export type InvoiceItemWhereInput = {
@@ -13054,6 +14635,8 @@ export namespace Prisma {
     NOT?: InvoiceItemWhereInput | InvoiceItemWhereInput[]
     id?: StringFilter<"InvoiceItem"> | string
     invoiceId?: StringFilter<"InvoiceItem"> | string
+    srno?: IntFilter<"InvoiceItem"> | number
+    subdescription?: StringNullableListFilter<"InvoiceItem">
     description?: StringFilter<"InvoiceItem"> | string
     quantity?: DecimalFilter<"InvoiceItem"> | Decimal | DecimalJsLike | number | string
     rate?: DecimalFilter<"InvoiceItem"> | Decimal | DecimalJsLike | number | string
@@ -13064,6 +14647,8 @@ export namespace Prisma {
   export type InvoiceItemOrderByWithRelationInput = {
     id?: SortOrder
     invoiceId?: SortOrder
+    srno?: SortOrder
+    subdescription?: SortOrder
     description?: SortOrder
     quantity?: SortOrder
     rate?: SortOrder
@@ -13077,6 +14662,8 @@ export namespace Prisma {
     OR?: InvoiceItemWhereInput[]
     NOT?: InvoiceItemWhereInput | InvoiceItemWhereInput[]
     invoiceId?: StringFilter<"InvoiceItem"> | string
+    srno?: IntFilter<"InvoiceItem"> | number
+    subdescription?: StringNullableListFilter<"InvoiceItem">
     description?: StringFilter<"InvoiceItem"> | string
     quantity?: DecimalFilter<"InvoiceItem"> | Decimal | DecimalJsLike | number | string
     rate?: DecimalFilter<"InvoiceItem"> | Decimal | DecimalJsLike | number | string
@@ -13087,6 +14674,8 @@ export namespace Prisma {
   export type InvoiceItemOrderByWithAggregationInput = {
     id?: SortOrder
     invoiceId?: SortOrder
+    srno?: SortOrder
+    subdescription?: SortOrder
     description?: SortOrder
     quantity?: SortOrder
     rate?: SortOrder
@@ -13104,6 +14693,8 @@ export namespace Prisma {
     NOT?: InvoiceItemScalarWhereWithAggregatesInput | InvoiceItemScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"InvoiceItem"> | string
     invoiceId?: StringWithAggregatesFilter<"InvoiceItem"> | string
+    srno?: IntWithAggregatesFilter<"InvoiceItem"> | number
+    subdescription?: StringNullableListFilter<"InvoiceItem">
     description?: StringWithAggregatesFilter<"InvoiceItem"> | string
     quantity?: DecimalWithAggregatesFilter<"InvoiceItem"> | Decimal | DecimalJsLike | number | string
     rate?: DecimalWithAggregatesFilter<"InvoiceItem"> | Decimal | DecimalJsLike | number | string
@@ -13192,8 +14783,8 @@ export namespace Prisma {
     debit?: DecimalFilter<"LedgerEntry"> | Decimal | DecimalJsLike | number | string
     credit?: DecimalFilter<"LedgerEntry"> | Decimal | DecimalJsLike | number | string
     date?: DateTimeFilter<"LedgerEntry"> | Date | string
-    createdAt?: DateTimeFilter<"LedgerEntry"> | Date | string
     paymentId?: StringNullableFilter<"LedgerEntry"> | string | null
+    createdAt?: DateTimeFilter<"LedgerEntry"> | Date | string
     party?: XOR<PartyScalarRelationFilter, PartyWhereInput>
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
   }
@@ -13207,8 +14798,8 @@ export namespace Prisma {
     debit?: SortOrder
     credit?: SortOrder
     date?: SortOrder
-    createdAt?: SortOrder
     paymentId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     party?: PartyOrderByWithRelationInput
     payment?: PaymentOrderByWithRelationInput
   }
@@ -13225,8 +14816,8 @@ export namespace Prisma {
     debit?: DecimalFilter<"LedgerEntry"> | Decimal | DecimalJsLike | number | string
     credit?: DecimalFilter<"LedgerEntry"> | Decimal | DecimalJsLike | number | string
     date?: DateTimeFilter<"LedgerEntry"> | Date | string
-    createdAt?: DateTimeFilter<"LedgerEntry"> | Date | string
     paymentId?: StringNullableFilter<"LedgerEntry"> | string | null
+    createdAt?: DateTimeFilter<"LedgerEntry"> | Date | string
     party?: XOR<PartyScalarRelationFilter, PartyWhereInput>
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
   }, "id">
@@ -13240,8 +14831,8 @@ export namespace Prisma {
     debit?: SortOrder
     credit?: SortOrder
     date?: SortOrder
-    createdAt?: SortOrder
     paymentId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     _count?: LedgerEntryCountOrderByAggregateInput
     _avg?: LedgerEntryAvgOrderByAggregateInput
     _max?: LedgerEntryMaxOrderByAggregateInput
@@ -13261,8 +14852,8 @@ export namespace Prisma {
     debit?: DecimalWithAggregatesFilter<"LedgerEntry"> | Decimal | DecimalJsLike | number | string
     credit?: DecimalWithAggregatesFilter<"LedgerEntry"> | Decimal | DecimalJsLike | number | string
     date?: DateTimeWithAggregatesFilter<"LedgerEntry"> | Date | string
-    createdAt?: DateTimeWithAggregatesFilter<"LedgerEntry"> | Date | string
     paymentId?: StringNullableWithAggregatesFilter<"LedgerEntry"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"LedgerEntry"> | Date | string
   }
 
   export type PartyCreateInput = {
@@ -13271,10 +14862,13 @@ export namespace Prisma {
     phone?: string | null
     gstNumber?: string | null
     address?: string | null
+    stateCode?: string | null
     type: $Enums.PartyType
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     invoices?: InvoiceCreateNestedManyWithoutPartyInput
+    shippingFor?: InvoiceCreateNestedManyWithoutShipToInput
     payments?: PaymentCreateNestedManyWithoutPartyInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutPartyInput
     workOrders?: WorkOrderCreateNestedManyWithoutPartyInput
@@ -13286,10 +14880,13 @@ export namespace Prisma {
     phone?: string | null
     gstNumber?: string | null
     address?: string | null
+    stateCode?: string | null
     type: $Enums.PartyType
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPartyInput
+    shippingFor?: InvoiceUncheckedCreateNestedManyWithoutShipToInput
     payments?: PaymentUncheckedCreateNestedManyWithoutPartyInput
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutPartyInput
     workOrders?: WorkOrderUncheckedCreateNestedManyWithoutPartyInput
@@ -13301,10 +14898,13 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUpdateManyWithoutPartyNestedInput
+    shippingFor?: InvoiceUpdateManyWithoutShipToNestedInput
     payments?: PaymentUpdateManyWithoutPartyNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutPartyNestedInput
     workOrders?: WorkOrderUpdateManyWithoutPartyNestedInput
@@ -13316,10 +14916,13 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUncheckedUpdateManyWithoutPartyNestedInput
+    shippingFor?: InvoiceUncheckedUpdateManyWithoutShipToNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutPartyNestedInput
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutPartyNestedInput
     workOrders?: WorkOrderUncheckedUpdateManyWithoutPartyNestedInput
@@ -13331,7 +14934,9 @@ export namespace Prisma {
     phone?: string | null
     gstNumber?: string | null
     address?: string | null
+    stateCode?: string | null
     type: $Enums.PartyType
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13342,7 +14947,9 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13353,7 +14960,9 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13366,7 +14975,6 @@ export namespace Prisma {
     defaultWage: Decimal | DecimalJsLike | number | string
     isActive?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
     attendances?: AttendanceItemCreateNestedManyWithoutWorkerInput
   }
 
@@ -13378,7 +14986,6 @@ export namespace Prisma {
     defaultWage: Decimal | DecimalJsLike | number | string
     isActive?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
     attendances?: AttendanceItemUncheckedCreateNestedManyWithoutWorkerInput
   }
 
@@ -13390,7 +14997,6 @@ export namespace Prisma {
     defaultWage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     attendances?: AttendanceItemUpdateManyWithoutWorkerNestedInput
   }
 
@@ -13402,7 +15008,6 @@ export namespace Prisma {
     defaultWage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     attendances?: AttendanceItemUncheckedUpdateManyWithoutWorkerNestedInput
   }
 
@@ -13414,7 +15019,6 @@ export namespace Prisma {
     defaultWage: Decimal | DecimalJsLike | number | string
     isActive?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type WorkerUpdateManyMutationInput = {
@@ -13425,7 +15029,6 @@ export namespace Prisma {
     defaultWage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WorkerUncheckedUpdateManyInput = {
@@ -13436,7 +15039,80 @@ export namespace Prisma {
     defaultWage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialYearCreateInput = {
+    id?: string
+    label: string
+    startDate?: string | null
+    endDate?: string | null
+    isActive?: boolean
+    isClosed?: boolean
+    createdAt?: Date | string
+    invoices?: InvoiceCreateNestedManyWithoutFinancialYearInput
+  }
+
+  export type FinancialYearUncheckedCreateInput = {
+    id?: string
+    label: string
+    startDate?: string | null
+    endDate?: string | null
+    isActive?: boolean
+    isClosed?: boolean
+    createdAt?: Date | string
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutFinancialYearInput
+  }
+
+  export type FinancialYearUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isClosed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoices?: InvoiceUpdateManyWithoutFinancialYearNestedInput
+  }
+
+  export type FinancialYearUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isClosed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoices?: InvoiceUncheckedUpdateManyWithoutFinancialYearNestedInput
+  }
+
+  export type FinancialYearCreateManyInput = {
+    id?: string
+    label: string
+    startDate?: string | null
+    endDate?: string | null
+    isActive?: boolean
+    isClosed?: boolean
+    createdAt?: Date | string
+  }
+
+  export type FinancialYearUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isClosed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialYearUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isClosed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WorkOrderCreateInput = {
@@ -13444,8 +15120,8 @@ export namespace Prisma {
     title: string
     description?: string | null
     status?: $Enums.WorkStatus
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
     estimatedCost?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13458,8 +15134,8 @@ export namespace Prisma {
     description?: string | null
     partyId?: string | null
     status?: $Enums.WorkStatus
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
     estimatedCost?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13470,8 +15146,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumWorkStatusFieldUpdateOperationsInput | $Enums.WorkStatus
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13484,8 +15160,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     partyId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumWorkStatusFieldUpdateOperationsInput | $Enums.WorkStatus
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13497,8 +15173,8 @@ export namespace Prisma {
     description?: string | null
     partyId?: string | null
     status?: $Enums.WorkStatus
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
     estimatedCost?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13509,8 +15185,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumWorkStatusFieldUpdateOperationsInput | $Enums.WorkStatus
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13522,8 +15198,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     partyId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumWorkStatusFieldUpdateOperationsInput | $Enums.WorkStatus
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13536,7 +15212,6 @@ export namespace Prisma {
     year: number
     month: number
     day: number
-    createdAt?: Date | string
     items?: AttendanceItemCreateNestedManyWithoutAttendanceDayInput
   }
 
@@ -13547,7 +15222,6 @@ export namespace Prisma {
     year: number
     month: number
     day: number
-    createdAt?: Date | string
     items?: AttendanceItemUncheckedCreateNestedManyWithoutAttendanceDayInput
   }
 
@@ -13558,7 +15232,6 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     day?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: AttendanceItemUpdateManyWithoutAttendanceDayNestedInput
   }
 
@@ -13569,7 +15242,6 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     day?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: AttendanceItemUncheckedUpdateManyWithoutAttendanceDayNestedInput
   }
 
@@ -13580,7 +15252,6 @@ export namespace Prisma {
     year: number
     month: number
     day: number
-    createdAt?: Date | string
   }
 
   export type AttendanceDayUpdateManyMutationInput = {
@@ -13590,7 +15261,6 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     day?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AttendanceDayUncheckedUpdateManyInput = {
@@ -13600,14 +15270,12 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     day?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AttendanceItemCreateInput = {
     id?: string
     status: $Enums.AttendanceStatus
     hoursWorked?: number | null
-    overtimeHours?: number | null
     wage?: Decimal | DecimalJsLike | number | string | null
     worker: WorkerCreateNestedOneWithoutAttendancesInput
     attendanceDay: AttendanceDayCreateNestedOneWithoutItemsInput
@@ -13619,7 +15287,6 @@ export namespace Prisma {
     workerId: string
     status: $Enums.AttendanceStatus
     hoursWorked?: number | null
-    overtimeHours?: number | null
     wage?: Decimal | DecimalJsLike | number | string | null
   }
 
@@ -13627,7 +15294,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     hoursWorked?: NullableFloatFieldUpdateOperationsInput | number | null
-    overtimeHours?: NullableFloatFieldUpdateOperationsInput | number | null
     wage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     worker?: WorkerUpdateOneRequiredWithoutAttendancesNestedInput
     attendanceDay?: AttendanceDayUpdateOneRequiredWithoutItemsNestedInput
@@ -13639,7 +15305,6 @@ export namespace Prisma {
     workerId?: StringFieldUpdateOperationsInput | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     hoursWorked?: NullableFloatFieldUpdateOperationsInput | number | null
-    overtimeHours?: NullableFloatFieldUpdateOperationsInput | number | null
     wage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
@@ -13649,7 +15314,6 @@ export namespace Prisma {
     workerId: string
     status: $Enums.AttendanceStatus
     hoursWorked?: number | null
-    overtimeHours?: number | null
     wage?: Decimal | DecimalJsLike | number | string | null
   }
 
@@ -13657,7 +15321,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     hoursWorked?: NullableFloatFieldUpdateOperationsInput | number | null
-    overtimeHours?: NullableFloatFieldUpdateOperationsInput | number | null
     wage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
@@ -13667,7 +15330,6 @@ export namespace Prisma {
     workerId?: StringFieldUpdateOperationsInput | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     hoursWorked?: NullableFloatFieldUpdateOperationsInput | number | null
-    overtimeHours?: NullableFloatFieldUpdateOperationsInput | number | null
     wage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
@@ -13675,27 +15337,45 @@ export namespace Prisma {
     id?: string
     invoiceNumber: string
     issueDate: Date | string
-    subtotal: Decimal | DecimalJsLike | number | string
-    gstAmount: Decimal | DecimalJsLike | number | string
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
     totalAmount: Decimal | DecimalJsLike | number | string
     status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
     party: PartyCreateNestedOneWithoutInvoicesInput
+    shipTo?: PartyCreateNestedOneWithoutShippingForInput
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
+    financialYear?: FinancialYearCreateNestedOneWithoutInvoicesInput
   }
 
   export type InvoiceUncheckedCreateInput = {
     id?: string
     invoiceNumber: string
-    partyId: string
     issueDate: Date | string
-    subtotal: Decimal | DecimalJsLike | number | string
-    gstAmount: Decimal | DecimalJsLike | number | string
+    partyId: string
+    shipToId?: string | null
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
     totalAmount: Decimal | DecimalJsLike | number | string
     status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
+    financialYearId?: string | null
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
   }
 
@@ -13703,72 +15383,117 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     party?: PartyUpdateOneRequiredWithoutInvoicesNestedInput
+    shipTo?: PartyUpdateOneWithoutShippingForNestedInput
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
+    financialYear?: FinancialYearUpdateOneWithoutInvoicesNestedInput
   }
 
   export type InvoiceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
-    partyId?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    partyId?: StringFieldUpdateOperationsInput | string
+    shipToId?: NullableStringFieldUpdateOperationsInput | string | null
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    financialYearId?: NullableStringFieldUpdateOperationsInput | string | null
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceCreateManyInput = {
     id?: string
     invoiceNumber: string
-    partyId: string
     issueDate: Date | string
-    subtotal: Decimal | DecimalJsLike | number | string
-    gstAmount: Decimal | DecimalJsLike | number | string
+    partyId: string
+    shipToId?: string | null
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
     totalAmount: Decimal | DecimalJsLike | number | string
     status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
+    financialYearId?: string | null
   }
 
   export type InvoiceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InvoiceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
-    partyId?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    partyId?: StringFieldUpdateOperationsInput | string
+    shipToId?: NullableStringFieldUpdateOperationsInput | string | null
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    financialYearId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InvoiceItemCreateInput = {
     id?: string
+    srno?: number
+    subdescription?: InvoiceItemCreatesubdescriptionInput | string[]
     description: string
-    quantity: Decimal | DecimalJsLike | number | string
+    quantity?: Decimal | DecimalJsLike | number | string
     rate: Decimal | DecimalJsLike | number | string
     amount: Decimal | DecimalJsLike | number | string
     invoice: InvoiceCreateNestedOneWithoutItemsInput
@@ -13777,14 +15502,18 @@ export namespace Prisma {
   export type InvoiceItemUncheckedCreateInput = {
     id?: string
     invoiceId: string
+    srno?: number
+    subdescription?: InvoiceItemCreatesubdescriptionInput | string[]
     description: string
-    quantity: Decimal | DecimalJsLike | number | string
+    quantity?: Decimal | DecimalJsLike | number | string
     rate: Decimal | DecimalJsLike | number | string
     amount: Decimal | DecimalJsLike | number | string
   }
 
   export type InvoiceItemUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    srno?: IntFieldUpdateOperationsInput | number
+    subdescription?: InvoiceItemUpdatesubdescriptionInput | string[]
     description?: StringFieldUpdateOperationsInput | string
     quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13795,6 +15524,8 @@ export namespace Prisma {
   export type InvoiceItemUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     invoiceId?: StringFieldUpdateOperationsInput | string
+    srno?: IntFieldUpdateOperationsInput | number
+    subdescription?: InvoiceItemUpdatesubdescriptionInput | string[]
     description?: StringFieldUpdateOperationsInput | string
     quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13804,14 +15535,18 @@ export namespace Prisma {
   export type InvoiceItemCreateManyInput = {
     id?: string
     invoiceId: string
+    srno?: number
+    subdescription?: InvoiceItemCreatesubdescriptionInput | string[]
     description: string
-    quantity: Decimal | DecimalJsLike | number | string
+    quantity?: Decimal | DecimalJsLike | number | string
     rate: Decimal | DecimalJsLike | number | string
     amount: Decimal | DecimalJsLike | number | string
   }
 
   export type InvoiceItemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    srno?: IntFieldUpdateOperationsInput | number
+    subdescription?: InvoiceItemUpdatesubdescriptionInput | string[]
     description?: StringFieldUpdateOperationsInput | string
     quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13821,6 +15556,8 @@ export namespace Prisma {
   export type InvoiceItemUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     invoiceId?: StringFieldUpdateOperationsInput | string
+    srno?: IntFieldUpdateOperationsInput | number
+    subdescription?: InvoiceItemUpdatesubdescriptionInput | string[]
     description?: StringFieldUpdateOperationsInput | string
     quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -13922,8 +15659,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     credit?: Decimal | DecimalJsLike | number | string
     date: Date | string
-    createdAt?: Date | string
     paymentId?: string | null
+    createdAt?: Date | string
   }
 
   export type LedgerEntryUpdateInput = {
@@ -13948,8 +15685,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LedgerEntryCreateManyInput = {
@@ -13961,8 +15698,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     credit?: Decimal | DecimalJsLike | number | string
     date: Date | string
-    createdAt?: Date | string
     paymentId?: string | null
+    createdAt?: Date | string
   }
 
   export type LedgerEntryUpdateManyMutationInput = {
@@ -13985,8 +15722,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -14024,6 +15761,11 @@ export namespace Prisma {
     in?: $Enums.PartyType[] | ListEnumPartyTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.PartyType[] | ListEnumPartyTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumPartyTypeFilter<$PrismaModel> | $Enums.PartyType
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -14088,7 +15830,9 @@ export namespace Prisma {
     phone?: SortOrder
     gstNumber?: SortOrder
     address?: SortOrder
+    stateCode?: SortOrder
     type?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14099,7 +15843,9 @@ export namespace Prisma {
     phone?: SortOrder
     gstNumber?: SortOrder
     address?: SortOrder
+    stateCode?: SortOrder
     type?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14110,7 +15856,9 @@ export namespace Prisma {
     phone?: SortOrder
     gstNumber?: SortOrder
     address?: SortOrder
+    stateCode?: SortOrder
     type?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14161,6 +15909,14 @@ export namespace Prisma {
     _max?: NestedEnumPartyTypeFilter<$PrismaModel>
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -14186,11 +15942,6 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type AttendanceItemListRelationFilter = {
     every?: AttendanceItemWhereInput
     some?: AttendanceItemWhereInput
@@ -14209,7 +15960,6 @@ export namespace Prisma {
     defaultWage?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type WorkerAvgOrderByAggregateInput = {
@@ -14224,7 +15974,6 @@ export namespace Prisma {
     defaultWage?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type WorkerMinOrderByAggregateInput = {
@@ -14235,7 +15984,6 @@ export namespace Prisma {
     defaultWage?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type WorkerSumOrderByAggregateInput = {
@@ -14258,12 +16006,34 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type FinancialYearCountOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    isActive?: SortOrder
+    isClosed?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FinancialYearMaxOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    isActive?: SortOrder
+    isClosed?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FinancialYearMinOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    isActive?: SortOrder
+    isClosed?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type EnumWorkStatusFilter<$PrismaModel = never> = {
@@ -14271,17 +16041,6 @@ export namespace Prisma {
     in?: $Enums.WorkStatus[] | ListEnumWorkStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.WorkStatus[] | ListEnumWorkStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumWorkStatusFilter<$PrismaModel> | $Enums.WorkStatus
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type DecimalNullableFilter<$PrismaModel = never> = {
@@ -14357,20 +16116,6 @@ export namespace Prisma {
     _max?: NestedEnumWorkStatusFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
@@ -14405,7 +16150,6 @@ export namespace Prisma {
     year?: SortOrder
     month?: SortOrder
     day?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type AttendanceDayAvgOrderByAggregateInput = {
@@ -14421,7 +16165,6 @@ export namespace Prisma {
     year?: SortOrder
     month?: SortOrder
     day?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type AttendanceDayMinOrderByAggregateInput = {
@@ -14431,7 +16174,6 @@ export namespace Prisma {
     year?: SortOrder
     month?: SortOrder
     day?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type AttendanceDaySumOrderByAggregateInput = {
@@ -14495,13 +16237,11 @@ export namespace Prisma {
     workerId?: SortOrder
     status?: SortOrder
     hoursWorked?: SortOrder
-    overtimeHours?: SortOrder
     wage?: SortOrder
   }
 
   export type AttendanceItemAvgOrderByAggregateInput = {
     hoursWorked?: SortOrder
-    overtimeHours?: SortOrder
     wage?: SortOrder
   }
 
@@ -14511,7 +16251,6 @@ export namespace Prisma {
     workerId?: SortOrder
     status?: SortOrder
     hoursWorked?: SortOrder
-    overtimeHours?: SortOrder
     wage?: SortOrder
   }
 
@@ -14521,13 +16260,11 @@ export namespace Prisma {
     workerId?: SortOrder
     status?: SortOrder
     hoursWorked?: SortOrder
-    overtimeHours?: SortOrder
     wage?: SortOrder
   }
 
   export type AttendanceItemSumOrderByAggregateInput = {
     hoursWorked?: SortOrder
-    overtimeHours?: SortOrder
     wage?: SortOrder
   }
 
@@ -14575,6 +16312,11 @@ export namespace Prisma {
     none?: InvoiceItemWhereInput
   }
 
+  export type FinancialYearNullableScalarRelationFilter = {
+    is?: FinancialYearWhereInput | null
+    isNot?: FinancialYearWhereInput | null
+  }
+
   export type InvoiceItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -14582,51 +16324,84 @@ export namespace Prisma {
   export type InvoiceCountOrderByAggregateInput = {
     id?: SortOrder
     invoiceNumber?: SortOrder
-    partyId?: SortOrder
     issueDate?: SortOrder
-    subtotal?: SortOrder
-    gstAmount?: SortOrder
+    partyId?: SortOrder
+    shipToId?: SortOrder
+    chNo?: SortOrder
+    poNo?: SortOrder
+    stateCode?: SortOrder
+    vechileNo?: SortOrder
+    taxableAmount?: SortOrder
+    sgst?: SortOrder
+    cgst?: SortOrder
+    igst?: SortOrder
+    roundOff?: SortOrder
     totalAmount?: SortOrder
     status?: SortOrder
+    isLabourBill?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    financialYearId?: SortOrder
   }
 
   export type InvoiceAvgOrderByAggregateInput = {
-    subtotal?: SortOrder
-    gstAmount?: SortOrder
+    taxableAmount?: SortOrder
+    sgst?: SortOrder
+    cgst?: SortOrder
+    igst?: SortOrder
+    roundOff?: SortOrder
     totalAmount?: SortOrder
   }
 
   export type InvoiceMaxOrderByAggregateInput = {
     id?: SortOrder
     invoiceNumber?: SortOrder
-    partyId?: SortOrder
     issueDate?: SortOrder
-    subtotal?: SortOrder
-    gstAmount?: SortOrder
+    partyId?: SortOrder
+    shipToId?: SortOrder
+    chNo?: SortOrder
+    poNo?: SortOrder
+    stateCode?: SortOrder
+    vechileNo?: SortOrder
+    taxableAmount?: SortOrder
+    sgst?: SortOrder
+    cgst?: SortOrder
+    igst?: SortOrder
+    roundOff?: SortOrder
     totalAmount?: SortOrder
     status?: SortOrder
+    isLabourBill?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    financialYearId?: SortOrder
   }
 
   export type InvoiceMinOrderByAggregateInput = {
     id?: SortOrder
     invoiceNumber?: SortOrder
-    partyId?: SortOrder
     issueDate?: SortOrder
-    subtotal?: SortOrder
-    gstAmount?: SortOrder
+    partyId?: SortOrder
+    shipToId?: SortOrder
+    chNo?: SortOrder
+    poNo?: SortOrder
+    stateCode?: SortOrder
+    vechileNo?: SortOrder
+    taxableAmount?: SortOrder
+    sgst?: SortOrder
+    cgst?: SortOrder
+    igst?: SortOrder
+    roundOff?: SortOrder
     totalAmount?: SortOrder
     status?: SortOrder
+    isLabourBill?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    financialYearId?: SortOrder
   }
 
   export type InvoiceSumOrderByAggregateInput = {
-    subtotal?: SortOrder
-    gstAmount?: SortOrder
+    taxableAmount?: SortOrder
+    sgst?: SortOrder
+    cgst?: SortOrder
+    igst?: SortOrder
+    roundOff?: SortOrder
     totalAmount?: SortOrder
   }
 
@@ -14640,6 +16415,14 @@ export namespace Prisma {
     _max?: NestedEnumInvoiceStatusFilter<$PrismaModel>
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type InvoiceScalarRelationFilter = {
     is?: InvoiceWhereInput
     isNot?: InvoiceWhereInput
@@ -14648,6 +16431,8 @@ export namespace Prisma {
   export type InvoiceItemCountOrderByAggregateInput = {
     id?: SortOrder
     invoiceId?: SortOrder
+    srno?: SortOrder
+    subdescription?: SortOrder
     description?: SortOrder
     quantity?: SortOrder
     rate?: SortOrder
@@ -14655,6 +16440,7 @@ export namespace Prisma {
   }
 
   export type InvoiceItemAvgOrderByAggregateInput = {
+    srno?: SortOrder
     quantity?: SortOrder
     rate?: SortOrder
     amount?: SortOrder
@@ -14663,6 +16449,7 @@ export namespace Prisma {
   export type InvoiceItemMaxOrderByAggregateInput = {
     id?: SortOrder
     invoiceId?: SortOrder
+    srno?: SortOrder
     description?: SortOrder
     quantity?: SortOrder
     rate?: SortOrder
@@ -14672,6 +16459,7 @@ export namespace Prisma {
   export type InvoiceItemMinOrderByAggregateInput = {
     id?: SortOrder
     invoiceId?: SortOrder
+    srno?: SortOrder
     description?: SortOrder
     quantity?: SortOrder
     rate?: SortOrder
@@ -14679,6 +16467,7 @@ export namespace Prisma {
   }
 
   export type InvoiceItemSumOrderByAggregateInput = {
+    srno?: SortOrder
     quantity?: SortOrder
     rate?: SortOrder
     amount?: SortOrder
@@ -14743,8 +16532,8 @@ export namespace Prisma {
     debit?: SortOrder
     credit?: SortOrder
     date?: SortOrder
-    createdAt?: SortOrder
     paymentId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type LedgerEntryAvgOrderByAggregateInput = {
@@ -14761,8 +16550,8 @@ export namespace Prisma {
     debit?: SortOrder
     credit?: SortOrder
     date?: SortOrder
-    createdAt?: SortOrder
     paymentId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type LedgerEntryMinOrderByAggregateInput = {
@@ -14774,8 +16563,8 @@ export namespace Prisma {
     debit?: SortOrder
     credit?: SortOrder
     date?: SortOrder
-    createdAt?: SortOrder
     paymentId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type LedgerEntrySumOrderByAggregateInput = {
@@ -14797,6 +16586,13 @@ export namespace Prisma {
     create?: XOR<InvoiceCreateWithoutPartyInput, InvoiceUncheckedCreateWithoutPartyInput> | InvoiceCreateWithoutPartyInput[] | InvoiceUncheckedCreateWithoutPartyInput[]
     connectOrCreate?: InvoiceCreateOrConnectWithoutPartyInput | InvoiceCreateOrConnectWithoutPartyInput[]
     createMany?: InvoiceCreateManyPartyInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type InvoiceCreateNestedManyWithoutShipToInput = {
+    create?: XOR<InvoiceCreateWithoutShipToInput, InvoiceUncheckedCreateWithoutShipToInput> | InvoiceCreateWithoutShipToInput[] | InvoiceUncheckedCreateWithoutShipToInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutShipToInput | InvoiceCreateOrConnectWithoutShipToInput[]
+    createMany?: InvoiceCreateManyShipToInputEnvelope
     connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
@@ -14825,6 +16621,13 @@ export namespace Prisma {
     create?: XOR<InvoiceCreateWithoutPartyInput, InvoiceUncheckedCreateWithoutPartyInput> | InvoiceCreateWithoutPartyInput[] | InvoiceUncheckedCreateWithoutPartyInput[]
     connectOrCreate?: InvoiceCreateOrConnectWithoutPartyInput | InvoiceCreateOrConnectWithoutPartyInput[]
     createMany?: InvoiceCreateManyPartyInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedManyWithoutShipToInput = {
+    create?: XOR<InvoiceCreateWithoutShipToInput, InvoiceUncheckedCreateWithoutShipToInput> | InvoiceCreateWithoutShipToInput[] | InvoiceUncheckedCreateWithoutShipToInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutShipToInput | InvoiceCreateOrConnectWithoutShipToInput[]
+    createMany?: InvoiceCreateManyShipToInputEnvelope
     connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
@@ -14861,6 +16664,10 @@ export namespace Prisma {
     set?: $Enums.PartyType
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -14876,6 +16683,20 @@ export namespace Prisma {
     connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
     update?: InvoiceUpdateWithWhereUniqueWithoutPartyInput | InvoiceUpdateWithWhereUniqueWithoutPartyInput[]
     updateMany?: InvoiceUpdateManyWithWhereWithoutPartyInput | InvoiceUpdateManyWithWhereWithoutPartyInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type InvoiceUpdateManyWithoutShipToNestedInput = {
+    create?: XOR<InvoiceCreateWithoutShipToInput, InvoiceUncheckedCreateWithoutShipToInput> | InvoiceCreateWithoutShipToInput[] | InvoiceUncheckedCreateWithoutShipToInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutShipToInput | InvoiceCreateOrConnectWithoutShipToInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutShipToInput | InvoiceUpsertWithWhereUniqueWithoutShipToInput[]
+    createMany?: InvoiceCreateManyShipToInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutShipToInput | InvoiceUpdateWithWhereUniqueWithoutShipToInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutShipToInput | InvoiceUpdateManyWithWhereWithoutShipToInput[]
     deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
@@ -14932,6 +16753,20 @@ export namespace Prisma {
     connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
     update?: InvoiceUpdateWithWhereUniqueWithoutPartyInput | InvoiceUpdateWithWhereUniqueWithoutPartyInput[]
     updateMany?: InvoiceUpdateManyWithWhereWithoutPartyInput | InvoiceUpdateManyWithWhereWithoutPartyInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutShipToNestedInput = {
+    create?: XOR<InvoiceCreateWithoutShipToInput, InvoiceUncheckedCreateWithoutShipToInput> | InvoiceCreateWithoutShipToInput[] | InvoiceUncheckedCreateWithoutShipToInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutShipToInput | InvoiceCreateOrConnectWithoutShipToInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutShipToInput | InvoiceUpsertWithWhereUniqueWithoutShipToInput[]
+    createMany?: InvoiceCreateManyShipToInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutShipToInput | InvoiceUpdateWithWhereUniqueWithoutShipToInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutShipToInput | InvoiceUpdateManyWithWhereWithoutShipToInput[]
     deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
@@ -14999,10 +16834,6 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type AttendanceItemUpdateManyWithoutWorkerNestedInput = {
     create?: XOR<AttendanceItemCreateWithoutWorkerInput, AttendanceItemUncheckedCreateWithoutWorkerInput> | AttendanceItemCreateWithoutWorkerInput[] | AttendanceItemUncheckedCreateWithoutWorkerInput[]
     connectOrCreate?: AttendanceItemCreateOrConnectWithoutWorkerInput | AttendanceItemCreateOrConnectWithoutWorkerInput[]
@@ -15031,6 +16862,48 @@ export namespace Prisma {
     deleteMany?: AttendanceItemScalarWhereInput | AttendanceItemScalarWhereInput[]
   }
 
+  export type InvoiceCreateNestedManyWithoutFinancialYearInput = {
+    create?: XOR<InvoiceCreateWithoutFinancialYearInput, InvoiceUncheckedCreateWithoutFinancialYearInput> | InvoiceCreateWithoutFinancialYearInput[] | InvoiceUncheckedCreateWithoutFinancialYearInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutFinancialYearInput | InvoiceCreateOrConnectWithoutFinancialYearInput[]
+    createMany?: InvoiceCreateManyFinancialYearInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedManyWithoutFinancialYearInput = {
+    create?: XOR<InvoiceCreateWithoutFinancialYearInput, InvoiceUncheckedCreateWithoutFinancialYearInput> | InvoiceCreateWithoutFinancialYearInput[] | InvoiceUncheckedCreateWithoutFinancialYearInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutFinancialYearInput | InvoiceCreateOrConnectWithoutFinancialYearInput[]
+    createMany?: InvoiceCreateManyFinancialYearInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type InvoiceUpdateManyWithoutFinancialYearNestedInput = {
+    create?: XOR<InvoiceCreateWithoutFinancialYearInput, InvoiceUncheckedCreateWithoutFinancialYearInput> | InvoiceCreateWithoutFinancialYearInput[] | InvoiceUncheckedCreateWithoutFinancialYearInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutFinancialYearInput | InvoiceCreateOrConnectWithoutFinancialYearInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutFinancialYearInput | InvoiceUpsertWithWhereUniqueWithoutFinancialYearInput[]
+    createMany?: InvoiceCreateManyFinancialYearInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutFinancialYearInput | InvoiceUpdateWithWhereUniqueWithoutFinancialYearInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutFinancialYearInput | InvoiceUpdateManyWithWhereWithoutFinancialYearInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutFinancialYearNestedInput = {
+    create?: XOR<InvoiceCreateWithoutFinancialYearInput, InvoiceUncheckedCreateWithoutFinancialYearInput> | InvoiceCreateWithoutFinancialYearInput[] | InvoiceUncheckedCreateWithoutFinancialYearInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutFinancialYearInput | InvoiceCreateOrConnectWithoutFinancialYearInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutFinancialYearInput | InvoiceUpsertWithWhereUniqueWithoutFinancialYearInput[]
+    createMany?: InvoiceCreateManyFinancialYearInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutFinancialYearInput | InvoiceUpdateWithWhereUniqueWithoutFinancialYearInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutFinancialYearInput | InvoiceUpdateManyWithWhereWithoutFinancialYearInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
   export type PartyCreateNestedOneWithoutWorkOrdersInput = {
     create?: XOR<PartyCreateWithoutWorkOrdersInput, PartyUncheckedCreateWithoutWorkOrdersInput>
     connectOrCreate?: PartyCreateOrConnectWithoutWorkOrdersInput
@@ -15039,10 +16912,6 @@ export namespace Prisma {
 
   export type EnumWorkStatusFieldUpdateOperationsInput = {
     set?: $Enums.WorkStatus
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type NullableDecimalFieldUpdateOperationsInput = {
@@ -15159,11 +17028,23 @@ export namespace Prisma {
     connect?: PartyWhereUniqueInput
   }
 
+  export type PartyCreateNestedOneWithoutShippingForInput = {
+    create?: XOR<PartyCreateWithoutShippingForInput, PartyUncheckedCreateWithoutShippingForInput>
+    connectOrCreate?: PartyCreateOrConnectWithoutShippingForInput
+    connect?: PartyWhereUniqueInput
+  }
+
   export type InvoiceItemCreateNestedManyWithoutInvoiceInput = {
     create?: XOR<InvoiceItemCreateWithoutInvoiceInput, InvoiceItemUncheckedCreateWithoutInvoiceInput> | InvoiceItemCreateWithoutInvoiceInput[] | InvoiceItemUncheckedCreateWithoutInvoiceInput[]
     connectOrCreate?: InvoiceItemCreateOrConnectWithoutInvoiceInput | InvoiceItemCreateOrConnectWithoutInvoiceInput[]
     createMany?: InvoiceItemCreateManyInvoiceInputEnvelope
     connect?: InvoiceItemWhereUniqueInput | InvoiceItemWhereUniqueInput[]
+  }
+
+  export type FinancialYearCreateNestedOneWithoutInvoicesInput = {
+    create?: XOR<FinancialYearCreateWithoutInvoicesInput, FinancialYearUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: FinancialYearCreateOrConnectWithoutInvoicesInput
+    connect?: FinancialYearWhereUniqueInput
   }
 
   export type InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput = {
@@ -15185,6 +17066,16 @@ export namespace Prisma {
     update?: XOR<XOR<PartyUpdateToOneWithWhereWithoutInvoicesInput, PartyUpdateWithoutInvoicesInput>, PartyUncheckedUpdateWithoutInvoicesInput>
   }
 
+  export type PartyUpdateOneWithoutShippingForNestedInput = {
+    create?: XOR<PartyCreateWithoutShippingForInput, PartyUncheckedCreateWithoutShippingForInput>
+    connectOrCreate?: PartyCreateOrConnectWithoutShippingForInput
+    upsert?: PartyUpsertWithoutShippingForInput
+    disconnect?: PartyWhereInput | boolean
+    delete?: PartyWhereInput | boolean
+    connect?: PartyWhereUniqueInput
+    update?: XOR<XOR<PartyUpdateToOneWithWhereWithoutShippingForInput, PartyUpdateWithoutShippingForInput>, PartyUncheckedUpdateWithoutShippingForInput>
+  }
+
   export type InvoiceItemUpdateManyWithoutInvoiceNestedInput = {
     create?: XOR<InvoiceItemCreateWithoutInvoiceInput, InvoiceItemUncheckedCreateWithoutInvoiceInput> | InvoiceItemCreateWithoutInvoiceInput[] | InvoiceItemUncheckedCreateWithoutInvoiceInput[]
     connectOrCreate?: InvoiceItemCreateOrConnectWithoutInvoiceInput | InvoiceItemCreateOrConnectWithoutInvoiceInput[]
@@ -15197,6 +17088,16 @@ export namespace Prisma {
     update?: InvoiceItemUpdateWithWhereUniqueWithoutInvoiceInput | InvoiceItemUpdateWithWhereUniqueWithoutInvoiceInput[]
     updateMany?: InvoiceItemUpdateManyWithWhereWithoutInvoiceInput | InvoiceItemUpdateManyWithWhereWithoutInvoiceInput[]
     deleteMany?: InvoiceItemScalarWhereInput | InvoiceItemScalarWhereInput[]
+  }
+
+  export type FinancialYearUpdateOneWithoutInvoicesNestedInput = {
+    create?: XOR<FinancialYearCreateWithoutInvoicesInput, FinancialYearUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: FinancialYearCreateOrConnectWithoutInvoicesInput
+    upsert?: FinancialYearUpsertWithoutInvoicesInput
+    disconnect?: FinancialYearWhereInput | boolean
+    delete?: FinancialYearWhereInput | boolean
+    connect?: FinancialYearWhereUniqueInput
+    update?: XOR<XOR<FinancialYearUpdateToOneWithWhereWithoutInvoicesInput, FinancialYearUpdateWithoutInvoicesInput>, FinancialYearUncheckedUpdateWithoutInvoicesInput>
   }
 
   export type InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput = {
@@ -15213,10 +17114,19 @@ export namespace Prisma {
     deleteMany?: InvoiceItemScalarWhereInput | InvoiceItemScalarWhereInput[]
   }
 
+  export type InvoiceItemCreatesubdescriptionInput = {
+    set: string[]
+  }
+
   export type InvoiceCreateNestedOneWithoutItemsInput = {
     create?: XOR<InvoiceCreateWithoutItemsInput, InvoiceUncheckedCreateWithoutItemsInput>
     connectOrCreate?: InvoiceCreateOrConnectWithoutItemsInput
     connect?: InvoiceWhereUniqueInput
+  }
+
+  export type InvoiceItemUpdatesubdescriptionInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type InvoiceUpdateOneRequiredWithoutItemsNestedInput = {
@@ -15352,6 +17262,11 @@ export namespace Prisma {
     not?: NestedEnumPartyTypeFilter<$PrismaModel> | $Enums.PartyType
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -15429,6 +17344,14 @@ export namespace Prisma {
     _max?: NestedEnumPartyTypeFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -15454,11 +17377,6 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -15475,30 +17393,11 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedEnumWorkStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.WorkStatus | EnumWorkStatusFieldRefInput<$PrismaModel>
     in?: $Enums.WorkStatus[] | ListEnumWorkStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.WorkStatus[] | ListEnumWorkStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumWorkStatusFilter<$PrismaModel> | $Enums.WorkStatus
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedDecimalNullableFilter<$PrismaModel = never> = {
@@ -15520,20 +17419,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumWorkStatusFilter<$PrismaModel>
     _max?: NestedEnumWorkStatusFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15661,25 +17546,43 @@ export namespace Prisma {
     id?: string
     invoiceNumber: string
     issueDate: Date | string
-    subtotal: Decimal | DecimalJsLike | number | string
-    gstAmount: Decimal | DecimalJsLike | number | string
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
     totalAmount: Decimal | DecimalJsLike | number | string
     status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
+    shipTo?: PartyCreateNestedOneWithoutShippingForInput
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
+    financialYear?: FinancialYearCreateNestedOneWithoutInvoicesInput
   }
 
   export type InvoiceUncheckedCreateWithoutPartyInput = {
     id?: string
     invoiceNumber: string
     issueDate: Date | string
-    subtotal: Decimal | DecimalJsLike | number | string
-    gstAmount: Decimal | DecimalJsLike | number | string
+    shipToId?: string | null
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
     totalAmount: Decimal | DecimalJsLike | number | string
     status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
+    financialYearId?: string | null
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
   }
 
@@ -15690,6 +17593,60 @@ export namespace Prisma {
 
   export type InvoiceCreateManyPartyInputEnvelope = {
     data: InvoiceCreateManyPartyInput | InvoiceCreateManyPartyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InvoiceCreateWithoutShipToInput = {
+    id?: string
+    invoiceNumber: string
+    issueDate: Date | string
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
+    createdAt?: Date | string
+    party: PartyCreateNestedOneWithoutInvoicesInput
+    items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
+    financialYear?: FinancialYearCreateNestedOneWithoutInvoicesInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutShipToInput = {
+    id?: string
+    invoiceNumber: string
+    issueDate: Date | string
+    partyId: string
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
+    createdAt?: Date | string
+    financialYearId?: string | null
+    items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceCreateOrConnectWithoutShipToInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutShipToInput, InvoiceUncheckedCreateWithoutShipToInput>
+  }
+
+  export type InvoiceCreateManyShipToInputEnvelope = {
+    data: InvoiceCreateManyShipToInput | InvoiceCreateManyShipToInput[]
     skipDuplicates?: boolean
   }
 
@@ -15743,8 +17700,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     credit?: Decimal | DecimalJsLike | number | string
     date: Date | string
-    createdAt?: Date | string
     paymentId?: string | null
+    createdAt?: Date | string
   }
 
   export type LedgerEntryCreateOrConnectWithoutPartyInput = {
@@ -15762,8 +17719,8 @@ export namespace Prisma {
     title: string
     description?: string | null
     status?: $Enums.WorkStatus
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
     estimatedCost?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15774,8 +17731,8 @@ export namespace Prisma {
     title: string
     description?: string | null
     status?: $Enums.WorkStatus
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
     estimatedCost?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15813,14 +17770,39 @@ export namespace Prisma {
     NOT?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
     id?: StringFilter<"Invoice"> | string
     invoiceNumber?: StringFilter<"Invoice"> | string
-    partyId?: StringFilter<"Invoice"> | string
     issueDate?: DateTimeFilter<"Invoice"> | Date | string
-    subtotal?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    partyId?: StringFilter<"Invoice"> | string
+    shipToId?: StringNullableFilter<"Invoice"> | string | null
+    chNo?: StringNullableFilter<"Invoice"> | string | null
+    poNo?: StringNullableFilter<"Invoice"> | string | null
+    stateCode?: StringNullableFilter<"Invoice"> | string | null
+    vechileNo?: StringNullableFilter<"Invoice"> | string | null
+    taxableAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    isLabourBill?: BoolFilter<"Invoice"> | boolean
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
-    updatedAt?: DateTimeFilter<"Invoice"> | Date | string
+    financialYearId?: StringNullableFilter<"Invoice"> | string | null
+  }
+
+  export type InvoiceUpsertWithWhereUniqueWithoutShipToInput = {
+    where: InvoiceWhereUniqueInput
+    update: XOR<InvoiceUpdateWithoutShipToInput, InvoiceUncheckedUpdateWithoutShipToInput>
+    create: XOR<InvoiceCreateWithoutShipToInput, InvoiceUncheckedCreateWithoutShipToInput>
+  }
+
+  export type InvoiceUpdateWithWhereUniqueWithoutShipToInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutShipToInput, InvoiceUncheckedUpdateWithoutShipToInput>
+  }
+
+  export type InvoiceUpdateManyWithWhereWithoutShipToInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutShipToInput>
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutPartyInput = {
@@ -15880,8 +17862,8 @@ export namespace Prisma {
     debit?: DecimalFilter<"LedgerEntry"> | Decimal | DecimalJsLike | number | string
     credit?: DecimalFilter<"LedgerEntry"> | Decimal | DecimalJsLike | number | string
     date?: DateTimeFilter<"LedgerEntry"> | Date | string
-    createdAt?: DateTimeFilter<"LedgerEntry"> | Date | string
     paymentId?: StringNullableFilter<"LedgerEntry"> | string | null
+    createdAt?: DateTimeFilter<"LedgerEntry"> | Date | string
   }
 
   export type WorkOrderUpsertWithWhereUniqueWithoutPartyInput = {
@@ -15909,8 +17891,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"WorkOrder"> | string | null
     partyId?: StringNullableFilter<"WorkOrder"> | string | null
     status?: EnumWorkStatusFilter<"WorkOrder"> | $Enums.WorkStatus
-    startDate?: DateTimeFilter<"WorkOrder"> | Date | string
-    endDate?: DateTimeNullableFilter<"WorkOrder"> | Date | string | null
+    startDate?: StringFilter<"WorkOrder"> | string
+    endDate?: StringNullableFilter<"WorkOrder"> | string | null
     estimatedCost?: DecimalNullableFilter<"WorkOrder"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"WorkOrder"> | Date | string
     updatedAt?: DateTimeFilter<"WorkOrder"> | Date | string
@@ -15920,7 +17902,6 @@ export namespace Prisma {
     id?: string
     status: $Enums.AttendanceStatus
     hoursWorked?: number | null
-    overtimeHours?: number | null
     wage?: Decimal | DecimalJsLike | number | string | null
     attendanceDay: AttendanceDayCreateNestedOneWithoutItemsInput
   }
@@ -15930,7 +17911,6 @@ export namespace Prisma {
     attendanceDayId: string
     status: $Enums.AttendanceStatus
     hoursWorked?: number | null
-    overtimeHours?: number | null
     wage?: Decimal | DecimalJsLike | number | string | null
   }
 
@@ -15969,8 +17949,77 @@ export namespace Prisma {
     workerId?: StringFilter<"AttendanceItem"> | string
     status?: EnumAttendanceStatusFilter<"AttendanceItem"> | $Enums.AttendanceStatus
     hoursWorked?: FloatNullableFilter<"AttendanceItem"> | number | null
-    overtimeHours?: FloatNullableFilter<"AttendanceItem"> | number | null
     wage?: DecimalNullableFilter<"AttendanceItem"> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InvoiceCreateWithoutFinancialYearInput = {
+    id?: string
+    invoiceNumber: string
+    issueDate: Date | string
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
+    createdAt?: Date | string
+    party: PartyCreateNestedOneWithoutInvoicesInput
+    shipTo?: PartyCreateNestedOneWithoutShippingForInput
+    items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutFinancialYearInput = {
+    id?: string
+    invoiceNumber: string
+    issueDate: Date | string
+    partyId: string
+    shipToId?: string | null
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
+    createdAt?: Date | string
+    items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceCreateOrConnectWithoutFinancialYearInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutFinancialYearInput, InvoiceUncheckedCreateWithoutFinancialYearInput>
+  }
+
+  export type InvoiceCreateManyFinancialYearInputEnvelope = {
+    data: InvoiceCreateManyFinancialYearInput | InvoiceCreateManyFinancialYearInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InvoiceUpsertWithWhereUniqueWithoutFinancialYearInput = {
+    where: InvoiceWhereUniqueInput
+    update: XOR<InvoiceUpdateWithoutFinancialYearInput, InvoiceUncheckedUpdateWithoutFinancialYearInput>
+    create: XOR<InvoiceCreateWithoutFinancialYearInput, InvoiceUncheckedCreateWithoutFinancialYearInput>
+  }
+
+  export type InvoiceUpdateWithWhereUniqueWithoutFinancialYearInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutFinancialYearInput, InvoiceUncheckedUpdateWithoutFinancialYearInput>
+  }
+
+  export type InvoiceUpdateManyWithWhereWithoutFinancialYearInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutFinancialYearInput>
   }
 
   export type PartyCreateWithoutWorkOrdersInput = {
@@ -15979,10 +18028,13 @@ export namespace Prisma {
     phone?: string | null
     gstNumber?: string | null
     address?: string | null
+    stateCode?: string | null
     type: $Enums.PartyType
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     invoices?: InvoiceCreateNestedManyWithoutPartyInput
+    shippingFor?: InvoiceCreateNestedManyWithoutShipToInput
     payments?: PaymentCreateNestedManyWithoutPartyInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutPartyInput
   }
@@ -15993,10 +18045,13 @@ export namespace Prisma {
     phone?: string | null
     gstNumber?: string | null
     address?: string | null
+    stateCode?: string | null
     type: $Enums.PartyType
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPartyInput
+    shippingFor?: InvoiceUncheckedCreateNestedManyWithoutShipToInput
     payments?: PaymentUncheckedCreateNestedManyWithoutPartyInput
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutPartyInput
   }
@@ -16023,10 +18078,13 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUpdateManyWithoutPartyNestedInput
+    shippingFor?: InvoiceUpdateManyWithoutShipToNestedInput
     payments?: PaymentUpdateManyWithoutPartyNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutPartyNestedInput
   }
@@ -16037,10 +18095,13 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUncheckedUpdateManyWithoutPartyNestedInput
+    shippingFor?: InvoiceUncheckedUpdateManyWithoutShipToNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutPartyNestedInput
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutPartyNestedInput
   }
@@ -16049,7 +18110,6 @@ export namespace Prisma {
     id?: string
     status: $Enums.AttendanceStatus
     hoursWorked?: number | null
-    overtimeHours?: number | null
     wage?: Decimal | DecimalJsLike | number | string | null
     worker: WorkerCreateNestedOneWithoutAttendancesInput
   }
@@ -16059,7 +18119,6 @@ export namespace Prisma {
     workerId: string
     status: $Enums.AttendanceStatus
     hoursWorked?: number | null
-    overtimeHours?: number | null
     wage?: Decimal | DecimalJsLike | number | string | null
   }
 
@@ -16097,7 +18156,6 @@ export namespace Prisma {
     defaultWage: Decimal | DecimalJsLike | number | string
     isActive?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type WorkerUncheckedCreateWithoutAttendancesInput = {
@@ -16108,7 +18166,6 @@ export namespace Prisma {
     defaultWage: Decimal | DecimalJsLike | number | string
     isActive?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type WorkerCreateOrConnectWithoutAttendancesInput = {
@@ -16123,7 +18180,6 @@ export namespace Prisma {
     year: number
     month: number
     day: number
-    createdAt?: Date | string
   }
 
   export type AttendanceDayUncheckedCreateWithoutItemsInput = {
@@ -16133,7 +18189,6 @@ export namespace Prisma {
     year: number
     month: number
     day: number
-    createdAt?: Date | string
   }
 
   export type AttendanceDayCreateOrConnectWithoutItemsInput = {
@@ -16160,7 +18215,6 @@ export namespace Prisma {
     defaultWage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WorkerUncheckedUpdateWithoutAttendancesInput = {
@@ -16171,7 +18225,6 @@ export namespace Prisma {
     defaultWage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AttendanceDayUpsertWithoutItemsInput = {
@@ -16192,7 +18245,6 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     day?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AttendanceDayUncheckedUpdateWithoutItemsInput = {
@@ -16202,7 +18254,6 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     day?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PartyCreateWithoutInvoicesInput = {
@@ -16211,9 +18262,12 @@ export namespace Prisma {
     phone?: string | null
     gstNumber?: string | null
     address?: string | null
+    stateCode?: string | null
     type: $Enums.PartyType
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    shippingFor?: InvoiceCreateNestedManyWithoutShipToInput
     payments?: PaymentCreateNestedManyWithoutPartyInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutPartyInput
     workOrders?: WorkOrderCreateNestedManyWithoutPartyInput
@@ -16225,9 +18279,12 @@ export namespace Prisma {
     phone?: string | null
     gstNumber?: string | null
     address?: string | null
+    stateCode?: string | null
     type: $Enums.PartyType
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    shippingFor?: InvoiceUncheckedCreateNestedManyWithoutShipToInput
     payments?: PaymentUncheckedCreateNestedManyWithoutPartyInput
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutPartyInput
     workOrders?: WorkOrderUncheckedCreateNestedManyWithoutPartyInput
@@ -16238,18 +18295,61 @@ export namespace Prisma {
     create: XOR<PartyCreateWithoutInvoicesInput, PartyUncheckedCreateWithoutInvoicesInput>
   }
 
+  export type PartyCreateWithoutShippingForInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    gstNumber?: string | null
+    address?: string | null
+    stateCode?: string | null
+    type: $Enums.PartyType
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    invoices?: InvoiceCreateNestedManyWithoutPartyInput
+    payments?: PaymentCreateNestedManyWithoutPartyInput
+    ledgerEntries?: LedgerEntryCreateNestedManyWithoutPartyInput
+    workOrders?: WorkOrderCreateNestedManyWithoutPartyInput
+  }
+
+  export type PartyUncheckedCreateWithoutShippingForInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    gstNumber?: string | null
+    address?: string | null
+    stateCode?: string | null
+    type: $Enums.PartyType
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutPartyInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutPartyInput
+    ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutPartyInput
+    workOrders?: WorkOrderUncheckedCreateNestedManyWithoutPartyInput
+  }
+
+  export type PartyCreateOrConnectWithoutShippingForInput = {
+    where: PartyWhereUniqueInput
+    create: XOR<PartyCreateWithoutShippingForInput, PartyUncheckedCreateWithoutShippingForInput>
+  }
+
   export type InvoiceItemCreateWithoutInvoiceInput = {
     id?: string
+    srno?: number
+    subdescription?: InvoiceItemCreatesubdescriptionInput | string[]
     description: string
-    quantity: Decimal | DecimalJsLike | number | string
+    quantity?: Decimal | DecimalJsLike | number | string
     rate: Decimal | DecimalJsLike | number | string
     amount: Decimal | DecimalJsLike | number | string
   }
 
   export type InvoiceItemUncheckedCreateWithoutInvoiceInput = {
     id?: string
+    srno?: number
+    subdescription?: InvoiceItemCreatesubdescriptionInput | string[]
     description: string
-    quantity: Decimal | DecimalJsLike | number | string
+    quantity?: Decimal | DecimalJsLike | number | string
     rate: Decimal | DecimalJsLike | number | string
     amount: Decimal | DecimalJsLike | number | string
   }
@@ -16262,6 +18362,31 @@ export namespace Prisma {
   export type InvoiceItemCreateManyInvoiceInputEnvelope = {
     data: InvoiceItemCreateManyInvoiceInput | InvoiceItemCreateManyInvoiceInput[]
     skipDuplicates?: boolean
+  }
+
+  export type FinancialYearCreateWithoutInvoicesInput = {
+    id?: string
+    label: string
+    startDate?: string | null
+    endDate?: string | null
+    isActive?: boolean
+    isClosed?: boolean
+    createdAt?: Date | string
+  }
+
+  export type FinancialYearUncheckedCreateWithoutInvoicesInput = {
+    id?: string
+    label: string
+    startDate?: string | null
+    endDate?: string | null
+    isActive?: boolean
+    isClosed?: boolean
+    createdAt?: Date | string
+  }
+
+  export type FinancialYearCreateOrConnectWithoutInvoicesInput = {
+    where: FinancialYearWhereUniqueInput
+    create: XOR<FinancialYearCreateWithoutInvoicesInput, FinancialYearUncheckedCreateWithoutInvoicesInput>
   }
 
   export type PartyUpsertWithoutInvoicesInput = {
@@ -16281,9 +18406,12 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    shippingFor?: InvoiceUpdateManyWithoutShipToNestedInput
     payments?: PaymentUpdateManyWithoutPartyNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutPartyNestedInput
     workOrders?: WorkOrderUpdateManyWithoutPartyNestedInput
@@ -16295,9 +18423,57 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    shippingFor?: InvoiceUncheckedUpdateManyWithoutShipToNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutPartyNestedInput
+    ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutPartyNestedInput
+    workOrders?: WorkOrderUncheckedUpdateManyWithoutPartyNestedInput
+  }
+
+  export type PartyUpsertWithoutShippingForInput = {
+    update: XOR<PartyUpdateWithoutShippingForInput, PartyUncheckedUpdateWithoutShippingForInput>
+    create: XOR<PartyCreateWithoutShippingForInput, PartyUncheckedCreateWithoutShippingForInput>
+    where?: PartyWhereInput
+  }
+
+  export type PartyUpdateToOneWithWhereWithoutShippingForInput = {
+    where?: PartyWhereInput
+    data: XOR<PartyUpdateWithoutShippingForInput, PartyUncheckedUpdateWithoutShippingForInput>
+  }
+
+  export type PartyUpdateWithoutShippingForInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoices?: InvoiceUpdateManyWithoutPartyNestedInput
+    payments?: PaymentUpdateManyWithoutPartyNestedInput
+    ledgerEntries?: LedgerEntryUpdateManyWithoutPartyNestedInput
+    workOrders?: WorkOrderUpdateManyWithoutPartyNestedInput
+  }
+
+  export type PartyUncheckedUpdateWithoutShippingForInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoices?: InvoiceUncheckedUpdateManyWithoutPartyNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutPartyNestedInput
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutPartyNestedInput
     workOrders?: WorkOrderUncheckedUpdateManyWithoutPartyNestedInput
@@ -16325,36 +18501,87 @@ export namespace Prisma {
     NOT?: InvoiceItemScalarWhereInput | InvoiceItemScalarWhereInput[]
     id?: StringFilter<"InvoiceItem"> | string
     invoiceId?: StringFilter<"InvoiceItem"> | string
+    srno?: IntFilter<"InvoiceItem"> | number
+    subdescription?: StringNullableListFilter<"InvoiceItem">
     description?: StringFilter<"InvoiceItem"> | string
     quantity?: DecimalFilter<"InvoiceItem"> | Decimal | DecimalJsLike | number | string
     rate?: DecimalFilter<"InvoiceItem"> | Decimal | DecimalJsLike | number | string
     amount?: DecimalFilter<"InvoiceItem"> | Decimal | DecimalJsLike | number | string
   }
 
+  export type FinancialYearUpsertWithoutInvoicesInput = {
+    update: XOR<FinancialYearUpdateWithoutInvoicesInput, FinancialYearUncheckedUpdateWithoutInvoicesInput>
+    create: XOR<FinancialYearCreateWithoutInvoicesInput, FinancialYearUncheckedCreateWithoutInvoicesInput>
+    where?: FinancialYearWhereInput
+  }
+
+  export type FinancialYearUpdateToOneWithWhereWithoutInvoicesInput = {
+    where?: FinancialYearWhereInput
+    data: XOR<FinancialYearUpdateWithoutInvoicesInput, FinancialYearUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type FinancialYearUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isClosed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialYearUncheckedUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    startDate?: NullableStringFieldUpdateOperationsInput | string | null
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isClosed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type InvoiceCreateWithoutItemsInput = {
     id?: string
     invoiceNumber: string
     issueDate: Date | string
-    subtotal: Decimal | DecimalJsLike | number | string
-    gstAmount: Decimal | DecimalJsLike | number | string
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
     totalAmount: Decimal | DecimalJsLike | number | string
     status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
     party: PartyCreateNestedOneWithoutInvoicesInput
+    shipTo?: PartyCreateNestedOneWithoutShippingForInput
+    financialYear?: FinancialYearCreateNestedOneWithoutInvoicesInput
   }
 
   export type InvoiceUncheckedCreateWithoutItemsInput = {
     id?: string
     invoiceNumber: string
-    partyId: string
     issueDate: Date | string
-    subtotal: Decimal | DecimalJsLike | number | string
-    gstAmount: Decimal | DecimalJsLike | number | string
+    partyId: string
+    shipToId?: string | null
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
     totalAmount: Decimal | DecimalJsLike | number | string
     status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
+    financialYearId?: string | null
   }
 
   export type InvoiceCreateOrConnectWithoutItemsInput = {
@@ -16377,26 +18604,44 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     party?: PartyUpdateOneRequiredWithoutInvoicesNestedInput
+    shipTo?: PartyUpdateOneWithoutShippingForNestedInput
+    financialYear?: FinancialYearUpdateOneWithoutInvoicesNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
-    partyId?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    partyId?: StringFieldUpdateOperationsInput | string
+    shipToId?: NullableStringFieldUpdateOperationsInput | string | null
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    financialYearId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PartyCreateWithoutPaymentsInput = {
@@ -16405,10 +18650,13 @@ export namespace Prisma {
     phone?: string | null
     gstNumber?: string | null
     address?: string | null
+    stateCode?: string | null
     type: $Enums.PartyType
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     invoices?: InvoiceCreateNestedManyWithoutPartyInput
+    shippingFor?: InvoiceCreateNestedManyWithoutShipToInput
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutPartyInput
     workOrders?: WorkOrderCreateNestedManyWithoutPartyInput
   }
@@ -16419,10 +18667,13 @@ export namespace Prisma {
     phone?: string | null
     gstNumber?: string | null
     address?: string | null
+    stateCode?: string | null
     type: $Enums.PartyType
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPartyInput
+    shippingFor?: InvoiceUncheckedCreateNestedManyWithoutShipToInput
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutPartyInput
     workOrders?: WorkOrderUncheckedCreateNestedManyWithoutPartyInput
   }
@@ -16483,10 +18734,13 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUpdateManyWithoutPartyNestedInput
+    shippingFor?: InvoiceUpdateManyWithoutShipToNestedInput
     ledgerEntries?: LedgerEntryUpdateManyWithoutPartyNestedInput
     workOrders?: WorkOrderUpdateManyWithoutPartyNestedInput
   }
@@ -16497,10 +18751,13 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUncheckedUpdateManyWithoutPartyNestedInput
+    shippingFor?: InvoiceUncheckedUpdateManyWithoutShipToNestedInput
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutPartyNestedInput
     workOrders?: WorkOrderUncheckedUpdateManyWithoutPartyNestedInput
   }
@@ -16527,10 +18784,13 @@ export namespace Prisma {
     phone?: string | null
     gstNumber?: string | null
     address?: string | null
+    stateCode?: string | null
     type: $Enums.PartyType
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     invoices?: InvoiceCreateNestedManyWithoutPartyInput
+    shippingFor?: InvoiceCreateNestedManyWithoutShipToInput
     payments?: PaymentCreateNestedManyWithoutPartyInput
     workOrders?: WorkOrderCreateNestedManyWithoutPartyInput
   }
@@ -16541,10 +18801,13 @@ export namespace Prisma {
     phone?: string | null
     gstNumber?: string | null
     address?: string | null
+    stateCode?: string | null
     type: $Enums.PartyType
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPartyInput
+    shippingFor?: InvoiceUncheckedCreateNestedManyWithoutShipToInput
     payments?: PaymentUncheckedCreateNestedManyWithoutPartyInput
     workOrders?: WorkOrderUncheckedCreateNestedManyWithoutPartyInput
   }
@@ -16596,10 +18859,13 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUpdateManyWithoutPartyNestedInput
+    shippingFor?: InvoiceUpdateManyWithoutShipToNestedInput
     payments?: PaymentUpdateManyWithoutPartyNestedInput
     workOrders?: WorkOrderUpdateManyWithoutPartyNestedInput
   }
@@ -16610,10 +18876,13 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUncheckedUpdateManyWithoutPartyNestedInput
+    shippingFor?: InvoiceUncheckedUpdateManyWithoutShipToNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutPartyNestedInput
     workOrders?: WorkOrderUncheckedUpdateManyWithoutPartyNestedInput
   }
@@ -16653,12 +18922,42 @@ export namespace Prisma {
     id?: string
     invoiceNumber: string
     issueDate: Date | string
-    subtotal: Decimal | DecimalJsLike | number | string
-    gstAmount: Decimal | DecimalJsLike | number | string
+    shipToId?: string | null
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
     totalAmount: Decimal | DecimalJsLike | number | string
     status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
     createdAt?: Date | string
-    updatedAt?: Date | string
+    financialYearId?: string | null
+  }
+
+  export type InvoiceCreateManyShipToInput = {
+    id?: string
+    invoiceNumber: string
+    issueDate: Date | string
+    partyId: string
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
+    createdAt?: Date | string
+    financialYearId?: string | null
   }
 
   export type PaymentCreateManyPartyInput = {
@@ -16678,8 +18977,8 @@ export namespace Prisma {
     debit?: Decimal | DecimalJsLike | number | string
     credit?: Decimal | DecimalJsLike | number | string
     date: Date | string
-    createdAt?: Date | string
     paymentId?: string | null
+    createdAt?: Date | string
   }
 
   export type WorkOrderCreateManyPartyInput = {
@@ -16687,8 +18986,8 @@ export namespace Prisma {
     title: string
     description?: string | null
     status?: $Enums.WorkStatus
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
     estimatedCost?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16698,25 +18997,43 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    shipTo?: PartyUpdateOneWithoutShippingForNestedInput
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
+    financialYear?: FinancialYearUpdateOneWithoutInvoicesNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutPartyInput = {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    shipToId?: NullableStringFieldUpdateOperationsInput | string | null
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    financialYearId?: NullableStringFieldUpdateOperationsInput | string | null
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
@@ -16724,12 +19041,86 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    gstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    shipToId?: NullableStringFieldUpdateOperationsInput | string | null
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    financialYearId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type InvoiceUpdateWithoutShipToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    party?: PartyUpdateOneRequiredWithoutInvoicesNestedInput
+    items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
+    financialYear?: FinancialYearUpdateOneWithoutInvoicesNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutShipToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    partyId?: StringFieldUpdateOperationsInput | string
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    financialYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutShipToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    partyId?: StringFieldUpdateOperationsInput | string
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    financialYearId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentUpdateWithoutPartyInput = {
@@ -16781,8 +19172,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LedgerEntryUncheckedUpdateManyWithoutPartyInput = {
@@ -16793,8 +19184,8 @@ export namespace Prisma {
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WorkOrderUpdateWithoutPartyInput = {
@@ -16802,8 +19193,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumWorkStatusFieldUpdateOperationsInput | $Enums.WorkStatus
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16814,8 +19205,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumWorkStatusFieldUpdateOperationsInput | $Enums.WorkStatus
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16826,8 +19217,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumWorkStatusFieldUpdateOperationsInput | $Enums.WorkStatus
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedCost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16838,7 +19229,6 @@ export namespace Prisma {
     attendanceDayId: string
     status: $Enums.AttendanceStatus
     hoursWorked?: number | null
-    overtimeHours?: number | null
     wage?: Decimal | DecimalJsLike | number | string | null
   }
 
@@ -16846,7 +19236,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     hoursWorked?: NullableFloatFieldUpdateOperationsInput | number | null
-    overtimeHours?: NullableFloatFieldUpdateOperationsInput | number | null
     wage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     attendanceDay?: AttendanceDayUpdateOneRequiredWithoutItemsNestedInput
   }
@@ -16856,7 +19245,6 @@ export namespace Prisma {
     attendanceDayId?: StringFieldUpdateOperationsInput | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     hoursWorked?: NullableFloatFieldUpdateOperationsInput | number | null
-    overtimeHours?: NullableFloatFieldUpdateOperationsInput | number | null
     wage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
@@ -16865,8 +19253,93 @@ export namespace Prisma {
     attendanceDayId?: StringFieldUpdateOperationsInput | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     hoursWorked?: NullableFloatFieldUpdateOperationsInput | number | null
-    overtimeHours?: NullableFloatFieldUpdateOperationsInput | number | null
     wage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InvoiceCreateManyFinancialYearInput = {
+    id?: string
+    invoiceNumber: string
+    issueDate: Date | string
+    partyId: string
+    shipToId?: string | null
+    chNo?: string | null
+    poNo?: string | null
+    stateCode?: string | null
+    vechileNo?: string | null
+    taxableAmount: Decimal | DecimalJsLike | number | string
+    sgst?: Decimal | DecimalJsLike | number | string
+    cgst?: Decimal | DecimalJsLike | number | string
+    igst?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    status?: $Enums.InvoiceStatus
+    isLabourBill?: boolean
+    createdAt?: Date | string
+  }
+
+  export type InvoiceUpdateWithoutFinancialYearInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    party?: PartyUpdateOneRequiredWithoutInvoicesNestedInput
+    shipTo?: PartyUpdateOneWithoutShippingForNestedInput
+    items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutFinancialYearInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    partyId?: StringFieldUpdateOperationsInput | string
+    shipToId?: NullableStringFieldUpdateOperationsInput | string | null
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutFinancialYearInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    issueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    partyId?: StringFieldUpdateOperationsInput | string
+    shipToId?: NullableStringFieldUpdateOperationsInput | string | null
+    chNo?: NullableStringFieldUpdateOperationsInput | string | null
+    poNo?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    vechileNo?: NullableStringFieldUpdateOperationsInput | string | null
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igst?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    isLabourBill?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AttendanceItemCreateManyAttendanceDayInput = {
@@ -16874,7 +19347,6 @@ export namespace Prisma {
     workerId: string
     status: $Enums.AttendanceStatus
     hoursWorked?: number | null
-    overtimeHours?: number | null
     wage?: Decimal | DecimalJsLike | number | string | null
   }
 
@@ -16882,7 +19354,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     hoursWorked?: NullableFloatFieldUpdateOperationsInput | number | null
-    overtimeHours?: NullableFloatFieldUpdateOperationsInput | number | null
     wage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     worker?: WorkerUpdateOneRequiredWithoutAttendancesNestedInput
   }
@@ -16892,7 +19363,6 @@ export namespace Prisma {
     workerId?: StringFieldUpdateOperationsInput | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     hoursWorked?: NullableFloatFieldUpdateOperationsInput | number | null
-    overtimeHours?: NullableFloatFieldUpdateOperationsInput | number | null
     wage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
@@ -16901,20 +19371,23 @@ export namespace Prisma {
     workerId?: StringFieldUpdateOperationsInput | string
     status?: EnumAttendanceStatusFieldUpdateOperationsInput | $Enums.AttendanceStatus
     hoursWorked?: NullableFloatFieldUpdateOperationsInput | number | null
-    overtimeHours?: NullableFloatFieldUpdateOperationsInput | number | null
     wage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type InvoiceItemCreateManyInvoiceInput = {
     id?: string
+    srno?: number
+    subdescription?: InvoiceItemCreatesubdescriptionInput | string[]
     description: string
-    quantity: Decimal | DecimalJsLike | number | string
+    quantity?: Decimal | DecimalJsLike | number | string
     rate: Decimal | DecimalJsLike | number | string
     amount: Decimal | DecimalJsLike | number | string
   }
 
   export type InvoiceItemUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    srno?: IntFieldUpdateOperationsInput | number
+    subdescription?: InvoiceItemUpdatesubdescriptionInput | string[]
     description?: StringFieldUpdateOperationsInput | string
     quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -16923,6 +19396,8 @@ export namespace Prisma {
 
   export type InvoiceItemUncheckedUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    srno?: IntFieldUpdateOperationsInput | number
+    subdescription?: InvoiceItemUpdatesubdescriptionInput | string[]
     description?: StringFieldUpdateOperationsInput | string
     quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -16931,6 +19406,8 @@ export namespace Prisma {
 
   export type InvoiceItemUncheckedUpdateManyWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
+    srno?: IntFieldUpdateOperationsInput | number
+    subdescription?: InvoiceItemUpdatesubdescriptionInput | string[]
     description?: StringFieldUpdateOperationsInput | string
     quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string

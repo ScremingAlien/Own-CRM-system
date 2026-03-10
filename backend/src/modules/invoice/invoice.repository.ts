@@ -3,7 +3,7 @@ import { InvoiceDTO, invoiceSelect } from "./invoice.types.js";
 import { Prisma } from "@/generated/index.js";
 
 export class InvoiceRepository {
- 
+
   async findAll(): Promise<InvoiceDTO[]> {
     return prisma.invoice.findMany({
       select: invoiceSelect,
@@ -16,6 +16,12 @@ export class InvoiceRepository {
       where: { id },
       select: invoiceSelect
     });
+  }
+
+  
+
+  async isExists(invoiceNo: string): Promise<boolean> {
+    return await prisma.invoice.count({ where: { invoiceNumber: invoiceNo } }) > 0;
   }
 
   async create(data: Prisma.InvoiceCreateInput): Promise<InvoiceDTO> {

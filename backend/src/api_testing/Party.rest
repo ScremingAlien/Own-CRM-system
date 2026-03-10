@@ -1,0 +1,30 @@
+
+
+
+### get All fy
+GET http://localhost:4000/api/v1/party
+Content-Type: application/json
+
+### update party
+PATCH  http://localhost:4000/api/v1/party/53ef379e-0ad2-4d81-bdd7-7a91d2cb5a7b
+Content-Type: application/json
+
+{
+     "name":"Bhuman",
+     "phone":"94612309461"
+}
+
+
+### Create party
+POST http://localhost:4000/api/v1/party
+Content-Type: application/json
+
+{
+     "name":"dsfs",
+     "type":"CUSTOMER"
+}
+
+### delete Request
+DELETE  http://localhost:4000/api/v1/party/5e95a15e-59e4-474d-a57a-fd86b38944f6
+Content-Type: application/json
+ 
