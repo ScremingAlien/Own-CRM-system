@@ -7,8 +7,7 @@ export default class LedgerController {
 
   getAll = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const data = await this.ledgerService.getAll();
-      res.success("Get All Ledgers", data, statusCode.OK);
+      res.success("Get All Ledgers", null, statusCode.OK);
     } catch (err) {
       next(err);
     }

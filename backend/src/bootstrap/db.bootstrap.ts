@@ -4,7 +4,7 @@ import { logger } from "@/infra/logger.js";
 export async function initDatabase(): Promise<void> {
   try {
     await prisma.$connect();
-    
+
     // simple connection verification
     await prisma.$queryRaw`SELECT 1`;
 

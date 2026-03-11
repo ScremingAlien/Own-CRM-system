@@ -1,6 +1,6 @@
 import { WorkerRepository } from "./worker.repository.js";
 import { WorkerDTO } from "./worker.types.js";
- 
+
 class WorkerService {
   private repository: WorkerRepository;
 

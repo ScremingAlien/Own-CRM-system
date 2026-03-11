@@ -1,5 +1,5 @@
 import { AttendanceRepository } from "./attendance.repository.js";
- 
+
 class AttendanceService {
   private repository: AttendanceRepository;
 

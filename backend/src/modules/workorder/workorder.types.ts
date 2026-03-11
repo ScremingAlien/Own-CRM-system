@@ -6,10 +6,9 @@ export enum WorkOrderStatus {
   PENDING = "PENDING",
   RUNNING = "RUNNING",
   COMPLETED = "COMPLETED",
-  CANCELLED = "CANCELLED"
+  CANCELLED = "CANCELLED",
 }
 
- 
 export const workOrderSelect = Prisma.validator<Prisma.WorkOrderSelect>()({
   id: true,
   title: true,
@@ -18,7 +17,9 @@ export const workOrderSelect = Prisma.validator<Prisma.WorkOrderSelect>()({
   status: true,
   startDate: true,
   endDate: true,
-  estimatedCost: true
+  estimatedCost: true,
+  createdAt: true,
+  updatedAt: true,
 });
 
 export type WorkOrderDTO = Prisma.WorkOrderGetPayload<{

@@ -1,14 +1,33 @@
+import { prisma } from "@/infra/database/prisma.js";
+import { Prisma } from "@/generated/index.js";
 import { PaymentRepository } from "./payment.repository.js";
- 
-class PaymentService {
-  private repository: PaymentRepository;
+import { LedgerRepository } from "../ledger/ledger.repository.js";
 
-  constructor() {
-    this.repository = new PaymentRepository();
-  }
+export class PaymentService {
+  private paymentRepo = new PaymentRepository();
+  private ledgerRepo = new LedgerRepository();
 
-  async getAll(): Promise<any[]> {
-    return await this.repository.findAll();
+  async createPayment(data: Prisma.PaymentCreateInput) {
+    return prisma.$transaction(async (tx) => {
+      const payment = await this.paymentRepo.create(tx, data);
+
+      await this.ledgerRepo.createEntry({
+        party: {
+          connect: { id: data.party.connect!.id },
+        },
+        referenceType: "PAYMENT",
+        referenceId: payment.id,
+        description: "Payment received",
+        debit: new Prisma.Decimal(0),
+        credit: payment.amount,
+        date: payment.paymentDate,
+        payment: {
+          connect: { id: payment.id },
+        },
+      });
+
+      return payment;
+    });
   }
 }
 

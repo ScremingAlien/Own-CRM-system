@@ -9,8 +9,7 @@ const workorderController = new WorkorderController();
 router.get("/", workorderController.getAll);
 router.post("/", validate(createWorkorderSchema), workorderController.create_workorder);
 router.get("/:id/byid", workorderController.find_by_id);
-router.patch("/:id/status", workorderController.change_status );  // update status
+router.patch("/:id/status", workorderController.change_status); // update status
 router.delete("/:id", workorderController.delete_by_id);
-
 
 export default router;

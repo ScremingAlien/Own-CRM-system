@@ -30,6 +30,4 @@ export default class ReportsController {
     const data = await this.reportsService.closeFy(req.params.id as string);
     res.success("Close Financial Year", data, statusCode.OK);
   });
-
-
 }

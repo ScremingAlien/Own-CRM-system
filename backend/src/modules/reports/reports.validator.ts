@@ -6,8 +6,7 @@ export const fyCreateSchema = z.object({
     startDate: z.string().min(1, "Reports title is required"),
     endDate: z.string().min(1, "Reports title is required"),
   }),
-})
-
+});
 
 export const createReportsSchema = z.object({
   body: z.object({

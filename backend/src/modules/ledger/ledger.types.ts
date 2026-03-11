@@ -1,16 +1,27 @@
 import { Prisma } from "@/generated/index.js";
+export enum LedgerReferenceType {
+  INVOICE = "INVOICE",
+  PAYMENT = "PAYMENT",
+  PURCHASE = "PURCHASE",
+  ADJUSTMENT = "ADJUSTMENT",
+  OPENING_BALANCE = "OPENING_BALANCE",
+}
 
-export const ledgerSelect = Prisma.validator<Prisma.LedgerEntrySelect>()({
+export const ledgerEntrySelect = Prisma.validator<Prisma.LedgerEntrySelect>()({
   id: true,
   partyId: true,
+  year: true,
+  month: true,
   referenceType: true,
   referenceId: true,
+  description: true,
   debit: true,
   credit: true,
   date: true,
-  description: true
+  paymentId: true,
+  createdAt: true,
 });
 
-export type LedgerDTO = Prisma.LedgerEntryGetPayload<{
-  select: typeof ledgerSelect;
+export type LedgerEntryDTO = Prisma.LedgerEntryGetPayload<{
+  select: typeof ledgerEntrySelect;
 }>;

@@ -18,10 +18,21 @@ export default class PartyController {
 
   /** Create Party
    *  if has Opening balance then create a ledger item
-   * 
+   *
    */
   create_party = asyncHandler(async (req: Request, res: Response) => {
-    const data = await this.partyService.createParty(req.body);
+    const data = await this.partyService.createParty(
+      {
+        name: req.body.name,
+        type: req.body.type,
+        phone: req.body.phone,
+        gstNumber: req.body.gstNumber,
+        address: req.body.address,
+        stateCode: req.body.stateCode,
+      },
+      req.body.openingBalance,
+    );
+
     res.success("Create Party", data, statusCode.CREATED);
   });
 
@@ -34,6 +45,4 @@ export default class PartyController {
     const data = await this.partyService.deleteParty(req.params.id as string);
     res.success("Delete Party", data, statusCode.OK);
   });
-
-
 }

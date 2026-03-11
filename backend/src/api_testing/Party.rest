@@ -20,8 +20,12 @@ POST http://localhost:4000/api/v1/party
 Content-Type: application/json
 
 {
-     "name":"dsfs",
-     "type":"CUSTOMER"
+     "name":"HHHHH",
+     "type":"CUSTOMER",
+     "openingBalance":{
+          "amount":5000, 
+          "date":""
+     }
 }
 
 ### delete Request

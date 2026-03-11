@@ -22,7 +22,6 @@ async function startServer() {
     // graceful shutdown
     process.once("SIGINT", () => shutdown("SIGINT"));
     process.once("SIGTERM", () => shutdown("SIGTERM"));
-
   } catch (err) {
     logger.fatal(err, "Application startup failed");
     process.exit(1);

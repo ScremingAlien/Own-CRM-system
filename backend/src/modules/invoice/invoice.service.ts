@@ -1,5 +1,5 @@
 import { InvoiceRepository } from "./invoice.repository.js";
- 
+
 class InvoiceService {
   private repository: InvoiceRepository;
 

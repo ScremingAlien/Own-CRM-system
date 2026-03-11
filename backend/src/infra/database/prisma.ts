@@ -1,7 +1,6 @@
- 
 import { PrismaPg } from "@prisma/adapter-pg";
 import { logger } from "@/infra/logger.js";
- 
+
 import { PrismaClient } from "@/generated/index.js";
 
 const connectionString = process.env.DATABASE_URL;
@@ -14,5 +13,5 @@ if (!connectionString) {
 const adapter = new PrismaPg({ connectionString });
 
 export const prisma = new PrismaClient({
-  adapter 
+  adapter,
 });

@@ -1,4 +1,3 @@
-
 import { logger } from "@/infra/logger.js";
 import { initDatabase } from "./db.bootstrap.js";
 

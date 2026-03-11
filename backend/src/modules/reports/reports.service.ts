@@ -31,8 +31,6 @@ class ReportsService {
   async closeFy(id: string): Promise<FyDTO> {
     return await this.repository.closeFy(id);
   }
-
-
 }
 
 export default new ReportsService();

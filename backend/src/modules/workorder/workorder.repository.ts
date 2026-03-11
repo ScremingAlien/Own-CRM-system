@@ -2,9 +2,7 @@ import { prisma } from "@/infra/database/prisma.js";
 import { WorkOrderDTO, workOrderSelect, WorkOrderStatus } from "./workorder.types.js";
 import { Prisma } from "@/generated/index.js";
 
-
 export class WorkOrderRepository {
-
   async findAll(): Promise<WorkOrderDTO[]> {
     return prisma.workOrder.findMany({ select: workOrderSelect });
   }
@@ -29,5 +27,4 @@ export class WorkOrderRepository {
   async delete(id: string) {
     return prisma.workOrder.delete({ where: { id } });
   }
-
 }

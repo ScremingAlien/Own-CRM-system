@@ -8,7 +8,6 @@ export interface Reports {
 
 export type CreateFyInput = z.infer<typeof fyCreateSchema>["body"];
 
-
 export const fySelect = Prisma.validator<Prisma.FinancialYearSelect>()({
   id: true,
   label: true,
@@ -18,7 +17,6 @@ export const fySelect = Prisma.validator<Prisma.FinancialYearSelect>()({
   isClosed: true,
   createdAt: true,
 });
-
 
 export type FyDTO = Prisma.FinancialYearGetPayload<{
   select: typeof fySelect;

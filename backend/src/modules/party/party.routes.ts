@@ -12,5 +12,4 @@ router.post("/", validate(createPartySchema), partyController.create_party);
 router.delete("/:id", partyController.delete_party); // soft delete
 router.patch("/:id", validate(updatePartySchema), partyController.update_party);
 
-
 export default router;

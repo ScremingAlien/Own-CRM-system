@@ -7,7 +7,7 @@ export const workerSelect = Prisma.validator<Prisma.WorkerSelect>()({
   skillType: true,
   defaultWage: true,
   isActive: true,
-  createdAt: true
+  createdAt: true,
 });
 
 export type WorkerDTO = Prisma.WorkerGetPayload<{

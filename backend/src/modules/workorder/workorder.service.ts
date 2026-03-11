@@ -25,7 +25,7 @@ class WorkorderService {
     if (!isParty) {
       throw new Error("Party Not Found", { cause: statusCode.BAD_REQUEST });
     }
-    
+
     return await this.repository.create(data);
   }
 
@@ -38,13 +38,11 @@ class WorkorderService {
 
   async delete(id: string) {
     let isWr = await this.repository.findById(id);
-    if(!isWr){
+    if (!isWr) {
       throw new Error("Workorder Not Found", { cause: statusCode.BAD_REQUEST });
     }
     return await this.repository.delete(id);
   }
-
-
 }
 
 export default new WorkorderService();
