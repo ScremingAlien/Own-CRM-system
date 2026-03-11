@@ -1,0 +1,26 @@
+ 
+
+### create invoice
+POST http://localhost:4000/api/v1/invoice
+Content-Type: application/json
+
+{
+     "invoiceNumber":"002",
+     "issueDate":"2026-03-11T18:16:56.770Z",
+     "partyId":"9edd20f1-bc16-4492-9a82-478137c0711e",
+     "sgst":9,
+     "cgst":9,
+     "igst":0,
+     "status":"SENT",
+     "financialYearId":"2025-26",
+     "items":[
+          {
+          "description":"testing description", 
+          "hsnCode":"784651",
+          "unit":"KG",
+          "quantity":10,
+          "rate":1000
+          }
+     ]
+}
+ 

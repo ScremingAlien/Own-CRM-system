@@ -1,4 +1,16 @@
 import { Prisma } from "@/generated/index.js";
+import { createInvoiceSchema, invoiceItemSchema } from "./invoice.validator.js";
+import z from "zod";
+export enum InvoiceStatus {
+  DRAFT = "DRAFT",
+  SENT = "SENT",
+  CANCELLED = "CANCELLED",
+}
+export type CreateInvoiceInput = z.infer<typeof createInvoiceSchema>["body"];
+
+export type CreateInvoiceItemInput = z.infer<typeof invoiceItemSchema>;
+
+
 export const financialYearSelect = Prisma.validator<Prisma.FinancialYearSelect>()({
   id: true,
   label: true,
@@ -52,3 +64,23 @@ export const invoiceItemSelect = Prisma.validator<Prisma.InvoiceItemSelect>()({
 export type InvoiceItemDTO = Prisma.InvoiceItemGetPayload<{
   select: typeof invoiceItemSelect;
 }>;
+ 
+export type CalculatedInvoiceItem = {
+  description: string
+  subdescription: string[]
+  hsnCode?: string | null
+  unit?: string | null
+  quantity: number
+  rate: number
+  amount: Prisma.Decimal
+}
+
+export type CalculatedInvoice = {
+  items: CalculatedInvoiceItem[]
+  taxableAmount: Prisma.Decimal
+  sgst: number
+  cgst: number
+  igst: number
+  roundOff: Prisma.Decimal
+  totalAmount: Prisma.Decimal
+}

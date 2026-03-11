@@ -20,10 +20,10 @@ POST http://localhost:4000/api/v1/party
 Content-Type: application/json
 
 {
-     "name":"HHHHH",
+     "name":"Shree Ganesh",
      "type":"CUSTOMER",
      "openingBalance":{
-          "amount":5000, 
+          "amount":10000, 
           "date":""
      }
 }

@@ -4,15 +4,15 @@ import { CreatePartyDTO, PartyDTO } from "./party.types.js";
 import { PartyType, Prisma } from "@/generated/index.js";
 import { LedgerService } from "../ledger/ledger.service.js";
 import { prisma } from "@/infra/database/prisma.js";
-import { DBType } from "@/types/global.js";
+import { LedgerRepository } from "../ledger/ledger.repository.js";
 
 class PartyService {
   private repository: PartyRepository;
-  private ledgerService: LedgerService;
+  
 
-  constructor(private db: DBType) {
-    this.repository = new PartyRepository(this.db);
-    this.ledgerService = new LedgerService(this.db);
+  constructor() {
+    this.repository = new PartyRepository(prisma);
+    
   }
 
   async getAllParty(): Promise<PartyDTO[]> {
@@ -31,16 +31,36 @@ class PartyService {
       date: Date;
     },
   ): Promise<PartyDTO> {
-    // if already inside transaction
-    if (!("$transaction" in this.db)) {
-      return this.createPartyInternal(data, openingBalance);
-    }
 
-    // if root prisma client
-    return this.db.$transaction(async (tx) => {
-      const service = new PartyService(tx);
-      return service.createPartyInternal(data, openingBalance);
-    });
+
+
+    return prisma.$transaction(async (tx) => {
+
+      const partyRepo = new PartyRepository(tx)
+      const ledgerRepo = new LedgerRepository(tx)
+
+      const existing = await partyRepo.findByName(data.name);
+
+      if (existing) {
+        throw new Error("Party Already Exists", { cause: statusCode.BAD_REQUEST });
+      }
+
+      const party = await partyRepo.create(data);
+      
+      if (openingBalance) {
+        await ledgerRepo.createOpeningBalance(
+          party.id,
+          openingBalance.amount,
+          party.type === PartyType.CUSTOMER ? "DEBIT" : "CREDIT",
+          openingBalance.date || new Date(),
+        )
+      }
+
+      return party
+    })
+
+
+
   }
 
   async updateParty(
@@ -65,33 +85,7 @@ class PartyService {
     return await this.repository.delete(id);
   }
 
-  private async createPartyInternal(
-    data: CreatePartyDTO,
-    openingBalance?: {
-      amount: Prisma.Decimal;
-      type: "DEBIT" | "CREDIT";
-      date: Date;
-    },
-  ): Promise<PartyDTO> {
-    const existing = await this.repository.findByName(data.name);
-
-    if (existing) {
-      throw new Error("Party Already Exists", { cause: statusCode.BAD_REQUEST });
-    }
-
-    const party = await this.repository.create(data);
-
-    if (openingBalance) {
-      await this.ledgerService.createOpeningBalance(
-        party.id,
-        openingBalance.amount,
-        party.type === PartyType.CUSTOMER ? "DEBIT" : "CREDIT",
-        openingBalance.date || new Date(),
-      );
-    }
-
-    return party;
-  }
+   
 }
 
-export default new PartyService(prisma);
+export default new PartyService();

@@ -1,10 +1,9 @@
-import { prisma } from "@/infra/database/prisma.js";
 
 import { CreatePartyDTO, partySelect, type PartyDTO } from "./party.types.js";
 import { DBType } from "@/types/global.js";
 
 export class PartyRepository {
-  constructor(private db: DBType) {}
+  constructor(private db: DBType) { }
 
   async findAll(): Promise<PartyDTO[]> {
     return this.db.party.findMany({
@@ -66,9 +65,9 @@ export class PartyRepository {
   }
 
   async isPartyIdExists(id: string) {
-    return this.db.party.findUnique({
+    return this.db.party.findFirstOrThrow({
       where: { id },
-      select: { id: true },
+      select: { id: true, type: true },
     });
   }
 }
