@@ -2,7 +2,8 @@ import { z } from "zod";
 
 export const createQncSchema = z.object({
   body: z.object({
-    title: z.string().min(1, "Qnc title is required"),
+    invoiceId: z.string().min(1, "InvoiceId is required"),
+    chNo: z.string().min(1, "ChalanNo  is required"),
   }),
 });
 

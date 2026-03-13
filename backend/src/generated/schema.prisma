@@ -191,8 +191,9 @@ model Quotation {
   party   Party  @relation(fields: [partyId], references: [id])
 
   issueDate DateTime
-
-  items QuotationItem[]
+  month     Int?
+  year      Int?
+  items     QuotationItem[]
 
   taxableAmount Decimal @db.Decimal(12, 2)
 
@@ -239,6 +240,9 @@ model Invoice {
   invoiceNumber String   @unique
   issueDate     DateTime
 
+  month Int?
+  year  Int?
+
   partyId String
   party   Party  @relation("InvoiceParty", fields: [partyId], references: [id])
 
@@ -266,6 +270,7 @@ model Invoice {
   financialYear   FinancialYear? @relation(fields: [financialYearId], references: [label])
 
   createdAt DateTime @default(now())
+  chalans   Chalan[]
 
   @@index([partyId])
   @@index([issueDate])
@@ -296,14 +301,17 @@ model InvoiceItem {
 //////////////////////////////////////////////////////
 
 model Chalan {
-  id String @id @default(uuid())
+  id        String   @id @default(uuid())
+  invoiceId String?
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id])
 
   partyId String
   party   Party  @relation(fields: [partyId], references: [id])
 
-  shipToId String?
-  shipTo   Party?  @relation("ChalanShipTo", fields: [shipToId], references: [id])
-
+  shipToId  String?
+  shipTo    Party?  @relation("ChalanShipTo", fields: [shipToId], references: [id])
+  month     Int?
+  year      Int?
   chNo      String
   vehicleNo String?
 

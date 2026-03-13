@@ -56,12 +56,12 @@ model Party {
   stateCode String?
   type      PartyType
 
-  invoices          Invoice[] @relation("InvoiceParty")
-  shippingFor       Invoice[] @relation("InvoiceShipTo")
+  invoices    Invoice[] @relation("InvoiceParty")
+  shippingFor Invoice[] @relation("InvoiceShipTo")
 
-  quotations        Quotation[]
-  chalans           Chalan[]
-  chalansShippingFor Chalan[] @relation("ChalanShipTo")
+  quotations         Quotation[]
+  chalans            Chalan[]
+  chalansShippingFor Chalan[]    @relation("ChalanShipTo")
 
   payments      Payment[]
   ledgerEntries LedgerEntry[]
@@ -127,7 +127,7 @@ model WorkOrder {
   description String?
 
   partyId String?
-  party   Party? @relation(fields: [partyId], references: [id])
+  party   Party?  @relation(fields: [partyId], references: [id])
 
   status WorkStatus @default(PENDING)
 
@@ -188,11 +188,12 @@ model Quotation {
   id String @id @default(uuid())
 
   partyId String
-  party   Party @relation(fields: [partyId], references: [id])
+  party   Party  @relation(fields: [partyId], references: [id])
 
   issueDate DateTime
-
-  items QuotationItem[]
+  month     Int?
+  year      Int?
+  items     QuotationItem[]
 
   taxableAmount Decimal @db.Decimal(12, 2)
 
@@ -216,15 +217,15 @@ model QuotationItem {
   quotationId String
   quotation   Quotation @relation(fields: [quotationId], references: [id], onDelete: Cascade)
 
-  description String
+  description    String
   subdescription String[]
 
   hsnCode String?
   unit    String?
 
   quantity Int     @default(1)
-  rate     Decimal @db.Decimal(10,2)
-  amount   Decimal @db.Decimal(12,2)
+  rate     Decimal @db.Decimal(10, 2)
+  amount   Decimal @db.Decimal(12, 2)
 
   @@index([quotationId])
 }
@@ -236,14 +237,17 @@ model QuotationItem {
 model Invoice {
   id String @id @default(uuid())
 
-  invoiceNumber String @unique
+  invoiceNumber String   @unique
   issueDate     DateTime
+
+  month Int?
+  year  Int?
 
   partyId String
   party   Party  @relation("InvoiceParty", fields: [partyId], references: [id])
 
   shipToId String?
-  shipTo   Party? @relation("InvoiceShipTo", fields: [shipToId], references: [id])
+  shipTo   Party?  @relation("InvoiceShipTo", fields: [shipToId], references: [id])
 
   chNo      String?
   poNo      String?
@@ -266,6 +270,7 @@ model Invoice {
   financialYear   FinancialYear? @relation(fields: [financialYearId], references: [label])
 
   createdAt DateTime @default(now())
+  chalans   Chalan[]
 
   @@index([partyId])
   @@index([issueDate])
@@ -278,15 +283,15 @@ model InvoiceItem {
   invoiceId String
   invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
 
-  description String
+  description    String
   subdescription String[]
-  
+
   hsnCode String?
   unit    String?
 
-  quantity Int @default(1)
-  rate     Decimal @db.Decimal(10,2)
-  amount   Decimal @db.Decimal(12,2)
+  quantity Int     @default(1)
+  rate     Decimal @db.Decimal(10, 2)
+  amount   Decimal @db.Decimal(12, 2)
 
   @@index([invoiceId])
 }
@@ -296,18 +301,19 @@ model InvoiceItem {
 //////////////////////////////////////////////////////
 
 model Chalan {
-  id String @id @default(uuid())
+  id        String   @id @default(uuid())
+  invoiceId String?
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id])
   
   partyId String
-  party   Party @relation(fields: [partyId], references: [id])
+  party   Party  @relation(fields: [partyId], references: [id])
 
-  shipToId String?
-  shipTo   Party? @relation("ChalanShipTo", fields: [shipToId], references: [id])
-
-  chNo String
+  shipToId  String?
+  shipTo    Party?  @relation("ChalanShipTo", fields: [shipToId], references: [id])
+  month     Int?
+  year      Int?
+  chNo      String
   vehicleNo String?
-
-
 
   issueDate DateTime
 
@@ -324,13 +330,13 @@ model ChalanItem {
   chalanId String
   chalan   Chalan @relation(fields: [chalanId], references: [id], onDelete: Cascade)
 
-  description String
+  description    String
   subdescription String[]
 
   hsnCode String?
   unit    String?
 
-  quantity Int @default(1)
+  quantity Int  @default(1)
   weight   Int?
 
   @@index([chalanId])
@@ -344,7 +350,7 @@ model Payment {
   id String @id @default(uuid())
 
   partyId String
-  party   Party @relation(fields: [partyId], references: [id])
+  party   Party  @relation(fields: [partyId], references: [id])
 
   amount Decimal @db.Decimal(12, 2)
 
@@ -369,7 +375,7 @@ model LedgerEntry {
   id String @id @default(uuid())
 
   partyId String
-  party   Party @relation(fields: [partyId], references: [id])
+  party   Party  @relation(fields: [partyId], references: [id])
 
   year  Int
   month Int

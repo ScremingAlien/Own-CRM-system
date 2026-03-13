@@ -2,9 +2,9 @@ import { prisma } from "@/infra/database/prisma.js";
 import { InvoiceRepository } from "./invoice.repository.js";
 import { CreateInvoiceInput, InvoiceDTO } from "./invoice.types.js";
 import { PartyRepository } from "../party/party.repository.js";
-import { statusCode } from "@/utils/constants/statusCode.js";
 import { calculateInvoice } from "@/utils/Calculations.helper.js";
 import { LedgerRepository } from "../ledger/ledger.repository.js";
+import { ErrorService } from "@/utils/errorHits/Error.service.js";
 
 class InvoiceService {
   private invoiceRepo: InvoiceRepository;
@@ -16,39 +16,28 @@ class InvoiceService {
   }
 
   async getAll(): Promise<any[]> {
-    return await this.invoiceRepo.findAll();
+    return await this.invoiceRepo.findInvoices({
+      yearLabel: "2025-26",
+    });
   }
-
+  
   async createInvoice(data: CreateInvoiceInput): Promise<InvoiceDTO> {
 
     const isInvoiceNumberExists = await this.invoiceRepo.isExists(
       data.invoiceNumber
     )
-
-    if (isInvoiceNumberExists) {
-      throw new Error("Invoice Number Already Exists", {
-        cause: statusCode.BAD_REQUEST,
-      })
-    }
+    if (isInvoiceNumberExists) ErrorService.InvoiceAlreadyExists();
 
     const isPartyIdExists = await this.partyRepo.isPartyIdExists(data.partyId)
+    if (!isPartyIdExists)  ErrorService.PartyNotFound();
 
-    if (!isPartyIdExists) {
-      throw new Error("Party Not Found", {
-        cause: statusCode.NOT_FOUND,
-      })
-    }
-
+    
     if (data.shipToId) {
       const isShipToIdExists = await this.partyRepo.isPartyIdExists(data.shipToId)
 
-      if (!isShipToIdExists) {
-        throw new Error("Ship To Not Found", {
-          cause: statusCode.NOT_FOUND,
-        })
-      }
+      if (!isShipToIdExists) ErrorService.ShipmentNotFound();
     }
-    
+
     const calculated = calculateInvoice(
       data.items,
       data.sgst,
@@ -59,8 +48,10 @@ class InvoiceService {
     return prisma.$transaction(async (tx) => {
       const InvoiceRepo = new InvoiceRepository(tx)
       const LedgerRepo = new LedgerRepository(tx)
+
+      // create invoice by data
       const invoice = await InvoiceRepo.create(data, calculated)
-      
+
       if (invoice.status === "SENT") {
         let PType = isPartyIdExists.type;
 
@@ -71,9 +62,8 @@ class InvoiceService {
           PType === "CUSTOMER" ? "DEBIT" : "CREDIT",
           invoice.issueDate,
         )
-        // create ledger items also  
-      }
 
+      }
       return invoice
     })
 
@@ -82,6 +72,7 @@ class InvoiceService {
   async onInvoiceCancled() {
 
   }
+
 
 }
 

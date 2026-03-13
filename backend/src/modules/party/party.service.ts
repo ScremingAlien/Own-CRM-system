@@ -5,14 +5,15 @@ import { PartyType, Prisma } from "@/generated/index.js";
 import { LedgerService } from "../ledger/ledger.service.js";
 import { prisma } from "@/infra/database/prisma.js";
 import { LedgerRepository } from "../ledger/ledger.repository.js";
+import { ErrorService } from "@/utils/errorHits/Error.service.js";
 
 class PartyService {
   private repository: PartyRepository;
-  
+
 
   constructor() {
     this.repository = new PartyRepository(prisma);
-    
+
   }
 
   async getAllParty(): Promise<PartyDTO[]> {
@@ -40,10 +41,7 @@ class PartyService {
       const ledgerRepo = new LedgerRepository(tx)
 
       const existing = await partyRepo.findByName(data.name);
-
-      if (existing) {
-        throw new Error("Party Already Exists", { cause: statusCode.BAD_REQUEST });
-      }
+      if (existing) ErrorService.PartyAlreadyExists();
 
       const party = await partyRepo.create(data);
       
@@ -75,9 +73,8 @@ class PartyService {
    */
   async deleteParty(id: string) {
     let isPartyIdExists = await this.repository.isPartyIdExists(id);
-    if (!isPartyIdExists) {
-      throw new Error("Party Not Found", { cause: statusCode.NOT_FOUND });
-    }
+    if (!isPartyIdExists) ErrorService.PartyNotFound();
+
     let isPartyHasNoBill = await this.repository.isPartyHasBills(id);
     if (isPartyHasNoBill) {
       return await this.repository.softDelete(id);
@@ -85,7 +82,7 @@ class PartyService {
     return await this.repository.delete(id);
   }
 
-   
+
 }
 
 export default new PartyService();

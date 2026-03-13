@@ -1,0 +1,22 @@
+###  get All
+GET http://localhost:4000/api/v1/qnc
+Content-Type: application/json
+
+
+###  get by id
+GET http://localhost:4000/api/v1/qnc/8fff755c-6c30-4e3f-b7ce-1399a39e7568/byid
+Content-Type: application/json
+
+###  delete by id
+DELETE  http://localhost:4000/api/v1/qnc/8fff755c-6c30-4e3f-b7ce-1399a39e7568
+Content-Type: application/json
+
+
+###  create chalan
+POST http://localhost:4000/api/v1/qnc
+Content-Type: application/json
+
+{
+     "invoiceId":"1b5c8665-52fd-4680-b8a7-b8901cafc844",
+     "chNo":"CH-002"
+}

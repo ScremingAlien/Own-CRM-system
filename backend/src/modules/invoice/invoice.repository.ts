@@ -7,8 +7,13 @@ export class InvoiceRepository {
 
   constructor(private db: DBType) { }
 
-  async findAll(): Promise<InvoiceDTO[]> {
+  async findInvoices({ yearLabel, month, year }: { yearLabel: string, month?: number, year?: number }): Promise<InvoiceDTO[]> {
     return this.db.invoice.findMany({
+      where: {
+        financialYear: { label: yearLabel },
+        month: month,
+        year: year,
+      },
       select: invoiceSelect,
       orderBy: { issueDate: "desc" },
     });
@@ -29,32 +34,22 @@ export class InvoiceRepository {
     return this.db.invoice.create({
       data: {
         invoiceNumber: data.invoiceNumber,
-
         issueDate: data.issueDate || new Date(),
-
         partyId: data.partyId,
-
         shipToId: data.shipToId,
-
+        month: new Date(data.issueDate || new Date()).getMonth() + 1,
+        year: new Date(data.issueDate || new Date()).getFullYear(),
         stateCode: data.stateCode,
-
         sgst: calculated.sgst,
         cgst: calculated.cgst,
         igst: calculated.igst,
-
         taxableAmount: calculated.taxableAmount,
-
         roundOff: calculated.roundOff,
-
         totalAmount: calculated.totalAmount,
-
         status: data.status,
-
         financialYearId: data.financialYearId,
-
         chNo: data.chNo,
         poNo: data.poNo,
-
         items: {
           create: calculated.items.map((i) => ({
             description: i.description,
@@ -67,7 +62,8 @@ export class InvoiceRepository {
           }))
         }
 
-      }
+      },
+      select: invoiceSelect
     });
   }
 
@@ -75,5 +71,11 @@ export class InvoiceRepository {
     return this.db.invoice.update({ where: { id }, data, select: invoiceSelect });
   }
 
+  async updateChalanId(id: string, data: Prisma.InvoiceUpdateInput): Promise<InvoiceDTO> {
+    return this.db.invoice.update({ where: { id }, data, select: invoiceSelect });
+  }
+  async removeChalanId(partyId: string): Promise<Pick<InvoiceDTO, "id" | "chNo">> {
+    return this.db.invoice.update({ where: { id: partyId }, data: { chNo: null }, select: { id: true, chNo: true } });
+  }
 
 }
