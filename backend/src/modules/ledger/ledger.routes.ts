@@ -6,5 +6,6 @@ const ledgerController = new LedgerController();
 
 router.get("/party/:id", ledgerController.partyLedgers);
 router.get("/party/:id/balance", ledgerController.partyBalance);
+router.get("/party/:id/ledger", ledgerController.getLedgers);
 
 export default router;

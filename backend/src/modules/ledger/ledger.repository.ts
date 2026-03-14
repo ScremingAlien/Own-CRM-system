@@ -30,7 +30,7 @@ export class LedgerRepository {
     description,
     paymentId,
   }: LedgerCreateDTO): Promise<LedgerEntryDTO> {
-    return this.db.ledgerEntry.create({
+    return await this.db.ledgerEntry.create({
       data: {
         partyId,
         month: new Date(date).getMonth() + 1,
@@ -58,7 +58,7 @@ export class LedgerRepository {
     type: "DEBIT" | "CREDIT",
     date: Date,
   ) {
-    return this.createEntry({
+    return await this.createEntry({
       partyId,
       referenceType: LedgerReferenceType.INVOICE,
       amount,
@@ -80,7 +80,7 @@ export class LedgerRepository {
     type: "DEBIT" | "CREDIT",
     date: Date,
   ) {
-    return this.createEntry({
+    return await this.createEntry({
       partyId,
       referenceType: LedgerReferenceType.PAYMENT,
       amount,
@@ -103,7 +103,7 @@ export class LedgerRepository {
     description: string,
     date: Date,
   ) {
-    return this.createEntry({
+    return await this.createEntry({
       partyId,
       referenceType: LedgerReferenceType.ADJUSTMENT,
       amount,
@@ -123,7 +123,7 @@ export class LedgerRepository {
     type: "DEBIT" | "CREDIT",
     date: Date,
   ) {
-    return this.createEntry({
+    return await this.createEntry({
       partyId,
       referenceType: LedgerReferenceType.OPENING_BALANCE,
       amount,
@@ -138,7 +138,7 @@ export class LedgerRepository {
   ////////////////////////////////////////////////////
 
   async findByParty(partyId: string, page = 1, limit = 50): Promise<LedgerEntryDTO[]> {
-    return this.db.ledgerEntry.findMany({
+    return await this.db.ledgerEntry.findMany({
       where: { partyId },
       select: ledgerEntrySelect,
       orderBy: { date: "desc" },
@@ -165,4 +165,17 @@ export class LedgerRepository {
       balance: Prisma.Decimal.sub(debit, credit),
     };
   }
+  
+
+  async getLedgerReport(partyId: string): Promise<LedgerEntryDTO[]> {
+    return await this.db.ledgerEntry.findMany({
+      where: { partyId },
+      orderBy: [
+        { date: "asc" },
+        { createdAt: "asc" }
+      ],
+      select: ledgerEntrySelect
+    });
+  }
+
 }

@@ -8,9 +8,9 @@ POST http://localhost:4000/api/v1/invoice
 Content-Type: application/json
 
 {
-     "invoiceNumber":"002",
+     "invoiceNumber":"001",
      "issueDate":"2026-03-11T18:16:56.770Z",
-     "partyId":"9edd20f1-bc16-4492-9a82-478137c0711e",
+     "partyId":"9d7bb86a-8856-474f-885a-ce47b6afd4d5",
      "sgst":9,
      "cgst":9,
      "igst":0,

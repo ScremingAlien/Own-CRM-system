@@ -44,13 +44,13 @@ export class PaymentService {
         isParty.id,
         payment.id,
         Prisma.Decimal(data.amount),
-        isParty.type === PartyType.CUSTOMER ? "CREDIT" : "DEBIT",
+        isParty.type === PartyType.CUSTOMER ? "DEBIT" : "CREDIT",
         data.paymentDate || new Date(),
       );
       return payment
     })
   }
-  
+
   async deletePayment() {
     /**
      * 1. delete payment

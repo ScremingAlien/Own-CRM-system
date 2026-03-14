@@ -9,7 +9,15 @@ const reportsController = new ReportsController();
 /*------------------------------------
 Reports apis  /report
 --------------------------------------*/
-router.get("/report", reportsController.get_all_fy);
+ 
+router.get("/party/outstanding", reportsController.outstanding);
+
+router.get("/party/receivable", reportsController.receivable);
+
+router.get("/party/payable", reportsController.payable);
+
+router.get("/party/party-statement", reportsController.partyStatement);
+
 
 /*------------------------------------
 Financial Year apis   /fy

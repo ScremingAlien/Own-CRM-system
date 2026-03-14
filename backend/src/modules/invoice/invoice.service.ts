@@ -29,9 +29,9 @@ class InvoiceService {
     if (isInvoiceNumberExists) ErrorService.InvoiceAlreadyExists();
 
     const isPartyIdExists = await this.partyRepo.isPartyIdExists(data.partyId)
-    if (!isPartyIdExists)  ErrorService.PartyNotFound();
+    if (!isPartyIdExists) ErrorService.PartyNotFound();
 
-    
+
     if (data.shipToId) {
       const isShipToIdExists = await this.partyRepo.isPartyIdExists(data.shipToId)
 
@@ -44,7 +44,7 @@ class InvoiceService {
       data.cgst,
       data.igst
     )
-    
+
     return prisma.$transaction(async (tx) => {
       const InvoiceRepo = new InvoiceRepository(tx)
       const LedgerRepo = new LedgerRepository(tx)
@@ -55,11 +55,11 @@ class InvoiceService {
       if (invoice.status === "SENT") {
         let PType = isPartyIdExists.type;
 
-        LedgerRepo.recordInvoice(
+        await LedgerRepo.recordInvoice(
           data.partyId,
           invoice.id,
           calculated.totalAmount,
-          PType === "CUSTOMER" ? "DEBIT" : "CREDIT",
+          PType === "CUSTOMER" ? "CREDIT" : "DEBIT",
           invoice.issueDate,
         )
 
@@ -73,7 +73,7 @@ class InvoiceService {
 
   }
 
-  async deleteInvoice(){
+  async deleteInvoice() {
     /**
      * delete ledger,
      * delete invoice,
@@ -91,7 +91,7 @@ class InvoiceService {
      * things can change are-> shppingid,
      */
   }
-  
+
 
 }
 

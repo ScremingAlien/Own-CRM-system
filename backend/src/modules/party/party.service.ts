@@ -44,7 +44,7 @@ class PartyService {
       if (existing) ErrorService.PartyAlreadyExists();
 
       const party = await partyRepo.create(data);
-      
+
       if (openingBalance) {
         await ledgerRepo.createOpeningBalance(
           party.id,
@@ -70,6 +70,7 @@ class PartyService {
 
   /** Delete party
    *  only soft delete if  bill found other wise delete partys
+   *  
    */
   async deleteParty(id: string) {
     let isPartyIdExists = await this.repository.isPartyIdExists(id);

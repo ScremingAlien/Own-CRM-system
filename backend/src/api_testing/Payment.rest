@@ -8,18 +8,22 @@ POST http://localhost:4000/api/v1/payment
 Content-Type: application/json
 
 {
-     "partyId":"9edd20f1-bc16-4492-9a82-478137c0711e",
-     "amount":5000,
+     "partyId":"93f95ff8-623e-40ff-b611-f112e21cb6dc",
+     "amount":7000,
      "paymentDate":"2026-03-14T17:32:25.910Z",
-     "method":"CHEQUE",
-     "note":"payemnt made for testing"
+     "method":"BANK_TRANSFER",
+     "note":"For jig fixture"
 }
 
 
 ### get party ledgers
-GET http://localhost:4000/api/v1/ledger/party/9edd20f1-bc16-4492-9a82-478137c0711e
+GET http://localhost:4000/api/v1/ledger/party/93f95ff8-623e-40ff-b611-f112e21cb6dc
 Content-Type: application/json
 
 ### get party Balance
-GET http://localhost:4000/api/v1/ledger/party/9edd20f1-bc16-4492-9a82-478137c0711e/balance
+GET http://localhost:4000/api/v1/ledger/party/93f95ff8-623e-40ff-b611-f112e21cb6dc/balance
+Content-Type: application/json
+
+### get party ledger
+GET http://localhost:4000/api/v1/ledger/party/93f95ff8-623e-40ff-b611-f112e21cb6dc/ledger
 Content-Type: application/json

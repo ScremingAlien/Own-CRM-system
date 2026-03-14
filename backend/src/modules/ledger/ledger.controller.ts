@@ -15,4 +15,9 @@ export default class LedgerController {
     const data = await this.ledgerService.getPartyBalance(_req.params.id as string);
     res.success("Get Party Balance", data, statusCode.OK);
   });
+
+  getLedgers = asyncHandler(async (_req: Request, res: Response) => {
+    const report = await ledgerService.getLedgerReport(_req.params.id as string);
+    res.success("Get All Ledgers", report, statusCode.OK);
+  });
 }

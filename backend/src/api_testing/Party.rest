@@ -1,12 +1,12 @@
 
 
 
-### get All fy
+### get All party
 GET http://localhost:4000/api/v1/party
 Content-Type: application/json
 
-### get All fy
-GET http://localhost:4000/api/v1/party/9edd20f1-bc16-4492-9a82-478137c0711e/byid
+### get party by id
+GET http://localhost:4000/api/v1/party/93f95ff8-623e-40ff-b611-f112e21cb6dc/byid
 Content-Type: application/json
 
 ### update party
@@ -24,8 +24,8 @@ POST http://localhost:4000/api/v1/party
 Content-Type: application/json
 
 {
-     "name":"Shree Ganesh",
-     "type":"CUSTOMER",
+     "name":"Kuber",
+     "type":"SUPPLIER",
      "openingBalance":{
           "amount":10000, 
           "date":""
@@ -33,6 +33,6 @@ Content-Type: application/json
 }
 
 ### delete Request
-DELETE  http://localhost:4000/api/v1/party/5e95a15e-59e4-474d-a57a-fd86b38944f6
+DELETE  http://localhost:4000/api/v1/party/9edd20f1-bc16-4492-9a82-478137c0711e
 Content-Type: application/json
  
