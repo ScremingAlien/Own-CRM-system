@@ -3,6 +3,7 @@ export const paymentSelect = Prisma.validator<Prisma.PaymentSelect>()({
   id: true,
   partyId: true,
   amount: true,
+  partyType: true,
   method: true,
   note: true,
   paymentDate: true,

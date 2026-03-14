@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 export class LedgerService {
   private repository = new LedgerRepository(prisma);
 
+ 
   ////////////////////////////////////////////////////
   // INVOICE ENTRY
   ////////////////////////////////////////////////////

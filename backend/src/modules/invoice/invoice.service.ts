@@ -20,7 +20,7 @@ class InvoiceService {
       yearLabel: "2025-26",
     });
   }
-  
+
   async createInvoice(data: CreateInvoiceInput): Promise<InvoiceDTO> {
 
     const isInvoiceNumberExists = await this.invoiceRepo.isExists(
@@ -44,7 +44,7 @@ class InvoiceService {
       data.cgst,
       data.igst
     )
-
+    
     return prisma.$transaction(async (tx) => {
       const InvoiceRepo = new InvoiceRepository(tx)
       const LedgerRepo = new LedgerRepository(tx)
@@ -73,6 +73,25 @@ class InvoiceService {
 
   }
 
+  async deleteInvoice(){
+    /**
+     * delete ledger,
+     * delete invoice,
+     * 
+     */
+  }
+  async updateInvoice() {
+    /**
+     * One updateed ->
+     * update ledger after calculateing comman things like amount ,items ,etc.
+     * felds should not updated-> status, invoice number,
+     * 
+     * if issue date changed -> update ledger 
+     * 
+     * things can change are-> shppingid,
+     */
+  }
+  
 
 }
 

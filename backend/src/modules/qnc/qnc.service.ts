@@ -4,20 +4,24 @@ import { InvoiceRepository } from "../invoice/invoice.repository.js";
 import { prisma } from "@/infra/database/prisma.js";
 import { ChalanDTO, QuotationDTO } from "./qnc.types.js";
 import { ErrorService } from "@/utils/errorHits/Error.service.js";
+import { calculateQuotation } from "@/utils/Calculations.helper.js";
+import { CreateQuotationInput } from "./qnc.validator.js";
+import { PartyRepository } from "../party/party.repository.js";
 
 class QncService {
   private repository: QncRepository;
   private invoiceRepo: InvoiceRepository;
-
+  private partyRepo: PartyRepository;
   constructor() {
     this.repository = new QncRepository(prisma);
     this.invoiceRepo = new InvoiceRepository(prisma);
+    this.partyRepo = new PartyRepository(prisma);
   }
 
   async getQuotations({ month, year }: { month?: number, year?: number }): Promise<QuotationDTO[]> {
     return await this.repository.getQuotations({ month, year });
   }
- 
+
   async getSingleQuotation(id: string): Promise<QuotationDTO | null> {
     return await this.repository.getSingleQuotation(id);
   }
@@ -25,7 +29,7 @@ class QncService {
   async deleteQuotation(id: string): Promise<any> {
     return await this.repository.deleteQuotation(id);
   }
-  
+
 
   async getChalans({ month, year }: { month?: number, year?: number }): Promise<ChalanDTO[]> {
     return await this.repository.getChalans({ month, year });
@@ -107,10 +111,28 @@ class QncService {
    * multiple chaln can be created for single invoice
    */
 
-  async updateChalan(){
+  async updateChalan() {
 
   }
+  async createQuotation(data: CreateQuotationInput): Promise<QuotationDTO> {
 
+    const { items, sgst, cgst, igst, issueDate, partyId } = data;
+
+    let party = await this.partyRepo.isPartyIdExists(partyId);
+    if(!party) ErrorService.PartyNotFound();
+    
+    const { items: processedItems, taxableAmount, totalAmount, roundOff } =
+      calculateQuotation(items, sgst, cgst, igst);
+
+    return await this.repository.createQuotation(
+      data,
+      taxableAmount,
+      totalAmount,
+      partyId,
+      processedItems,
+      roundOff
+    );
+  }
 }
 
 export default new QncService();

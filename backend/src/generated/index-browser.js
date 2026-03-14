@@ -275,6 +275,7 @@ exports.Prisma.ChalanItemScalarFieldEnum = {
 exports.Prisma.PaymentScalarFieldEnum = {
   id: 'id',
   partyId: 'partyId',
+  partyType: 'partyType',
   amount: 'amount',
   method: 'method',
   note: 'note',

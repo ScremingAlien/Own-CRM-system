@@ -1,22 +1,58 @@
 ###  get All
-GET http://localhost:4000/api/v1/qnc
+GET http://localhost:4000/api/v1/qnc/chn
 Content-Type: application/json
 
 
 ###  get by id
-GET http://localhost:4000/api/v1/qnc/8fff755c-6c30-4e3f-b7ce-1399a39e7568/byid
+GET http://localhost:4000/api/v1/qnc/chn/8fff755c-6c30-4e3f-b7ce-1399a39e7568/byid
 Content-Type: application/json
 
+
+###  get All qto
+GET http://localhost:4000/api/v1/qnc/qto
+Content-Type: application/json
+
+
+###  get by id qto
+GET http://localhost:4000/api/v1/qnc/qto/ee3d39a7-276d-4576-9168-64830c106068/byid
+Content-Type: application/json
+
+
+
 ###  delete by id
-DELETE  http://localhost:4000/api/v1/qnc/8fff755c-6c30-4e3f-b7ce-1399a39e7568
+DELETE  http://localhost:4000/api/v1/qnc/chn/8fff755c-6c30-4e3f-b7ce-1399a39e7568
 Content-Type: application/json
 
 
 ###  create chalan
-POST http://localhost:4000/api/v1/qnc
+POST http://localhost:4000/api/v1/qnc/chn
 Content-Type: application/json
 
 {
      "invoiceId":"1b5c8665-52fd-4680-b8a7-b8901cafc844",
      "chNo":"CH-002"
+}
+
+###  create qutotation
+POST http://localhost:4000/api/v1/qnc/qto
+Content-Type: application/json
+
+{
+     "partyId":"9edd20f1-bc16-4492-9a82-478137c0711e",
+     "issueDate":"2026-03-14T15:54:28.958Z",
+     "items":[
+          {
+          "description":"testing description", 
+          "hsnCode":"784651",
+          "unit":"KG",
+          "quantity":10,
+          "rate":1000,
+          "subdescription":["sub1","sub2"]
+          }
+     ],
+     "sgst":9,
+     "cgst":9,
+     "igst":0,
+     "status":"SENT" 
+ 
 }

@@ -5,6 +5,10 @@
 GET http://localhost:4000/api/v1/party
 Content-Type: application/json
 
+### get All fy
+GET http://localhost:4000/api/v1/party/9edd20f1-bc16-4492-9a82-478137c0711e/byid
+Content-Type: application/json
+
 ### update party
 PATCH  http://localhost:4000/api/v1/party/53ef379e-0ad2-4d81-bdd7-7a91d2cb5a7b
 Content-Type: application/json

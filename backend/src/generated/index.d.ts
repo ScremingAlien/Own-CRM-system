@@ -16785,6 +16785,7 @@ export namespace Prisma {
   export type PaymentMinAggregateOutputType = {
     id: string | null
     partyId: string | null
+    partyType: $Enums.PartyType | null
     amount: Decimal | null
     method: string | null
     note: string | null
@@ -16795,6 +16796,7 @@ export namespace Prisma {
   export type PaymentMaxAggregateOutputType = {
     id: string | null
     partyId: string | null
+    partyType: $Enums.PartyType | null
     amount: Decimal | null
     method: string | null
     note: string | null
@@ -16805,6 +16807,7 @@ export namespace Prisma {
   export type PaymentCountAggregateOutputType = {
     id: number
     partyId: number
+    partyType: number
     amount: number
     method: number
     note: number
@@ -16825,6 +16828,7 @@ export namespace Prisma {
   export type PaymentMinAggregateInputType = {
     id?: true
     partyId?: true
+    partyType?: true
     amount?: true
     method?: true
     note?: true
@@ -16835,6 +16839,7 @@ export namespace Prisma {
   export type PaymentMaxAggregateInputType = {
     id?: true
     partyId?: true
+    partyType?: true
     amount?: true
     method?: true
     note?: true
@@ -16845,6 +16850,7 @@ export namespace Prisma {
   export type PaymentCountAggregateInputType = {
     id?: true
     partyId?: true
+    partyType?: true
     amount?: true
     method?: true
     note?: true
@@ -16942,6 +16948,7 @@ export namespace Prisma {
   export type PaymentGroupByOutputType = {
     id: string
     partyId: string
+    partyType: $Enums.PartyType
     amount: Decimal
     method: string | null
     note: string | null
@@ -16971,6 +16978,7 @@ export namespace Prisma {
   export type PaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     partyId?: boolean
+    partyType?: boolean
     amount?: boolean
     method?: boolean
     note?: boolean
@@ -16984,6 +16992,7 @@ export namespace Prisma {
   export type PaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     partyId?: boolean
+    partyType?: boolean
     amount?: boolean
     method?: boolean
     note?: boolean
@@ -16995,6 +17004,7 @@ export namespace Prisma {
   export type PaymentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     partyId?: boolean
+    partyType?: boolean
     amount?: boolean
     method?: boolean
     note?: boolean
@@ -17006,6 +17016,7 @@ export namespace Prisma {
   export type PaymentSelectScalar = {
     id?: boolean
     partyId?: boolean
+    partyType?: boolean
     amount?: boolean
     method?: boolean
     note?: boolean
@@ -17013,7 +17024,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "partyId" | "amount" | "method" | "note" | "paymentDate" | "createdAt", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "partyId" | "partyType" | "amount" | "method" | "note" | "paymentDate" | "createdAt", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     party?: boolean | PartyDefaultArgs<ExtArgs>
     ledgerEntries?: boolean | Payment$ledgerEntriesArgs<ExtArgs>
@@ -17035,6 +17046,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       partyId: string
+      partyType: $Enums.PartyType
       amount: Prisma.Decimal
       method: string | null
       note: string | null
@@ -17467,6 +17479,7 @@ export namespace Prisma {
   interface PaymentFieldRefs {
     readonly id: FieldRef<"Payment", 'String'>
     readonly partyId: FieldRef<"Payment", 'String'>
+    readonly partyType: FieldRef<"Payment", 'PartyType'>
     readonly amount: FieldRef<"Payment", 'Decimal'>
     readonly method: FieldRef<"Payment", 'String'>
     readonly note: FieldRef<"Payment", 'String'>
@@ -19336,6 +19349,7 @@ export namespace Prisma {
   export const PaymentScalarFieldEnum: {
     id: 'id',
     partyId: 'partyId',
+    partyType: 'partyType',
     amount: 'amount',
     method: 'method',
     note: 'note',
@@ -20553,6 +20567,7 @@ export namespace Prisma {
     NOT?: PaymentWhereInput | PaymentWhereInput[]
     id?: StringFilter<"Payment"> | string
     partyId?: StringFilter<"Payment"> | string
+    partyType?: EnumPartyTypeFilter<"Payment"> | $Enums.PartyType
     amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     method?: StringNullableFilter<"Payment"> | string | null
     note?: StringNullableFilter<"Payment"> | string | null
@@ -20565,6 +20580,7 @@ export namespace Prisma {
   export type PaymentOrderByWithRelationInput = {
     id?: SortOrder
     partyId?: SortOrder
+    partyType?: SortOrder
     amount?: SortOrder
     method?: SortOrderInput | SortOrder
     note?: SortOrderInput | SortOrder
@@ -20580,6 +20596,7 @@ export namespace Prisma {
     OR?: PaymentWhereInput[]
     NOT?: PaymentWhereInput | PaymentWhereInput[]
     partyId?: StringFilter<"Payment"> | string
+    partyType?: EnumPartyTypeFilter<"Payment"> | $Enums.PartyType
     amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     method?: StringNullableFilter<"Payment"> | string | null
     note?: StringNullableFilter<"Payment"> | string | null
@@ -20592,6 +20609,7 @@ export namespace Prisma {
   export type PaymentOrderByWithAggregationInput = {
     id?: SortOrder
     partyId?: SortOrder
+    partyType?: SortOrder
     amount?: SortOrder
     method?: SortOrderInput | SortOrder
     note?: SortOrderInput | SortOrder
@@ -20610,6 +20628,7 @@ export namespace Prisma {
     NOT?: PaymentScalarWhereWithAggregatesInput | PaymentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Payment"> | string
     partyId?: StringWithAggregatesFilter<"Payment"> | string
+    partyType?: EnumPartyTypeWithAggregatesFilter<"Payment"> | $Enums.PartyType
     amount?: DecimalWithAggregatesFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     method?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     note?: StringNullableWithAggregatesFilter<"Payment"> | string | null
@@ -21818,6 +21837,7 @@ export namespace Prisma {
 
   export type PaymentCreateInput = {
     id?: string
+    partyType: $Enums.PartyType
     amount: Decimal | DecimalJsLike | number | string
     method?: string | null
     note?: string | null
@@ -21830,6 +21850,7 @@ export namespace Prisma {
   export type PaymentUncheckedCreateInput = {
     id?: string
     partyId: string
+    partyType: $Enums.PartyType
     amount: Decimal | DecimalJsLike | number | string
     method?: string | null
     note?: string | null
@@ -21840,6 +21861,7 @@ export namespace Prisma {
 
   export type PaymentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    partyType?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: NullableStringFieldUpdateOperationsInput | string | null
     note?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21852,6 +21874,7 @@ export namespace Prisma {
   export type PaymentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     partyId?: StringFieldUpdateOperationsInput | string
+    partyType?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: NullableStringFieldUpdateOperationsInput | string | null
     note?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21863,6 +21886,7 @@ export namespace Prisma {
   export type PaymentCreateManyInput = {
     id?: string
     partyId: string
+    partyType: $Enums.PartyType
     amount: Decimal | DecimalJsLike | number | string
     method?: string | null
     note?: string | null
@@ -21872,6 +21896,7 @@ export namespace Prisma {
 
   export type PaymentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    partyType?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: NullableStringFieldUpdateOperationsInput | string | null
     note?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21882,6 +21907,7 @@ export namespace Prisma {
   export type PaymentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     partyId?: StringFieldUpdateOperationsInput | string
+    partyType?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: NullableStringFieldUpdateOperationsInput | string | null
     note?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23038,6 +23064,7 @@ export namespace Prisma {
   export type PaymentCountOrderByAggregateInput = {
     id?: SortOrder
     partyId?: SortOrder
+    partyType?: SortOrder
     amount?: SortOrder
     method?: SortOrder
     note?: SortOrder
@@ -23052,6 +23079,7 @@ export namespace Prisma {
   export type PaymentMaxOrderByAggregateInput = {
     id?: SortOrder
     partyId?: SortOrder
+    partyType?: SortOrder
     amount?: SortOrder
     method?: SortOrder
     note?: SortOrder
@@ -23062,6 +23090,7 @@ export namespace Prisma {
   export type PaymentMinOrderByAggregateInput = {
     id?: SortOrder
     partyId?: SortOrder
+    partyType?: SortOrder
     amount?: SortOrder
     method?: SortOrder
     note?: SortOrder
@@ -24724,6 +24753,7 @@ export namespace Prisma {
 
   export type PaymentCreateWithoutPartyInput = {
     id?: string
+    partyType: $Enums.PartyType
     amount: Decimal | DecimalJsLike | number | string
     method?: string | null
     note?: string | null
@@ -24734,6 +24764,7 @@ export namespace Prisma {
 
   export type PaymentUncheckedCreateWithoutPartyInput = {
     id?: string
+    partyType: $Enums.PartyType
     amount: Decimal | DecimalJsLike | number | string
     method?: string | null
     note?: string | null
@@ -24986,6 +25017,7 @@ export namespace Prisma {
     NOT?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
     id?: StringFilter<"Payment"> | string
     partyId?: StringFilter<"Payment"> | string
+    partyType?: EnumPartyTypeFilter<"Payment"> | $Enums.PartyType
     amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     method?: StringNullableFilter<"Payment"> | string | null
     note?: StringNullableFilter<"Payment"> | string | null
@@ -26822,6 +26854,7 @@ export namespace Prisma {
 
   export type PaymentCreateWithoutLedgerEntriesInput = {
     id?: string
+    partyType: $Enums.PartyType
     amount: Decimal | DecimalJsLike | number | string
     method?: string | null
     note?: string | null
@@ -26833,6 +26866,7 @@ export namespace Prisma {
   export type PaymentUncheckedCreateWithoutLedgerEntriesInput = {
     id?: string
     partyId: string
+    partyType: $Enums.PartyType
     amount: Decimal | DecimalJsLike | number | string
     method?: string | null
     note?: string | null
@@ -26913,6 +26947,7 @@ export namespace Prisma {
 
   export type PaymentUpdateWithoutLedgerEntriesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    partyType?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: NullableStringFieldUpdateOperationsInput | string | null
     note?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26924,6 +26959,7 @@ export namespace Prisma {
   export type PaymentUncheckedUpdateWithoutLedgerEntriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     partyId?: StringFieldUpdateOperationsInput | string
+    partyType?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: NullableStringFieldUpdateOperationsInput | string | null
     note?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27014,6 +27050,7 @@ export namespace Prisma {
 
   export type PaymentCreateManyPartyInput = {
     id?: string
+    partyType: $Enums.PartyType
     amount: Decimal | DecimalJsLike | number | string
     method?: string | null
     note?: string | null
@@ -27306,6 +27343,7 @@ export namespace Prisma {
 
   export type PaymentUpdateWithoutPartyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    partyType?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: NullableStringFieldUpdateOperationsInput | string | null
     note?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27316,6 +27354,7 @@ export namespace Prisma {
 
   export type PaymentUncheckedUpdateWithoutPartyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    partyType?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: NullableStringFieldUpdateOperationsInput | string | null
     note?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27326,6 +27365,7 @@ export namespace Prisma {
 
   export type PaymentUncheckedUpdateManyWithoutPartyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    partyType?: EnumPartyTypeFieldUpdateOperationsInput | $Enums.PartyType
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: NullableStringFieldUpdateOperationsInput | string | null
     note?: NullableStringFieldUpdateOperationsInput | string | null

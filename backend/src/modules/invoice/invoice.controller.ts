@@ -6,14 +6,10 @@ import { asyncHandler } from "@/middlewares/default/asyncHandler.js";
 export default class InvoiceController {
   private invoiceService = invoiceService;
 
-  getAll = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-      const data = await this.invoiceService.getAll();
-      res.success("Get All Invoices", data, statusCode.OK);
-    } catch (err) {
-      next(err);
-    }
-  };
+  getAll = asyncHandler(async (_req: Request, res: Response) => {
+    const data = await this.invoiceService.getAll();
+    res.success("Get All Invoices", data, statusCode.OK);
+  })
 
   createInvoice = asyncHandler(async (req: Request, res: Response) => {
     const data = await this.invoiceService.createInvoice(req.body);

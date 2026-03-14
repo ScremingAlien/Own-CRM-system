@@ -1,5 +1,6 @@
 import { Prisma } from "@/generated/index.js"
 import { CalculatedInvoice, CalculatedInvoiceItem, CreateInvoiceItemInput, InvoiceItemDTO } from "@/modules/invoice/invoice.types.js"
+import { QuotationItemDTO } from "@/modules/qnc/qnc.types.js"
 
 
 export const percentToPrice = (Amount: Prisma.Decimal, percent: number) => {
@@ -11,7 +12,7 @@ export function calculateInvoice(
      sgst: number,
      cgst: number,
      igst: number
-): CalculatedInvoice{
+): CalculatedInvoice {
 
      let taxableAmount = new Prisma.Decimal(0)
 
@@ -52,4 +53,56 @@ export function calculateInvoice(
           roundOff,
           totalAmount: totalRounded
      }
+}
+
+
+
+export function calculateQuotation(items:
+     {
+          description: string;
+          quantity: number;
+          rate: number;
+          subdescription?: string[] | undefined;
+          hsnCode?: string | undefined;
+          unit?: string | undefined;
+     }[], sgst: number, cgst: number, igst: number) {
+
+     let taxableAmount = new Prisma.Decimal(0);
+
+     const processedItems = items.map((item) => {
+          const quantity = new Prisma.Decimal(item.quantity);
+          const rate = new Prisma.Decimal(item.rate);
+
+          const amount = quantity.mul(rate);
+
+          taxableAmount = taxableAmount.add(amount);
+
+          return {
+               ...item,
+               amount
+          };
+     });
+
+     const sgstAmount = taxableAmount.mul(sgst).div(100);
+     const cgstAmount = taxableAmount.mul(cgst).div(100);
+     const igstAmount = taxableAmount.mul(igst).div(100);
+
+     const totalAmount = taxableAmount
+          .add(sgstAmount)
+          .add(cgstAmount)
+          .add(igstAmount);
+
+
+     const totalBeforeRound =
+          taxableAmount.plus(sgstAmount).plus(cgstAmount).plus(igstAmount)
+
+     const totalRounded = totalBeforeRound.toDecimalPlaces(0)
+
+     const roundOff = totalRounded.minus(totalBeforeRound)
+     return {
+          items: processedItems,
+          taxableAmount,
+          totalAmount,
+          roundOff
+     };
 }

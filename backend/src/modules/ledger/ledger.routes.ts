@@ -4,6 +4,7 @@ import LedgerController from "./ledger.controller.js";
 const router = Router();
 const ledgerController = new LedgerController();
 
-router.get("/", ledgerController.getAll);
+router.get("/party/:id", ledgerController.partyLedgers);
+router.get("/party/:id/balance", ledgerController.partyBalance);
 
 export default router;

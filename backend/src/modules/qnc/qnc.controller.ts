@@ -13,7 +13,7 @@ export default class QncController {
     });
     res.success("Get All Chalans", data, statusCode.OK);
   });
-  
+
   fetchSingleChalan = asyncHandler(async (req: Request, res: Response) => {
     const data = await this.qncService.getSingleChalan(req.params.id as string);
     res.success("Get Single Chalan", data, statusCode.OK);
@@ -44,5 +44,10 @@ export default class QncController {
   deleteQuotation = asyncHandler(async (req: Request, res: Response) => {
     const data = await this.qncService.deleteQuotation(req.params.id as string);
     res.success("Quotation Deleted Successfully !", data, statusCode.OK);
+  });
+  
+  createQuotation = asyncHandler(async (req: Request, res: Response) => {
+    const data = await this.qncService.createQuotation(req.body);
+    res.success("Quotation created Successfully !", data, statusCode.OK);
   });
 }

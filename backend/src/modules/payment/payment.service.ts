@@ -1,34 +1,75 @@
 import { prisma } from "@/infra/database/prisma.js";
-import { Prisma } from "@/generated/index.js";
+import { PartyType, Prisma } from "@/generated/index.js";
 import { PaymentRepository } from "./payment.repository.js";
 import { LedgerRepository } from "../ledger/ledger.repository.js";
+import { CreatePaymentInput } from "./payment.validator.js";
+import { PartyRepository } from "../party/party.repository.js";
+import { ErrorService } from "@/utils/errorHits/Error.service.js";
+import { PaymentDTO } from "./payment.types.js";
 
 export class PaymentService {
-  private paymentRepo = new PaymentRepository();
-  private ledgerRepo = new LedgerRepository();
+  private paymentRepo = new PaymentRepository(prisma);
+  private ledgerRepo = new LedgerRepository(prisma);
+  private partyRepo = new PartyRepository(prisma);
 
-  async createPayment(data: Prisma.PaymentCreateInput) {
+
+  async fetchAllPayements() {
+    return this.paymentRepo.findAll();
+  }
+
+  async createPayment(data: CreatePaymentInput): Promise<PaymentDTO> {
+    /**
+     * 1. create payment
+     * if partyType is CUSTOMER then create ledger entry with CREDIT
+     * if partyType is SUPPLIER then create ledger entry with DEBIT
+     * 
+     */
+    let isParty = await this.partyRepo.isPartyIdExists(data.partyId);
+    if (!isParty) ErrorService.PartyNotFound();
     return prisma.$transaction(async (tx) => {
-      const payment = await this.paymentRepo.create(tx, data);
 
-      await this.ledgerRepo.createEntry({
-        party: {
-          connect: { id: data.party.connect!.id },
-        },
-        referenceType: "PAYMENT",
-        referenceId: payment.id,
-        description: "Payment received",
-        debit: new Prisma.Decimal(0),
-        credit: payment.amount,
-        date: payment.paymentDate,
-        payment: {
-          connect: { id: payment.id },
-        },
+      let pRepo = new PaymentRepository(tx);
+      let lRepo = new LedgerRepository(tx);
+
+      let payment = await pRepo.create({
+        partyId: data.partyId,
+        amount: data.amount,
+        method: data.method,
+        note: data.note,
+        paymentDate: data.paymentDate || new Date(),
+        partyType: isParty.type
       });
 
-      return payment;
-    });
+      await lRepo.recordPayment(
+        isParty.id,
+        payment.id,
+        Prisma.Decimal(data.amount),
+        isParty.type === PartyType.CUSTOMER ? "CREDIT" : "DEBIT",
+        data.paymentDate || new Date(),
+      );
+      return payment
+    })
   }
+  
+  async deletePayment() {
+    /**
+     * 1. delete payment
+     * 2. delete ledger
+     * 
+     */
+  }
+
+  async updatePayment() {
+    /**
+     * 1. update payment
+     * 2. update ledger 
+     * 
+     */
+  }
+
+
+
+
 }
 
 export default new PaymentService();

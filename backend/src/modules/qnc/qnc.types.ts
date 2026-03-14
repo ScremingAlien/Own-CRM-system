@@ -18,6 +18,8 @@ export const qutationSelect = Prisma.validator<Prisma.QuotationSelect>()({
      createdAt: true
 });
 
+
+
 export type QuotationDTO = Prisma.QuotationGetPayload<{
      select: typeof qutationSelect;
 }>;
@@ -38,8 +40,7 @@ export type QuotationItemDTO = Prisma.QuotationItemGetPayload<{
      select: typeof QuotationItemSelect;
 }>;
 
-
-
+ 
 
 export const chalanSelect = Prisma.validator<Prisma.ChalanSelect>()({
      id: true,

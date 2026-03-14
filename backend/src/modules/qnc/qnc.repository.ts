@@ -1,5 +1,7 @@
+import { InvoiceStatus, Prisma } from "@/generated/index.js";
 import { ChalanDTO, ChalanItemDTO, chalanSelect, QuotationDTO, qutationSelect } from "./qnc.types.js";
 import { DBType } from "@/types/global.js";
+import { CreateQuotationInput } from "./qnc.validator.js";
 
 
 export class QncRepository {
@@ -40,19 +42,39 @@ export class QncRepository {
     return await this.db.quotation.delete({ where: { id } });
   }
 
-  
-  // not completed
-  async createQuotation(data: any): Promise<QuotationDTO> {
+
+  async createQuotation(
+    data: CreateQuotationInput,
+    taxableAmount: Prisma.Decimal,
+    totalAmount: Prisma.Decimal,
+    partyId: string,
+    processedItems: Prisma.QuotationItemCreateManyQuotationInput[],
+    roundOff: Prisma.Decimal
+  ): Promise<QuotationDTO> {
+
     return await this.db.quotation.create({
       data: {
-        month: new Date(data.issueDate || new Date()).getMonth() + 1,
-        year: new Date(data.issueDate || new Date()).getFullYear(),
-        ...data
-
-      }, select: qutationSelect
+        partyId: partyId,
+        issueDate: data.issueDate || new Date(),
+        month: new Date(data.issueDate).getMonth() + 1,
+        year: new Date(data.issueDate).getFullYear(),
+        sgst: data.sgst,
+        cgst: data.cgst,
+        igst: data.igst,
+        roundOff: roundOff,
+        taxableAmount,
+        totalAmount,
+        status: data.status || InvoiceStatus.DRAFT,
+        items: {
+          createMany: {
+            data: processedItems
+          }
+        }
+      },
+      select: qutationSelect
     });
-  }
 
+  }
 
 
   async findAll(): Promise<any[]> {

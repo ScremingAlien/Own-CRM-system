@@ -1,0 +1,25 @@
+### get All Payments
+GET http://localhost:4000/api/v1/payment
+Content-Type: application/json
+
+
+### create
+POST http://localhost:4000/api/v1/payment
+Content-Type: application/json
+
+{
+     "partyId":"9edd20f1-bc16-4492-9a82-478137c0711e",
+     "amount":5000,
+     "paymentDate":"2026-03-14T17:32:25.910Z",
+     "method":"CHEQUE",
+     "note":"payemnt made for testing"
+}
+
+
+### get party ledgers
+GET http://localhost:4000/api/v1/ledger/party/9edd20f1-bc16-4492-9a82-478137c0711e
+Content-Type: application/json
+
+### get party Balance
+GET http://localhost:4000/api/v1/ledger/party/9edd20f1-bc16-4492-9a82-478137c0711e/balance
+Content-Type: application/json

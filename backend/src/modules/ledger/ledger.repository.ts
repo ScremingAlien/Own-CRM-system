@@ -33,8 +33,8 @@ export class LedgerRepository {
     return this.db.ledgerEntry.create({
       data: {
         partyId,
-        month: date.getMonth() + 1,
-        year: date.getFullYear(),
+        month: new Date(date).getMonth() + 1,
+        year: new Date(date).getFullYear(),
         referenceType,
         description,
         referenceId,
@@ -158,7 +158,7 @@ export class LedgerRepository {
 
     const debit = result._sum.debit ?? 0;
     const credit = result._sum.credit ?? 0;
-      
+
     return {
       debit,
       credit,

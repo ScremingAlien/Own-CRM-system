@@ -1,19 +1,33 @@
-import { prisma } from "@/infra/database/prisma.js";
-import { Prisma } from "@/generated/index.js";
+
+import { PartyType, Prisma } from "@/generated/index.js";
 import { PaymentDTO, paymentSelect } from "./payment.types.js";
+import { DBType } from "@/types/global.js";
+import { CreatePaymentInput } from "./payment.validator.js";
 
 export class PaymentRepository {
+  constructor(private db: DBType) { }
+
   async findAll(): Promise<PaymentDTO[]> {
-    return prisma.payment.findMany({
+    return this.db.payment.findMany({
       select: paymentSelect,
       orderBy: { paymentDate: "desc" },
     });
   }
+  
 
-  async create(tx: Prisma.TransactionClient, data: Prisma.PaymentCreateInput): Promise<PaymentDTO> {
-    return tx.payment.create({
-      data,
+  async create(data: CreatePaymentInput & { partyType: PartyType }): Promise<PaymentDTO> {
+    return this.db.payment.create({
+      data: {
+        partyId: data.partyId,
+        amount: data.amount,
+        method: data.method,
+        note: data.note,
+        paymentDate: data.paymentDate || new Date(),
+        partyType: data.partyType
+      },
       select: paymentSelect,
     });
   }
+
+
 }

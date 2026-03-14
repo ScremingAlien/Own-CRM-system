@@ -1,7 +1,7 @@
 import { InvoiceStatus } from "@/generated/index.js";
 import { z } from "zod";
- 
- 
+
+
 export const invoiceItemSchema = z.object({
   description: z.string().min(1),
 
@@ -20,9 +20,9 @@ export const createInvoiceSchema = z.object({
 
     issueDate: z.coerce.date(),
 
-    partyId: z.string().uuid(),
+    partyId: z.string(),
 
-    shipToId: z.string().uuid().optional(),
+    shipToId: z.string().optional(),
 
     stateCode: z.string().optional(),
 
