@@ -24,7 +24,7 @@ export class ErrorService {
      static ShipmentNotFound() {
           throw new Error("Shipment Not Found", { cause: statusCode.NOT_FOUND });
      }
-     
+
      /*------------------------------------
      Party
      --------------------------------------*/
@@ -36,4 +36,10 @@ export class ErrorService {
      }
 
 
+     /*------------------------------------
+     Payment
+     --------------------------------------*/
+     static PaymentNotFound() {
+          throw new Error("Payment Not Found", { cause: statusCode.NOT_FOUND });
+     }
 }

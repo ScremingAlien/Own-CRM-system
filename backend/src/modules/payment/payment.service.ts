@@ -51,12 +51,18 @@ export class PaymentService {
     })
   }
 
-  async deletePayment() {
-    /**
-     * 1. delete payment
-     * 2. delete ledger
-     * 
-     */
+  async deletePayment(id: string) {
+    
+    let isPayment = await this.paymentRepo.isPaymentIdExists(id);
+    if (!isPayment) ErrorService.PaymentNotFound();
+    return prisma.$transaction(async (tx) => {
+      let pRepo = new PaymentRepository(tx);
+      let lRepo = new LedgerRepository(tx);
+
+      await pRepo.delete_payment(id);
+      await lRepo.deleteLedgerByPaymentId(id);
+    })
+
   }
 
   async updatePayment() {
@@ -66,9 +72,8 @@ export class PaymentService {
      * 
      */
   }
-
-
-
+ 
+  
 
 }
 

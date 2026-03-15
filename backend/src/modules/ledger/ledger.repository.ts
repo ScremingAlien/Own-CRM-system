@@ -16,9 +16,6 @@ type LedgerCreateDTO = {
 export class LedgerRepository {
   constructor(private db: DBType) { }
 
-  ////////////////////////////////////////////////////
-  // INTERNAL ENTRY CREATOR
-  ////////////////////////////////////////////////////
 
   private async createEntry({
     referenceType,
@@ -47,9 +44,6 @@ export class LedgerRepository {
     });
   }
 
-  ////////////////////////////////////////////////////
-  // INVOICE ENTRY
-  ////////////////////////////////////////////////////
 
   async recordInvoice(
     partyId: string,
@@ -69,9 +63,6 @@ export class LedgerRepository {
     });
   }
 
-  ////////////////////////////////////////////////////
-  // PAYMENT ENTRY
-  ////////////////////////////////////////////////////
 
   async recordPayment(
     partyId: string,
@@ -92,9 +83,6 @@ export class LedgerRepository {
     });
   }
 
-  ////////////////////////////////////////////////////
-  // ADJUSTMENT
-  ////////////////////////////////////////////////////
 
   async recordAdjustment(
     partyId: string,
@@ -113,9 +101,6 @@ export class LedgerRepository {
     });
   }
 
-  ////////////////////////////////////////////////////
-  // OPENING BALANCE
-  ////////////////////////////////////////////////////
 
   async createOpeningBalance(
     partyId: string,
@@ -130,6 +115,18 @@ export class LedgerRepository {
       type,
       date,
       description: "Opening Balance",
+    });
+  }
+
+  async deleteLedgerByPaymentId(paymentId: string) {
+    return await this.db.ledgerEntry.deleteMany({
+      where: { paymentId },
+    });
+  }
+
+  async deleteLedgerByInvoiceId(invId: string) {
+    return await this.db.ledgerEntry.deleteMany({
+      where: { id: invId },
     });
   }
 
@@ -165,7 +162,7 @@ export class LedgerRepository {
       balance: Prisma.Decimal.sub(debit, credit),
     };
   }
-  
+
 
   async getLedgerReport(partyId: string): Promise<LedgerEntryDTO[]> {
     return await this.db.ledgerEntry.findMany({

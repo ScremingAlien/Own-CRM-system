@@ -25,6 +25,7 @@ export class QncRepository {
    * 
    */
 
+ 
   async getSingleQuotation(id: string): Promise<QuotationDTO | null> {
     return await this.db.quotation.findUnique({ where: { id }, select: qutationSelect });
   }
@@ -41,8 +42,7 @@ export class QncRepository {
   async deleteQuotation(id: string): Promise<any> {
     return await this.db.quotation.delete({ where: { id } });
   }
-
-
+ 
   async createQuotation(
     data: CreateQuotationInput,
     taxableAmount: Prisma.Decimal,

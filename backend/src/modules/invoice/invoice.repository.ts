@@ -7,12 +7,11 @@ export class InvoiceRepository {
 
   constructor(private db: DBType) { }
 
-  async findInvoices({ yearLabel, month, year }: { yearLabel: string, month?: number, year?: number }): Promise<InvoiceDTO[]> {
+  async findInvoices({ month, year }: { month?: number, year?: number }): Promise<InvoiceDTO[]> {
     return this.db.invoice.findMany({
       where: {
-        financialYear: { label: yearLabel },
-        month: month,
-        year: year,
+        month: month || new Date().getMonth() + 1,
+        year: year || new Date().getFullYear(),
       },
       select: invoiceSelect,
       orderBy: { issueDate: "desc" },
@@ -78,4 +77,13 @@ export class InvoiceRepository {
     return this.db.invoice.update({ where: { id: partyId }, data: { chNo: null }, select: { id: true, chNo: true } });
   }
 
+  async deleteInvoice(id: string) {
+    return this.db.invoice.delete({ where: { id } });
+  }
+  async isInvoiceIdExists(id: string): Promise<InvoiceDTO | null> {
+    return this.db.invoice.findFirst({
+      where: { id },
+      select: invoiceSelect,
+    });
+  }
 }

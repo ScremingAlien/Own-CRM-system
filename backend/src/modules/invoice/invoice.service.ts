@@ -9,15 +9,17 @@ import { ErrorService } from "@/utils/errorHits/Error.service.js";
 class InvoiceService {
   private invoiceRepo: InvoiceRepository;
   private partyRepo: PartyRepository;
+  private ledgerRepo = new LedgerRepository(prisma);
 
   constructor() {
     this.invoiceRepo = new InvoiceRepository(prisma);
     this.partyRepo = new PartyRepository(prisma);
   }
 
-  async getAll(): Promise<any[]> {
+  async getAll({ month, year }: { month?: number, year?: number }): Promise<any[]> {
     return await this.invoiceRepo.findInvoices({
-      yearLabel: "2025-26",
+      month,
+      year
     });
   }
 
@@ -73,13 +75,24 @@ class InvoiceService {
 
   }
 
-  async deleteInvoice() {
+  async deleteInvoice(invoiceId: string) {
     /**
      * delete ledger,
      * delete invoice,
-     * 
      */
+
+    let isInvoice = await this.invoiceRepo.isInvoiceIdExists(invoiceId);
+    if (!isInvoice) ErrorService.InvoiceNotFound();
+
+    return prisma.$transaction(async (tx) => {
+      const InvoiceRepo = new InvoiceRepository(tx)
+      const LedgerRepo = new LedgerRepository(tx)
+      let delInv = await InvoiceRepo.deleteInvoice(invoiceId);
+      await LedgerRepo.deleteLedgerByInvoiceId(invoiceId);
+      return delInv
+    });
   }
+
   async updateInvoice() {
     /**
      * One updateed ->

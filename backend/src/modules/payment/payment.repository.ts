@@ -13,7 +13,7 @@ export class PaymentRepository {
       orderBy: { paymentDate: "desc" },
     });
   }
-  
+
 
   async create(data: CreatePaymentInput & { partyType: PartyType }): Promise<PaymentDTO> {
     return this.db.payment.create({
@@ -29,5 +29,18 @@ export class PaymentRepository {
     });
   }
 
+  async delete_payment(id: string): Promise<any> {
+    return this.db.payment.delete({
+      where: { id }
+    });
+  }
+
+  async isPaymentIdExists(id: string): Promise<PaymentDTO | null> {
+    return this.db.payment.findFirst({
+      where: { id },
+      select: paymentSelect,
+    });
+  }
+  
 
 }
